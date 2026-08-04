@@ -210,9 +210,10 @@ Copyright (c) 2026 mow2333
 
 | 版本 | Minecraft | Forge | 下载 |
 |------|-----------|-------|------|
-| 0.2.0 | 1.20.1 | 47.2.0+ | [world_bridge-forge-47.2.0+-0.2.0-1.20.1.jar](https://github.com/mow2333/WorldBridge/releases/tag/0.2.0) |
-| 0.2.0 | 1.19.4 | 45.2.0+ | [world_bridge-forge-45.2.0+-0.2.0-1.19.4.jar](https://github.com/mow2333/WorldBridge/releases/tag/0.2.0) |
+| `{version}` | 1.20.1 | 47.2.0+ | [world_bridge-forge-47.2.0+-{version}-1.20.1.jar](https://github.com/mow2333/WorldBridge/releases/tag/{version}) |
+| `{version}` | 1.19.4 | 45.2.0+ | [world_bridge-forge-45.2.0+-{version}-1.19.4.jar](https://github.com/mow2333/WorldBridge/releases/tag/{version}) |
 
+> **使用说明**：将上表中的 `{version}` 替换为具体版本号（如 `0.2.0`、`0.2.1`、`0.3.0` 等），即可得到对应版本的下载链接。  
 > 仅从 GitHub Releases 下载，请勿从第三方站点下载。
 
 ---
