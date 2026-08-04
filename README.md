@@ -190,7 +190,7 @@ ModConfig.TRANSHOPPER_CONFIG.get().maxRate();               // 64 items/sec
 | **更新日志 (中文)** | `CHANGELOG_CN.md` |
 | **更新日志 (English)** | `CHANGELOG_EN.md` |
 | **功能完整文档** | `FEATURES.md` |
-| **问题反馈** | `https://github.com/mow2333/WorldBridge-dev/issues` |
+| **问题反馈** | `https://github.com/mow2333/WorldBridge/issues` |
 
 ---
 
