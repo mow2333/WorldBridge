@@ -128,7 +128,6 @@ hopperEntity.tryTransfer();
 |----|------|
 | `ModTrigger` | 可复用的 `SimpleCriterionTrigger` 基类，含 `awardDirectly()` 兜底授予 |
 | `ModCriteria` | 11 个 Trigger 实例（进维度×3、结构发现×5、创世、深处、高空） |
-| `ModCriteria.ENTER_CHAOS_ABYSSOS` | 进入混沌深渊 |
 | `ModCriteria.ENTER_AETHERIAL_FIELDS` | 进入星界之野 |
 | `ModCriteria.ENTER_DEEP_ABYSS` | 进入幽邃深渊 |
 | `ModCriteria.GENESIS` | 创世（首次创建维度） |
