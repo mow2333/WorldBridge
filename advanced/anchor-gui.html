@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="WorldBridge Static Docs Builder">
-<title>WorldBridge Wiki - WorldBridge</title>
+<title>世界之锚控制面板 - WorldBridge</title>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="stylesheet" href="assets/css/styles.css">
 <link rel="stylesheet" href="assets/css/pygments.css">
@@ -78,7 +78,7 @@
 <li><a class="nav-link" href="advanced/star-anchor-light.html">星锚动态光源</a></li>
 <li><a class="nav-link" href="advanced/redlink.html">红链系统</a></li>
 <li><a class="nav-link" href="advanced/datapack.html">数据包</a></li>
-<li><a class="nav-link" href="advanced/anchor-gui.html">锚点 GUI</a></li>
+<li><a class="nav-link active" href="advanced/anchor-gui.html">锚点 GUI</a></li>
 <li><a class="nav-link" href="advanced/faq.html">常见问题</a></li>
 </ul>
 <p class="nav-group">更新日志</p>
@@ -91,169 +91,176 @@
 
   <main class="content">
     <article class="article">
-      <h1 class="page-heading">WorldBridge Wiki</h1>
-      <h1 id="worldbridge-wiki">WorldBridge Wiki</h1>
+      <h1 class="page-heading">世界之锚控制面板</h1>
+      <h1 id="世界之锚控制面板">世界之锚控制面板</h1>
 <blockquote>
-<p><strong>WorldBridge</strong> —— 跨维度传送、自定义维度、成就系统、动态光源、服务端配置一体化模组。</p>
+<p>右键世界之锚打开，OP 可编辑，普通玩家只读查看。</p>
 </blockquote>
 <hr />
-<h2 id="快速链接">🚀 快速链接</h2>
+<h2 id="界面布局">🖥️ 界面布局</h2>
+<div class="codehilite"><pre><span></span><code>┌─────────────────────────────────────┐
+│  世界之锚控制面板  [PairID: a3f2]    │
+├─────────────────────────────────────┤
+│  名称:  My Base          [✏ 重命名] │
+├─────────────────────────────────────┤
+│  过载状态: 正常 [30s]               │
+│  ┌─────────────────────────────────┐ │
+│  │ ████████████░░░░░░░░░░░░  60%   │ │  ← 过载倒计时进度条
+│  └─────────────────────────────────┘ │
+├─────────────────────────────────────┤
+│  传送范围: 5 格 (过载: 9 格)         │
+│  祝福范围: 3 格 (过载: 5 格)         │
+│  祝福等级: I (过载: II)              │
+├─────────────────────────────────────┤
+│  区块加载: 开启                      │
+│  密码保护: 已启用                    │
+├─────────────────────────────────────┤
+│  [✏ 重命名]   [🔑 修改密码]   [关闭]  │
+└─────────────────────────────────────┘
+</code></pre></div>
+
+<hr />
+<h2 id="面板元素详解">📋 面板元素详解</h2>
 <table>
 <thead>
 <tr>
-<th>入口</th>
-<th>说明</th>
+<th>区域</th>
+<th>内容</th>
+<th>可编辑</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="getting-started/installation.html">安装与配置</a></td>
-<td>Forge 安装、模组放入、首次运行</td>
+<td><strong>标题栏</strong></td>
+<td>维度名称、PairID</td>
+<td>✅ 点击 ✏ 重命名</td>
 </tr>
 <tr>
-<td><a href="getting-started/first-dimension.html">首次创建维度</a></td>
-<td>从零创建第一个自定义维度</td>
+<td><strong>过载状态</strong></td>
+<td>当前状态 + 倒计时进度条</td>
+<td>🚫 只读</td>
 </tr>
 <tr>
-<td><a href="getting-started/commands.html">命令大全</a></td>
-<td>5 条核心命令、权限、实用技巧</td>
+<td><strong>范围/等级</strong></td>
+<td>传送/祝福范围、等级 (普通/过载)</td>
+<td>🚫 只读 (配置文件控制)</td>
 </tr>
 <tr>
-<td><a href="dimensions/world-types.html">世界类型</a></td>
-<td>星界之野、幽邃深渊</td>
+<td><strong>区块加载</strong></td>
+<td>开启/关闭状态</td>
+<td>🚫 只读 (配置文件控制)</td>
 </tr>
 <tr>
-<td><a href="items/">物品与方块</a></td>
-<td>世界之锚、星锚奇点、跨维漏斗</td>
+<td><strong>密码保护</strong></td>
+<td>已启用/未启用</td>
+<td>🚫 只读 (GUI/命令修改)</td>
 </tr>
 <tr>
-<td><a href="advancements/">成就系统</a></td>
-<td>11 个进度、13 个触发器、诗化消息</td>
-</tr>
-<tr>
-<td><a href="config/server-config.html">服务端配置</a></td>
-<td>13 项配置、TOML 格式、热重载</td>
-</tr>
-<tr>
-<td><a href="advanced/redlink.html">红链无线红石系统</a></td>
-<td>跨维度零延迟红石信号、配对方块、以太触发器</td>
-</tr>
-<tr>
-<td><a href="advanced/faq.html">常见问题</a></td>
-<td>报错、传送失败、成就不弹出等</td>
+<td><strong>底部按钮</strong></td>
+<td>重命名、修改密码、关闭</td>
+<td>✅ 可点击</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="核心特性一览">✨ 核心特性一览</h2>
+<h2 id="操作说明">🔧 操作说明</h2>
 <table>
 <thead>
 <tr>
-<th>模块</th>
-<th>亮点</th>
+<th>操作</th>
+<th>方法</th>
+<th>权限</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>维度系统</strong></td>
-<td>7 种世界类型、自定义种子/群系/海平面/洞穴/矿脉、密码保护、PairID 唯一标识</td>
+<td><strong>重命名</strong></td>
+<td>点击 ✏ → 输入新名 → 确认</td>
+<td>OP 2</td>
 </tr>
 <tr>
-<td><strong>世界之锚</strong></td>
-<td>跨维传送、红石触发、Chunk 常加载、祝福光环（再生+抗性）、过载模式、自定义名字</td>
+<td><strong>修改密码</strong></td>
+<td>点击 🔑 → 输入新密码/留空清除 → 确认</td>
+<td>OP 2</td>
 </tr>
 <tr>
-<td><strong>星锚奇点</strong></td>
-<td>跨维召回、过载充能、虚空护盾、查询模式、手持粒子、发光等级 14</td>
-</tr>
-<tr>
-<td><strong>成就系统</strong></td>
-<td>11 个原版进度、自定义 Criterion Trigger、诗化解锁消息、Tick 级 Y 坐标检测</td>
-</tr>
-<tr>
-<td><strong>服务端配置</strong></td>
-<td>13 项 TOML 配置、热重载、OP 权限分级、维度上限、虚空护盾开关</td>
-</tr>
-<tr>
-<td><strong>红链系统</strong></td>
-<td>跨维度零延迟无线红石、5 种方块、以太触发器、GUI 配置、5 种网络包</td>
-</tr>
-<tr>
-<td><strong>动态光源</strong></td>
-<td>星锚手持/掉落/展示发光、实体渲染光照修正、Mixin 无侵入实现</td>
-</tr>
-<tr>
-<td><strong>数据持久化</strong></td>
-<td>DimensionDataManager (SavedData) → NBT、锚点/密码/配置全量序列化</td>
+<td><strong>修改配置</strong></td>
+<td>编辑 <code>worldbridge-server.toml</code> → <code>/worldbridge reload</code></td>
+<td>OP 2 (服主)</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="快速上手-3-步">🎮 快速上手 3 步</h2>
-<div class="codehilite"><pre><span></span><code><span class="c1"># 1. 安装 Forge (1.19.4 - 45.2.0+ / 1.20.1 - 47.2.0+)</span>
-<span class="c1"># 2. 将 WorldBridge-x.x.x.jar 放入 mods/</span>
-<span class="c1"># 3. 启动服务端/客户端 → 完成！</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="c1"># 游戏内首次创建维度</span>
-<span class="o">/</span><span class="kc">worldbridge</span><span class="w"> </span><span class="kc">create</span><span class="w"> </span><span class="kc">MyWorld</span><span class="w"> </span><span class="kc">default</span><span class="w"> </span><span class="nf">minecraft:plains</span><span class="w"> </span><span class="mf">12345</span>
-<span class="c1"># → 生成 PairID (如 a3f2) → 自动创建维度 → 返回 PairID</span>
-
-<span class="c1"># 传送进去</span>
-<span class="o">/</span><span class="kc">worldbridge</span><span class="w"> </span><span class="kc">tp</span><span class="w"> </span><span class="kc">MyWorld</span>
-<span class="c1"># 或使用 PairID</span>
-<span class="o">/</span><span class="kc">worldbridge</span><span class="w"> </span><span class="kc">tp</span><span class="w"> </span><span class="kc">a3f2b1c4</span>
-</code></pre></div>
-
+<h2 id="过载机制">🔧 过载机制</h2>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>效果</th>
+<th>消耗</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>右键星锚奇点 → 点击世界之锚</td>
+<td>进入过载 60 秒</td>
+<td>1 个星锚奇点</td>
+</tr>
+<tr>
+<td>过载结束</td>
+<td>自动恢复正常范围/等级</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>过载期间增强</strong>：
+| 属性 | 正常 | 过载 |
+|------|------|------|
+| 传送范围 | 5 格 | 9 格 |
+| 祝福范围 | 3 格 | 5 格 |
+| 祝福等级 | 再生 I + 抗性 I | 再生 II + 抗性 II |
+| 粒子效果 | 无 | ENCHANT + END_ROD 旋转环 |</p>
 <hr />
-<h2 id="文档导航">📚 文档导航</h2>
-<div class="codehilite"><pre><span></span><code>├── getting-started/     # 快速开始
-│   ├── installation.md
-│   ├── first-dimension.md
-│   └── commands.md
-├── dimensions/          # 维度系统
-│   ├── world-types.md
-│   ├── parameters.md
-│   └── password.md
-├── items/               # 物品与方块
-│   ├── world-anchor.md
-│   ├── star-anchor.md
-│   └── transdimensional-hopper.md
-├── advancements/        # 成就系统
-│   ├── list.md
-│   └── triggers.md
-├── config/              # 服务端配置
-│   └── server-config.md
-├── advanced/            # 进阶
-│   ├── star-anchor-light.md
-│   ├── redlink.md
-│   ├── datapack.md
-│   └── faq.md
-└── changelog.md         # 更新日志
-</code></pre></div>
-
+<h2 id="密码保护">🔑 密码保护</h2>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>传送进密码维度</td>
+<td>弹出密码输入界面 → 正确 → 传送；错误 → 提示错误</td>
+</tr>
+<tr>
+<td>GUI 查看</td>
+<td>显示“已加密”，不显示明文</td>
+</tr>
+<tr>
+<td>OP 重置</td>
+<td><code>/worldbridge resetpassword &lt;pairId&gt;</code> 清空密码</td>
+</tr>
+</tbody>
+</table>
 <hr />
-<h2 id="相关链接">🔗 相关链接</h2>
+<h2 id="相关页面">🔗 相关页面</h2>
 <ul>
-<li><strong>GitHub</strong>: <a href="https://github.com/mow2333/WorldBridge">WorldBridge Repository</a></li>
-<li><strong>Issues</strong>: <a href="https://github.com/mow2333/WorldBridge/issues">Bug 报告 / 功能建议</a></li>
-<li><strong>Discord</strong>: <a href="https://discord.gg/zxG3zmsR9P">加入讨论</a></li>
-<li><strong>CurseForge</strong>: <a href="https://www.curseforge.com/minecraft/mc-mods/worldbridge">下载发布版</a></li>
+<li><a href="world-anchor.html">世界之锚</a> — 物品能力详解</li>
+<li><a href="../advanced/star-anchor-light.html">星锚动态光源</a> — 动态光源实现</li>
+<li><a href="../dimensions/password.html">密码保护</a> — 密码系统详解</li>
 </ul>
-<hr />
-<blockquote>
-<p><strong>提示</strong>：文档持续更新中。发现错误、遗漏或想贡献内容，欢迎提 PR 或在 Issue 反馈！</p>
-</blockquote>
     </article>
-    
+    <div class="prev-next"><a class="prev" href="advanced/datapack.html">← 数据包</a><a class="next" href="advanced/faq.html">常见问题 →</a></div>
     <footer class="site-footer">
       <p>© 2026 WorldBridge · All Rights Reserved · 开源协议详见 <a href="https://github.com/mow2333/WorldBridge" target="_blank" rel="noopener">GitHub 仓库</a></p>
-      <p><a href="index.html">本站页面</a> · <a href="changelog.html">更新日志</a> · <a href="https://discord.gg/zxG3zmsR9P" target="_blank" rel="noopener">加入讨论</a></p>
+      <p><a href="advanced/anchor-gui.html">本站页面</a> · <a href="changelog.html">更新日志</a> · <a href="https://discord.gg/zxG3zmsR9P" target="_blank" rel="noopener">加入讨论</a></p>
     </footer>
   </main>
 
   <aside class="toc-sidebar">
-    <nav class="page-toc"><p class="toc-title">本页目录</p><ul><li><a href="#快速链接">🚀 快速链接</a></li><li><a href="#核心特性一览">✨ 核心特性一览</a></li><li><a href="#快速上手-3-步">🎮 快速上手 3 步</a></li><li><a href="#文档导航">📚 文档导航</a></li><li><a href="#相关链接">🔗 相关链接</a></li></ul></nav>
+    <nav class="page-toc"><p class="toc-title">本页目录</p><ul><li><a href="#界面布局">🖥️ 界面布局</a></li><li><a href="#面板元素详解">📋 面板元素详解</a></li><li><a href="#操作说明">🔧 操作说明</a></li><li><a href="#过载机制">🔧 过载机制</a></li><li><a href="#密码保护">🔑 密码保护</a></li><li><a href="#相关页面">🔗 相关页面</a></li></ul></nav>
   </aside>
 </div>
 

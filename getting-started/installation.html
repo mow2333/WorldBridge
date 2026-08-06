@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="WorldBridge Static Docs Builder">
-<title>WorldBridge Wiki - WorldBridge</title>
+<title>安装与配置 - WorldBridge</title>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="stylesheet" href="assets/css/styles.css">
 <link rel="stylesheet" href="assets/css/pygments.css">
@@ -47,7 +47,7 @@
     <nav class="sidebar-nav">
 <p class="nav-group">快速开始</p>
 <ul class="nav-list">
-<li><a class="nav-link" href="getting-started/installation.html">安装与配置</a></li>
+<li><a class="nav-link active" href="getting-started/installation.html">安装与配置</a></li>
 <li><a class="nav-link" href="getting-started/first-dimension.html">首次创建维度</a></li>
 <li><a class="nav-link" href="getting-started/commands.html">命令大全</a></li>
 </ul>
@@ -91,169 +91,160 @@
 
   <main class="content">
     <article class="article">
-      <h1 class="page-heading">WorldBridge Wiki</h1>
-      <h1 id="worldbridge-wiki">WorldBridge Wiki</h1>
+      <h1 class="page-heading">安装与配置</h1>
+      <h1 id="安装与配置">安装与配置</h1>
+<h2 id="安装要求">📥 安装要求</h2>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Minecraft</td>
+<td>1.19.4 / 1.20.1</td>
+</tr>
+<tr>
+<td>Forge</td>
+<td>1.19.4 → 45.2.0+ / 1.20.1 → 47.2.0+</td>
+</tr>
+<tr>
+<td>Java</td>
+<td>17+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="安装步骤">📦 安装步骤</h2>
+<ol>
+<li>
+<p><strong>安装 Forge</strong>
+   - 下载对应版本的 Forge Installer
+   - 运行 <code>java -jar forge-installer.jar --installClient</code> / <code>--installServer</code></p>
+</li>
+<li>
+<p><strong>放入模组</strong>
+   - 将 <code>WorldBridge-&lt;version&gt;.jar</code> 放入 <code>.minecraft/mods/</code>（客户端）或 <code>server/mods/</code>（服务端）</p>
+</li>
+<li>
+<p><strong>启动游戏</strong>
+   - 客户端：正常启动 Forge 配置文件
+   - 服务端：<code>java -Xmx4G -jar forge-server.jar nogui</code></p>
+</li>
+<li>
+<p><strong>验证安装</strong>
+   - 进游戏后按 <code>F3</code> 确认 Forge 加载
+   - 聊天栏输入 <code>/worldbridge list</code> 应返回 <code>No dimensions created yet.</code></p>
+</li>
+</ol>
+<hr />
+<h2 id="配置文件">⚙️ 配置文件</h2>
+<p>首次运行后，会在以下位置生成配置：</p>
+<table>
+<thead>
+<tr>
+<th>端</th>
+<th>路径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>客户端</td>
+<td><code>.minecraft/config/worldbridge-client.toml</code></td>
+</tr>
+<tr>
+<td>服务端</td>
+<td><code>serverconfig/worldbridge-server.toml</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>主要可调项（服务端 <code>worldbridge-server.toml</code>）：</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">[dimension]</span>
+<span class="n">maxDimensionsPerPlayer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="w">  </span><span class="c1"># -1 无限制</span>
+
+<span class="k">[world_anchor]</span>
+<span class="n">baseTeleportRange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span>
+<span class="n">overchargeTeleportRange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">9</span>
+<span class="n">baseBlessingRange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span>
+<span class="n">overchargeBlessingRange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span>
+<span class="n">baseBlessingAmplifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="n">overchargeBlessingAmplifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="n">overchargeDurationTicks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1200</span>
+<span class="n">cooldownTicks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="n">chunkLoadEnabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+
+<span class="k">[feature]</span>
+<span class="n">voidShieldEnabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">voidShieldConsumeInInventory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">starAnchorRecallEnabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</code></pre></div>
+
 <blockquote>
-<p><strong>WorldBridge</strong> —— 跨维度传送、自定义维度、成就系统、动态光源、服务端配置一体化模组。</p>
+<p>修改后执行 <code>/worldbridge reload</code> 或重启服务端生效。</p>
 </blockquote>
 <hr />
-<h2 id="快速链接">🚀 快速链接</h2>
+<h2 id="常见问题">🔧 常见问题</h2>
 <table>
 <thead>
 <tr>
-<th>入口</th>
-<th>说明</th>
+<th>现象</th>
+<th>原因</th>
+<th>解决</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="getting-started/installation.html">安装与配置</a></td>
-<td>Forge 安装、模组放入、首次运行</td>
+<td>进游戏崩溃 <code>NoClassDefFoundError</code></td>
+<td>Forge 版本不匹配</td>
+<td>对照版本表下载正确 Forge</td>
 </tr>
 <tr>
-<td><a href="getting-started/first-dimension.html">首次创建维度</a></td>
-<td>从零创建第一个自定义维度</td>
+<td><code>/worldbridge</code> 提示 Unknown command</td>
+<td>模组未加载</td>
+<td>检查 <code>mods/</code> 目录、Forge 版本</td>
 </tr>
 <tr>
-<td><a href="getting-started/commands.html">命令大全</a></td>
-<td>5 条核心命令、权限、实用技巧</td>
+<td>创建维度卡死</td>
+<td>种子冲突/反射失败</td>
+<td>更换种子、检查日志 <code>latest.log</code></td>
 </tr>
 <tr>
-<td><a href="dimensions/world-types.html">世界类型</a></td>
-<td>星界之野、幽邃深渊</td>
-</tr>
-<tr>
-<td><a href="items/">物品与方块</a></td>
-<td>世界之锚、星锚奇点、跨维漏斗</td>
-</tr>
-<tr>
-<td><a href="advancements/">成就系统</a></td>
-<td>11 个进度、13 个触发器、诗化消息</td>
-</tr>
-<tr>
-<td><a href="config/server-config.html">服务端配置</a></td>
-<td>13 项配置、TOML 格式、热重载</td>
-</tr>
-<tr>
-<td><a href="advanced/redlink.html">红链无线红石系统</a></td>
-<td>跨维度零延迟红石信号、配对方块、以太触发器</td>
-</tr>
-<tr>
-<td><a href="advanced/faq.html">常见问题</a></td>
-<td>报错、传送失败、成就不弹出等</td>
+<td>传送后卡在虚空</td>
+<td>安全落点扫描失败</td>
+<td>更新到最新版、检查 <code>TeleportHelper</code> 日志</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="核心特性一览">✨ 核心特性一览</h2>
-<table>
-<thead>
-<tr>
-<th>模块</th>
-<th>亮点</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>维度系统</strong></td>
-<td>7 种世界类型、自定义种子/群系/海平面/洞穴/矿脉、密码保护、PairID 唯一标识</td>
-</tr>
-<tr>
-<td><strong>世界之锚</strong></td>
-<td>跨维传送、红石触发、Chunk 常加载、祝福光环（再生+抗性）、过载模式、自定义名字</td>
-</tr>
-<tr>
-<td><strong>星锚奇点</strong></td>
-<td>跨维召回、过载充能、虚空护盾、查询模式、手持粒子、发光等级 14</td>
-</tr>
-<tr>
-<td><strong>成就系统</strong></td>
-<td>11 个原版进度、自定义 Criterion Trigger、诗化解锁消息、Tick 级 Y 坐标检测</td>
-</tr>
-<tr>
-<td><strong>服务端配置</strong></td>
-<td>13 项 TOML 配置、热重载、OP 权限分级、维度上限、虚空护盾开关</td>
-</tr>
-<tr>
-<td><strong>红链系统</strong></td>
-<td>跨维度零延迟无线红石、5 种方块、以太触发器、GUI 配置、5 种网络包</td>
-</tr>
-<tr>
-<td><strong>动态光源</strong></td>
-<td>星锚手持/掉落/展示发光、实体渲染光照修正、Mixin 无侵入实现</td>
-</tr>
-<tr>
-<td><strong>数据持久化</strong></td>
-<td>DimensionDataManager (SavedData) → NBT、锚点/密码/配置全量序列化</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="快速上手-3-步">🎮 快速上手 3 步</h2>
-<div class="codehilite"><pre><span></span><code><span class="c1"># 1. 安装 Forge (1.19.4 - 45.2.0+ / 1.20.1 - 47.2.0+)</span>
-<span class="c1"># 2. 将 WorldBridge-x.x.x.jar 放入 mods/</span>
-<span class="c1"># 3. 启动服务端/客户端 → 完成！</span>
+<h2 id="目录结构参考">📁 目录结构参考</h2>
+<div class="codehilite"><pre><span></span><code>.minecraft/
+├── mods/
+│   └── WorldBridge-&lt;ver&gt;.jar
+├── config/
+│   └── worldbridge-client.toml
+├── saves/
+│   └── &lt;world&gt;/
+│       └── serverconfig/
+│           └── worldbridge-server.toml
+└── logs/
+    └── latest.log
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code><span class="c1"># 游戏内首次创建维度</span>
-<span class="o">/</span><span class="kc">worldbridge</span><span class="w"> </span><span class="kc">create</span><span class="w"> </span><span class="kc">MyWorld</span><span class="w"> </span><span class="kc">default</span><span class="w"> </span><span class="nf">minecraft:plains</span><span class="w"> </span><span class="mf">12345</span>
-<span class="c1"># → 生成 PairID (如 a3f2) → 自动创建维度 → 返回 PairID</span>
-
-<span class="c1"># 传送进去</span>
-<span class="o">/</span><span class="kc">worldbridge</span><span class="w"> </span><span class="kc">tp</span><span class="w"> </span><span class="kc">MyWorld</span>
-<span class="c1"># 或使用 PairID</span>
-<span class="o">/</span><span class="kc">worldbridge</span><span class="w"> </span><span class="kc">tp</span><span class="w"> </span><span class="kc">a3f2b1c4</span>
-</code></pre></div>
-
-<hr />
-<h2 id="文档导航">📚 文档导航</h2>
-<div class="codehilite"><pre><span></span><code>├── getting-started/     # 快速开始
-│   ├── installation.md
-│   ├── first-dimension.md
-│   └── commands.md
-├── dimensions/          # 维度系统
-│   ├── world-types.md
-│   ├── parameters.md
-│   └── password.md
-├── items/               # 物品与方块
-│   ├── world-anchor.md
-│   ├── star-anchor.md
-│   └── transdimensional-hopper.md
-├── advancements/        # 成就系统
-│   ├── list.md
-│   └── triggers.md
-├── config/              # 服务端配置
-│   └── server-config.md
-├── advanced/            # 进阶
-│   ├── star-anchor-light.md
-│   ├── redlink.md
-│   ├── datapack.md
-│   └── faq.md
-└── changelog.md         # 更新日志
-</code></pre></div>
-
-<hr />
-<h2 id="相关链接">🔗 相关链接</h2>
-<ul>
-<li><strong>GitHub</strong>: <a href="https://github.com/mow2333/WorldBridge">WorldBridge Repository</a></li>
-<li><strong>Issues</strong>: <a href="https://github.com/mow2333/WorldBridge/issues">Bug 报告 / 功能建议</a></li>
-<li><strong>Discord</strong>: <a href="https://discord.gg/zxG3zmsR9P">加入讨论</a></li>
-<li><strong>CurseForge</strong>: <a href="https://www.curseforge.com/minecraft/mc-mods/worldbridge">下载发布版</a></li>
-</ul>
 <hr />
 <blockquote>
-<p><strong>提示</strong>：文档持续更新中。发现错误、遗漏或想贡献内容，欢迎提 PR 或在 Issue 反馈！</p>
+<p><strong>提示</strong>：配置修改后推荐 <code>/worldbridge reload</code> 热重载，避免重启服务器。</p>
 </blockquote>
     </article>
-    
+    <div class="prev-next"><a class="next" href="getting-started/first-dimension.html">首次创建维度 →</a></div>
     <footer class="site-footer">
       <p>© 2026 WorldBridge · All Rights Reserved · 开源协议详见 <a href="https://github.com/mow2333/WorldBridge" target="_blank" rel="noopener">GitHub 仓库</a></p>
-      <p><a href="index.html">本站页面</a> · <a href="changelog.html">更新日志</a> · <a href="https://discord.gg/zxG3zmsR9P" target="_blank" rel="noopener">加入讨论</a></p>
+      <p><a href="getting-started/installation.html">本站页面</a> · <a href="changelog.html">更新日志</a> · <a href="https://discord.gg/zxG3zmsR9P" target="_blank" rel="noopener">加入讨论</a></p>
     </footer>
   </main>
 
   <aside class="toc-sidebar">
-    <nav class="page-toc"><p class="toc-title">本页目录</p><ul><li><a href="#快速链接">🚀 快速链接</a></li><li><a href="#核心特性一览">✨ 核心特性一览</a></li><li><a href="#快速上手-3-步">🎮 快速上手 3 步</a></li><li><a href="#文档导航">📚 文档导航</a></li><li><a href="#相关链接">🔗 相关链接</a></li></ul></nav>
+    <nav class="page-toc"><p class="toc-title">本页目录</p><ul><li><a href="#安装要求">📥 安装要求</a></li><li><a href="#安装步骤">📦 安装步骤</a></li><li><a href="#配置文件">⚙️ 配置文件</a></li><li><a href="#常见问题">🔧 常见问题</a></li><li><a href="#目录结构参考">📁 目录结构参考</a></li></ul></nav>
   </aside>
 </div>
 
