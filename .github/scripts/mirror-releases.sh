@@ -17,7 +17,7 @@ else
     "${GH_API}/releases?per_page=100")
 fi
 
-echo "${RELEASES}" | jq -c '.[]' | while read -r REL; do
+echo "${RELEASES}" | jq -c 'sort_by(.published_at) | .[]' | while read -r REL; do
   TAG=$(echo "${REL}" | jq -r .tag_name)
   NAME=$(echo "${REL}" | jq -r .name)
   BODY=$(echo "${REL}" | jq -r .body)
