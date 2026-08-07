@@ -23,20 +23,20 @@ echo "${RELEASES}" | jq -c '.[]' | while read -r REL; do
   BODY=$(echo "${REL}" | jq -r .body)
   echo "==> syncing ${TAG}"
 
-  if ! curl -s "${GITEE_API}/tags/${TAG}" | jq -e '.name' >/dev/null 2>&1; then
-    echo "!! tag ${TAG} missing on Gitee, skipping"
-    continue
-  fi
-
   RID=$(curl -s -X GET \
     "${GITEE_API}/releases/tags/${TAG}?access_token=${GITEE_TOKEN}" | jq -r '.id')
   if [[ -n "${RID}" && "${RID}" != "null" ]]; then
     echo "!! release ${TAG} already exists on Gitee (id=${RID}), assets only"
   else
-    RID=$(curl -s -X POST -H "Content-Type: application/json" \
+    CREATED=$(curl -s -X POST -H "Content-Type: application/json" \
       -d "$(jq -n --arg tok "${GITEE_TOKEN}" --arg t "${TAG}" --arg n "${NAME}" --arg b "${BODY}" \
         '{access_token:$tok, tag_name:$t, name:$n, body:$b, draft:false, prerelease:false}')" \
-      "${GITEE_API}/releases" | jq -r '.id')
+      "${GITEE_API}/releases")
+    RID=$(echo "${CREATED}" | jq -r '.id')
+    if [[ -z "${RID}" || "${RID}" == "null" ]]; then
+      echo "!! create ${TAG} failed: ${CREATED}"
+      continue
+    fi
     echo "   created release id=${RID}"
   fi
 
