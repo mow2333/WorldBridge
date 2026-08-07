@@ -23,14 +23,17 @@ echo "${RELEASES}" | jq -c '.[]' | while read -r REL; do
   BODY=$(echo "${REL}" | jq -r .body)
   echo "==> syncing ${TAG}"
 
+  TAG_SHA=$(curl -s "${GITEE_API}/tags?per_page=100" | jq -r --arg t "${TAG}" \
+    '.[] | select(.name==$t) | .commit.sha' | head -1)
+
   RID=$(curl -s -X GET \
     "${GITEE_API}/releases/tags/${TAG}?access_token=${GITEE_TOKEN}" | jq -r '.id')
   if [[ -n "${RID}" && "${RID}" != "null" ]]; then
     echo "!! release ${TAG} already exists on Gitee (id=${RID}), assets only"
   else
     CREATED=$(curl -s -X POST -H "Content-Type: application/json" \
-      -d "$(jq -n --arg tok "${GITEE_TOKEN}" --arg t "${TAG}" --arg n "${NAME}" --arg b "${BODY}" \
-        '{access_token:$tok, tag_name:$t, name:$n, body:$b, draft:false, prerelease:false}')" \
+      -d "$(jq -n --arg tok "${GITEE_TOKEN}" --arg t "${TAG}" --arg ts "${TAG_SHA}" --arg n "${NAME}" --arg b "${BODY}" \
+        '{access_token:$tok, tag_name:$t, target_commitish:$ts, name:$n, body:$b, draft:false, prerelease:false}')" \
       "${GITEE_API}/releases")
     RID=$(echo "${CREATED}" | jq -r '.id')
     if [[ -z "${RID}" || "${RID}" == "null" ]]; then
