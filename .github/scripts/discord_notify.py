@@ -194,14 +194,7 @@ embed = {
 payload = {
     "username": "WorldBridge Bot",
     "avatar_url": "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png",
-    "embeds": [{
-        "title": f"🚀 新版本发布：{tag}",
-        "description": body_text,
-        "url": html_url,
-        "color": 5814783,
-        "timestamp": published_at if published_at else datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
-        "footer": {"text": "WorldBridge Auto-Release"}
-    }]
+    "embeds": [embed]
 }
 
 # Add components if there are assets
@@ -215,55 +208,8 @@ if assets:
             "url": asset['browser_download_url']
         })
     if buttons:
-        payload = {
-            "username": "WorldBridge Bot",
-            "avatar_url": "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png",
-            "embeds": [{
-                "title": f"🚀 新版本发布：{tag}",
-                "description": body_text,
-                "url": html_url,
-                "color": 5814783,
-                "timestamp": published_at if published_at else datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
-                "footer": {"text": "WorldBridge Auto-Release"}
-            }],
-            "components": [{
-                "type": 1,
-                "components": [
-                    {
-                        "type": 2,
-                        "style": 5,
-                        "label": f"下载 {asset['name']}"[:80],
-                        "url": asset['browser_download_url']
-                    } for asset in assets[:5]
-                ]
-            }]
-        }
-    else:
-        payload = {
-            "username": "WorldBridge Bot",
-            "avatar_url": "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png",
-            "embeds": [{
-                "title": f"🚀 新版本发布：{tag}",
-                "description": body_text,
-                "url": html_url,
-                "color": 5814783,
-                "timestamp": published_at if published_at else datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
-                "footer": {"text": "WorldBridge Auto-Release"}
-            }]
-        }
-else:
-    payload = {
-        "username": "WorldBridge Bot",
-        "avatar_url": "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png",
-        "embeds": [{
-            "title": f"🚀 新版本发布：{tag}",
-            "description": body_text,
-            "url": html_url,
-            "color": 5814783,
-            "timestamp": published_at if published_at else datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
-            "footer": {"text": "WorldBridge Auto-Release"}
-        }]
-    }
+        payload["components"] = [{"type": 1, "components": buttons}]
+        print(f"Payload has components: {payload['components']}")
 
 # ========== 归档旧稳定版（仅稳定版发布时） ==========
 if is_stable_release and old_stable_tag and old_stable_tag != tag:
@@ -279,18 +225,7 @@ if is_stable_release and old_stable_tag and old_stable_tag != tag:
             "footer": {"text": "WorldBridge Auto-Archive"}
         }]
     }
-    data = json.dumps({
-        "username": "WorldBridge Bot",
-        "avatar_url": "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png",
-        "embeds": [{
-            "title": f"📦 版本归档：{old_stable_tag}",
-            "description": f"版本 **{old_stable_tag}** 已归档，最新稳定版现为 **{tag}**。\n原下载链接：https://github.com/{os.getenv('GITHUB_REPOSITORY')}/releases/tag/{old_stable_tag}",
-            "url": f"https://github.com/{os.getenv('GITHUB_REPOSITORY')}/releases/tag/{old_stable_tag}",
-            "color": 10181046,
-            "timestamp": datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
-            "footer": {"text": "WorldBridge Auto-Archive"}
-        }]
-    }).encode('utf-8')
+    data = json.dumps(archive_payload).encode('utf-8')
     req = urllib.request.Request(
         os.getenv('DISCORD_WEBHOOK_LEGACY'),
         data=data,
@@ -401,4 +336,3 @@ except urllib.error.HTTPError as e:
     sys.exit(1)
 
 print("Done!")
-PYEOF
