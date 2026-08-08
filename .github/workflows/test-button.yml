@@ -1,0 +1,13 @@
+name: Test Discord Button
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test Discord button
+        env:
+          DISCORD_WEBHOOK_STABLE: ${{ secrets.DISCORD_WEBHOOK_STABLE }}
+        run: python .github/scripts/test_button.py
