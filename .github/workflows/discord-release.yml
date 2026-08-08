@@ -1,0 +1,40 @@
+name: Discord Release Notify
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Determine channel
+        id: channel
+        run: |
+          TAG="${{ github.event.release.tag_name }}"
+          if [[ "$TAG" =~ ^v?[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "url=${{ secrets.DISCORD_WEBHOOK_STABLE }}" >> $GITHUB_OUTPUT
+          elif [[ "$TAG" =~ (beta|rc|alpha|test) ]]; then
+            echo "url=${{ secrets.DISCORD_WEBHOOK_BETA }}" >> $GITHUB_OUTPUT
+          else
+            echo "url=${{ secrets.DISCORD_WEBHOOK_LEGACY }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Send to Discord
+        run: |
+          curl -X POST "${{ steps.channel.outputs.url }}" \
+            -H "Content-Type: application/json" \
+            -d @- <<EOF
+          {
+            "username": "WorldBridge Bot",
+            "avatar_url": "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png",
+            "embeds": [{
+              "title": "🚀 新版本发布：${{ github.event.release.tag_name }}",
+              "description": "${{ github.event.release.body || '无更新说明' }}",
+              "url": "${{ github.event.release.html_url }}",
+              "color": 5814783,
+              "timestamp": "${{ github.event.release.published_at }}",
+              "footer": { "text": "WorldBridge Auto-Release" }
+            }]
+          }
+          EOF
