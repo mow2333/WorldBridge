@@ -8,7 +8,6 @@ if not webhook_url:
 
 # Minimal test payload with ONE button
 payload = {
-    "username": "Test Bot",
     "content": "测试按钮：",
     "components": [{
         "type": 1,
@@ -24,7 +23,7 @@ payload = {
 data = json.dumps(payload).encode('utf-8')
 req = urllib.request.Request(
     os.getenv('DISCORD_WEBHOOK_STABLE'),
-    data=json.dumps({"components": [{"type": 1, "components": [{"type": 2, "style": 5, "label": "测试下载", "url": "https://github.com/mow2333/WorldBridge/releases/download/0.1.0/test.jar"}]}]}).encode('utf-8'),
+    data=data,
     headers={'Content-Type': 'application/json', 'User-Agent': 'Test-Bot/1.0'}
 )
 
