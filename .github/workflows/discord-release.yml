@@ -3,6 +3,12 @@ name: Discord Release Notify
 on:
   release:
     types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag to notify (e.g. v0.3.0, v0.2.3-beta)'
+        required: true
+        type: string
 
 jobs:
   notify:
@@ -11,7 +17,7 @@ jobs:
       - name: Determine channel
         id: channel
         run: |
-          TAG="${{ github.event.release.tag_name }}"
+          TAG="${{ github.event.inputs.tag || github.event.release.tag_name }}"
           if [[ "$TAG" =~ ^v?[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             echo "url=${{ secrets.DISCORD_WEBHOOK_STABLE }}" >> $GITHUB_OUTPUT
           elif [[ "$TAG" =~ (beta|rc|alpha|test) ]]; then
@@ -19,21 +25,49 @@ jobs:
           else
             echo "url=${{ secrets.DISCORD_WEBHOOK_LEGACY }}" >> $GITHUB_OUTPUT
           fi
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+
+      - name: Fetch release data
+        id: release
+        if: github.event.inputs.tag != ''
+        run: |
+          TAG="${{ steps.channel.outputs.tag }}"
+          RELEASE=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/releases/tags/$TAG")
+          BODY=$(echo "$RELEASE" | jq -r '.body // "无更新说明"')
+          HTML_URL=$(echo "$RELEASE" | jq -r '.html_url')
+          PUBLISHED_AT=$(echo "$RELEASE" | jq -r '.published_at')
+          # escape for JSON
+          BODY_ESC=$(echo "$BODY" | jq -Rs . | sed 's/^"//;s/"$//')
+          echo "body=$BODY_ESC" >> $GITHUB_OUTPUT
+          echo "html_url=$HTML_URL" >> $GITHUB_OUTPUT
+          echo "published_at=$PUBLISHED_AT" >> $GITHUB_OUTPUT
 
       - name: Send to Discord
         run: |
-          curl -X POST "${{ steps.channel.outputs.url }}" \
+          TAG="${{ steps.channel.outputs.tag }}"
+          URL="${{ steps.channel.outputs.url }}"
+          if [ "${{ github.event.inputs.tag }}" != "" ]; then
+            BODY="${{ steps.release.outputs.body }}"
+            HTML_URL="${{ steps.release.outputs.html_url }}"
+            PUBLISHED_AT="${{ steps.release.outputs.published_at }}"
+          else
+            BODY="${{ github.event.release.body || '无更新说明' }}"
+            HTML_URL="${{ github.event.release.html_url }}"
+            PUBLISHED_AT="${{ github.event.release.published_at }}"
+          fi
+          curl -X POST "$URL" \
             -H "Content-Type: application/json" \
             -d @- <<EOF
           {
             "username": "WorldBridge Bot",
             "avatar_url": "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png",
             "embeds": [{
-              "title": "🚀 新版本发布：${{ github.event.release.tag_name }}",
-              "description": "${{ github.event.release.body || '无更新说明' }}",
-              "url": "${{ github.event.release.html_url }}",
+              "title": "🚀 新版本发布：$TAG",
+              "description": $BODY,
+              "url": "$HTML_URL",
               "color": 5814783,
-              "timestamp": "${{ github.event.release.published_at }}",
+              "timestamp": "$PUBLISHED_AT",
               "footer": { "text": "WorldBridge Auto-Release" }
             }]
           }
