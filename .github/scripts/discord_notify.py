@@ -1,0 +1,286 @@
+#!/usr/bin/env python3
+import os, json, re, sys, datetime, urllib.request, urllib.error, json as jsonlib
+
+# ========== 1. 解析 tag ==========
+input_tag = os.getenv('INPUT_TAG')
+release_tag = os.getenv('RELEASE_TAG')
+tag = os.getenv('INPUT_TAG') or os.getenv('RELEASE_TAG')
+if not tag:
+    print("Error: No tag provided", file=sys.stderr)
+    sys.exit(1)
+
+print(f"Resolved tag: {tag}")
+
+# ---------- 判断频道 ----------
+tag_lower = tag.lower()
+is_beta = any(kw in tag.lower() for kw in ('beta', 'rc', 'alpha', 'test'))
+is_stable = re.match(r'^v?\d+\.\d+\.\d+$', tag) is not None
+
+if any(kw in tag.lower() for kw in ('beta', 'rc', 'alpha', 'test')):
+    webhook_url = os.getenv('DISCORD_WEBHOOK_BETA')
+    channel_name = 'beta'
+    is_stable_release = False
+elif re.match(r'^v?\d+\.\d+\.\d+$', tag):
+    webhook_url = os.getenv('DISCORD_WEBHOOK_STABLE')
+    channel_name = 'stable'
+    is_stable_release = True
+else:
+    webhook_url = os.getenv('DISCORD_WEBHOOK_LEGACY')
+    channel_name = 'legacy'
+    is_stable_release = False
+
+print(f"Resolved tag: {tag}")
+print(f"Channel: {channel_name}")
+print(f"Is stable release: {is_stable_release}")
+
+# ========== GitHub API 准备 ==========
+gh_token = os.getenv('GITHUB_TOKEN')
+repo = os.getenv('GITHUB_REPOSITORY')
+
+# ========== 获取 release 信息 ==========
+body = "无更新说明"
+html_url = f"https://github.com/{repo}/releases/tag/{tag}"
+published_at = ""
+assets = []
+has_release = False
+
+try:
+    req = urllib.request.Request(
+        f"https://api.github.com/repos/{repo}/releases/tags/{tag}",
+        headers={
+            'Authorization': f'Bearer {os.getenv("GITHUB_TOKEN")}',
+            'Accept': 'application/vnd.github+json',
+            'User-Agent': 'WorldBridge-Bot/1.0'
+        }
+    )
+    with urllib.request.urlopen(req) as resp:
+        release_data = json.load(resp)
+        body = release_data.get('body') or "无更新说明"
+        html_url = release_data.get('html_url', html_url)
+        published_at = release_data.get('published_at', '')
+        assets = release_data.get('assets', [])
+        has_release = True
+        print(f"Found release data. Assets count: {len(assets)}")
+        for asset in assets:
+            print(f"  Asset: {asset['name']} -> {asset['browser_download_url']}")
+except Exception as e:
+    print(f"No release found for tag {tag}: {e}")
+    published_at = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+
+if not published_at:
+    published_at = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+
+# ========== 读取旧稳定版 tag（用于归档） ==========
+old_stable_tag = ""
+try:
+    req = urllib.request.Request(
+        f"https://api.github.com/repos/{os.getenv('GITHUB_REPOSITORY')}/releases",
+        headers={
+            'Authorization': f'Bearer {os.getenv("GITHUB_TOKEN")}',
+            'Accept': 'application/vnd.github+json',
+            'User-Agent': 'WorldBridge-Bot/1.0'
+        }
+    )
+    with urllib.request.urlopen(req) as resp:
+        releases = json.load(resp)
+        # 找到上一个稳定版（非预发布、非当前 tag）
+        for rel in releases:
+            rel_tag = rel.get('tag_name', '')
+            if (rel_tag != tag and
+                re.match(r'^v?\d+\.\d+\.\d+$', rel_tag) and
+                not any(kw in rel_tag.lower() for kw in ('beta', 'rc', 'alpha', 'test'))):
+                old_stable_tag = rel_tag
+                break
+    print(f"Previous stable tag from API: {old_stable_tag}")
+except Exception as e:
+    print(f"Could not fetch previous stable tag: {e}")
+
+# ========== 判断频道 ==========
+tag_lower = tag.lower()
+if any(kw in tag.lower() for kw in ('beta', 'rc', 'alpha', 'test')):
+    webhook_url = os.getenv('DISCORD_WEBHOOK_BETA')
+    channel_name = 'beta'
+    is_stable_release = False
+elif re.match(r'^v?\d+\.\d+\.\d+$', tag):
+    webhook_url = os.getenv('DISCORD_WEBHOOK_STABLE')
+    channel_name = 'stable'
+    is_stable_release = True
+else:
+    webhook_url = os.getenv('DISCORD_WEBHOOK_LEGACY')
+    channel_name = 'legacy'
+    is_stable_release = False
+
+print(f"Resolved tag: {tag}")
+print(f"Channel: {channel_name}")
+print(f"Is stable release: {is_stable_release}")
+
+# ========== 归档旧稳定版（仅稳定版发布时） ==========
+if is_stable_release and old_stable_tag and old_stable_tag != tag:
+    archive_payload = {
+        "username": "WorldBridge Bot",
+        "avatar_url": "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png",
+        "embeds": [{
+            "title": f"📦 版本归档：{old_stable_tag}",
+            "description": f"版本 **{old_stable_tag}** 已归档，最新稳定版现为 **{tag}**。\n原下载链接：https://github.com/{os.getenv('GITHUB_REPOSITORY')}/releases/tag/{old_stable_tag}",
+            "url": f"https://github.com/{os.getenv('GITHUB_REPOSITORY')}/releases/tag/{old_stable_tag}",
+            "color": 10181046,
+            "timestamp": datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
+            "footer": {"text": "WorldBridge Auto-Archive"}
+        }]
+    }
+    data = json.dumps(archive_payload).encode('utf-8')
+    req = urllib.request.Request(
+        os.getenv('DISCORD_WEBHOOK_LEGACY'),
+        data=data,
+        headers={'Content-Type': 'application/json', 'User-Agent': 'WorldBridge-Bot/1.0'}
+    )
+    with urllib.request.urlopen(req) as resp:
+        print(f"Archive message sent: {resp.status}")
+
+# ========== 发布新版本消息 ==========
+if not published_at:
+    published_at = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+
+body_text = body if 'body' in locals() and body else "无更新说明"
+if 'has_release' not in locals() or not has_release:
+    body_text = "该标签暂无 Release 详情（可能是裸标签），请前往 GitHub 查看详情。"
+
+# ========== 构建下载按钮 ==========
+components = []
+if 'assets' in locals() and assets:
+    print(f"Building buttons for {len(assets)} assets")
+    for asset in assets:
+        print(f"  Asset: {asset['name']} -> {asset['browser_download_url']}")
+
+# Build components (action rows with buttons)
+components = []
+if 'assets' in locals() and assets:
+    buttons = []
+    for asset in assets[:5]:
+        buttons.append({
+            "type": 2,
+            "style": 5,
+            "label": f"下载 {asset['name']}"[:80],
+            "url": asset['browser_download_url']
+        })
+    if buttons:
+        components.append({
+            "type": 1,
+            "components": buttons
+        })
+        print(f"Built {len(buttons)} download buttons")
+
+# ========== 发布新版本消息 ==========
+if not published_at:
+    published_at = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+
+body_text = body if 'body' in locals() and body else "无更新说明"
+if 'has_release' not in locals() or not has_release:
+    body_text = "该标签暂无 Release 详情（可能是裸标签），请前往 GitHub 查看详情。"
+
+# Build embed
+embed = {
+    "title": f"🚀 新版本发布：{tag}",
+    "description": body_text,
+    "url": html_url,
+    "color": 5814783,
+    "timestamp": published_at if published_at else datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
+    "footer": {"text": "WorldBridge Auto-Release"}
+}
+
+payload = {
+    "username": "WorldBridge Bot",
+    "avatar_url": "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png",
+    "embeds": [embed]
+}
+
+# Add components if there are assets
+if 'assets' in locals() and assets:
+    buttons = []
+    for asset in assets[:5]:
+        buttons.append({
+            "type": 2,
+            "style": 5,
+            "label": f"下载 {asset['name']}"[:80],
+            "url": asset['browser_download_url']
+        })
+    if buttons:
+        payload["components"] = [{"type": 1, "components": buttons}]
+
+# ========== 归档旧稳定版（仅稳定版发布时） ==========
+if is_stable_release and old_stable_tag and old_stable_tag != tag:
+    archive_payload = {
+        "username": "WorldBridge Bot",
+        "avatar_url": "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png",
+        "embeds": [{
+            "title": f"📦 版本归档：{old_stable_tag}",
+            "description": f"版本 **{old_stable_tag}** 已归档，最新稳定版现为 **{tag}**。\n原下载链接：https://github.com/{os.getenv('GITHUB_REPOSITORY')}/releases/tag/{old_stable_tag}",
+            "url": f"https://github.com/{os.getenv('GITHUB_REPOSITORY')}/releases/tag/{old_stable_tag}",
+            "color": 10181046,
+            "timestamp": datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
+            "footer": {"text": "WorldBridge Auto-Archive"}
+        }]
+    }
+    data = json.dumps(archive_payload).encode('utf-8')
+    req = urllib.request.Request(
+        os.getenv('DISCORD_WEBHOOK_LEGACY'),
+        data=data,
+        headers={'Content-Type': 'application/json', 'User-Agent': 'WorldBridge-Bot/1.0'}
+    )
+    with urllib.request.urlopen(req) as resp:
+        print(f"Archive message sent: {resp.status}")
+
+# ========== 发送到 Discord ==========
+if channel_name == 'beta':
+    webhook_url = os.getenv('DISCORD_WEBHOOK_BETA')
+elif channel_name == 'stable':
+    webhook_url = os.getenv('DISCORD_WEBHOOK_STABLE')
+else:
+    webhook_url = os.getenv('DISCORD_WEBHOOK_LEGACY')
+
+print(f"Channel: {channel_name}")
+print(f"Sending to {channel_name} channel...")
+
+payload = {
+    "username": "WorldBridge Bot",
+    "avatar_url": "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png",
+    "embeds": [{
+        "title": f"🚀 新版本发布：{tag}",
+        "description": body_text,
+        "url": html_url,
+        "color": 5814783,
+        "timestamp": published_at if published_at else datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
+        "footer": {"text": "WorldBridge Auto-Release"}
+    }]
+}
+
+# Add components if there are assets
+if 'assets' in locals() and assets:
+    buttons = []
+    for asset in assets[:5]:
+        buttons.append({
+            "type": 2,
+            "style": 5,
+            "label": f"下载 {asset['name']}"[:80],
+            "url": asset['browser_download_url']
+        })
+    if buttons:
+        payload["components"] = [{"type": 1, "components": buttons}]
+
+data = json.dumps(payload).encode('utf-8')
+req = urllib.request.Request(
+    webhook_url,
+    data=data,
+    headers={
+        'Content-Type': 'application/json',
+        'User-Agent': 'WorldBridge-Bot/1.0'
+    }
+)
+try:
+    with urllib.request.urlopen(req) as resp:
+        print(f"Discord response: {resp.status}")
+except urllib.error.HTTPError as e:
+    print(f"Discord error: {e.code} - {e.read().decode()}")
+    sys.exit(1)
+
+print("Done!")
