@@ -10,16 +10,11 @@ on:
         required: true
         type: string
 
-permissions:
-  contents: read
-  variables: write
-
 jobs:
   notify:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      variables: write
     steps:
       - name: Run all logic in Python
         id: main
@@ -54,35 +49,27 @@ jobs:
           is_stable = re.match(r'^v?\d+\.\d+\.\d+$', tag) is not None
 
           if any(kw in tag.lower() for kw in ('beta', 'rc', 'alpha', 'test')):
-              channel_name = 'beta'
               webhook_url = os.getenv('DISCORD_WEBHOOK_BETA')
+              channel_name = 'beta'
+              is_stable_release = False
           elif re.match(r'^v?\d+\.\d+\.\d+$', tag):
               webhook_url = os.getenv('DISCORD_WEBHOOK_STABLE')
               channel_name = 'stable'
+              is_stable_release = True
           else:
               webhook_url = os.getenv('DISCORD_WEBHOOK_LEGACY')
               channel_name = 'legacy'
+              is_stable_release = False
 
           print(f"Resolved tag: {tag}")
           print(f"Channel: {channel_name}")
+          print(f"Is stable release: {is_stable_release}")
 
           # ========== GitHub API 准备 ==========
           gh_token = os.getenv('GITHUB_TOKEN')
           repo = os.getenv('GITHUB_REPOSITORY')
-          gh_token = os.getenv('GITHUB_TOKEN')
-          repo = os.getenv('GITHUB_REPOSITORY')
 
           # ========== 获取 release 信息 ==========
-          api_url = f"https://api.github.com/repos/{repo}/releases/tags/{tag}"
-          req = urllib.request.Request(
-              f"https://api.github.com/repos/{repo}/releases/tags/{tag}",
-              headers={
-                  'Authorization': f'Bearer {os.getenv("GITHUB_TOKEN")}',
-                  'Accept': 'application/vnd.github+json',
-                  'User-Agent': 'WorldBridge-Bot/1.0'
-              }
-          )
-
           body = "无更新说明"
           html_url = f"https://github.com/{repo}/releases/tag/{tag}"
           published_at = ""
@@ -116,19 +103,27 @@ jobs:
           # ========== 读取旧稳定版 tag（用于归档） ==========
           old_stable_tag = ""
           try:
-              var_resp = urllib.request.urlopen(
-                  urllib.request.Request(
-                      f"https://api.github.com/repos/{repo}/variables/LATEST_STABLE_TAG",
-                      headers={'Authorization': f'Bearer {os.getenv("GITHUB_TOKEN")}',
-                               'Accept': 'application/vnd.github+json',
-                               'User-Agent': 'WorldBridge-Bot/1.0'}
-                  )
+              req = urllib.request.Request(
+                  f"https://api.github.com/repos/{os.getenv('GITHUB_REPOSITORY')}/releases",
+                  headers={
+                      'Authorization': f'Bearer {os.getenv("GITHUB_TOKEN")}',
+                      'Accept': 'application/vnd.github+json',
+                      'User-Agent': 'WorldBridge-Bot/1.0'
+                  }
               )
-              var_data = json.load(var_resp)
-              old_stable_tag = var_data.get('value', '')
-              print(f"Old stable tag from variable: {old_stable_tag}")
+              with urllib.request.urlopen(req) as resp:
+                  releases = json.load(resp)
+                  # 找到上一个稳定版（非预发布、非当前 tag）
+                  for rel in releases:
+                      rel_tag = rel.get('tag_name', '')
+                      if (rel_tag != tag and
+                          re.match(r'^v?\d+\.\d+\.\d+$', rel_tag) and
+                          not any(kw in rel_tag.lower() for kw in ('beta', 'rc', 'alpha', 'test'))):
+                          old_stable_tag = rel_tag
+                          break
+              print(f"Previous stable tag from API: {old_stable_tag}")
           except Exception as e:
-              print(f"No previous stable tag variable: {e}")
+              print(f"Could not fetch previous stable tag: {e}")
 
           # ========== 判断频道 ==========
           tag_lower = tag.lower()
@@ -152,26 +147,25 @@ jobs:
           # ========== 归档旧稳定版（仅稳定版发布时） ==========
           if is_stable_release and old_stable_tag and old_stable_tag != tag:
               # 发送归档消息到旧版本频道
-              archive_url = os.getenv('DISCORD_WEBHOOK_LEGACY')
               archive_payload = {
                   "username": "WorldBridge Bot",
                   "avatar_url": "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png",
                   "embeds": [{
-                      "title": "📦 版本归档",
-                      "description": f"版本 **{old_stable_tag}** 已归档，最新稳定版现为 **{tag}**。\n原下载链接：https://github.com/{repo}/releases/tag/{old_stable_tag}",
-                      "url": f"https://github.com/{repo}/releases/tag/{old_stable_tag}",
+                      "title": f"📦 版本归档：{old_stable_tag}",
+                      "description": f"版本 **{old_stable_tag}** 已归档，最新稳定版现为 **{tag}**。\n原下载链接：https://github.com/{os.getenv('GITHUB_REPOSITORY')}/releases/tag/{old_stable_tag}",
+                      "url": f"https://github.com/{os.getenv('GITHUB_REPOSITORY')}/releases/tag/{old_stable_tag}",
                       "color": 10181046,  # 橙色
                       "timestamp": datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
                       "footer": {"text": "WorldBridge Auto-Archive"}
                   }]
               }
-              data = jsonlib.dumps({
+              data = json.dumps({
                   "username": "WorldBridge Bot",
                   "avatar_url": "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png",
                   "embeds": [{
                       "title": f"📦 版本归档：{old_stable_tag}",
-                      "description": f"版本 **{old_stable_tag}** 已归档，最新稳定版现为 **{tag}**。\n原下载链接：https://github.com/{repo}/releases/tag/{old_stable_tag}",
-                      "url": f"https://github.com/{repo}/releases/tag/{old_stable_tag}",
+                      "description": f"版本 **{old_stable_tag}** 已归档，最新稳定版现为 **{tag}**。\n原下载链接：https://github.com/{os.getenv('GITHUB_REPOSITORY')}/releases/tag/{old_stable_tag}",
+                      "url": f"https://github.com/{os.getenv('GITHUB_REPOSITORY')}/releases/tag/{old_stable_tag}",
                       "color": 10181046,
                       "timestamp": datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
                       "footer": {"text": "WorldBridge Auto-Archive"}
@@ -179,13 +173,13 @@ jobs:
               }).encode('utf-8')
               req = urllib.request.Request(
                   os.getenv('DISCORD_WEBHOOK_LEGACY'),
-                  data=jsonlib.dumps({
+                  data=json.dumps({
                       "username": "WorldBridge Bot",
                       "avatar_url": "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png",
                       "embeds": [{
                           "title": f"📦 版本归档：{old_stable_tag}",
-                          "description": f"版本 **{old_stable_tag}** 已归档，最新稳定版现为 **{tag}**。\n原下载链接：https://github.com/{repo}/releases/tag/{old_stable_tag}",
-                          "url": f"https://github.com/{repo}/releases/tag/{old_stable_tag}",
+                          "description": f"版本 **{old_stable_tag}** 已归档，最新稳定版现为 **{tag}**。\n原下载链接：https://github.com/{os.getenv('GITHUB_REPOSITORY')}/releases/tag/{old_stable_tag}",
+                          "url": f"https://github.com/{os.getenv('GITHUB_REPOSITORY')}/releases/tag/{old_stable_tag}",
                           "color": 10181046,
                           "timestamp": datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
                           "footer": {"text": "WorldBridge Auto-Archive"}
@@ -204,6 +198,7 @@ jobs:
           if 'has_release' not in locals() or not has_release:
               body_text = "该标签暂无 Release 详情（可能是裸标签），请前往 GitHub 查看详情。"
 
+          # ========== 发布新版本消息 ==========
           # 构建下载按钮
           components = []
           if 'assets' in locals() and assets:
@@ -247,10 +242,10 @@ jobs:
           print(f"Channel: {channel_name}")
           print(f"Sending to {channel_name} channel...")
 
-          data = jsonlib.dumps(payload).encode('utf-8')
+          data = json.dumps(payload).encode('utf-8')
           req = urllib.request.Request(
               webhook_url,
-              data=jsonlib.dumps(payload).encode('utf-8'),
+              data=json.dumps(payload).encode('utf-8'),
               headers={
                   'Content-Type': 'application/json',
                   'User-Agent': 'WorldBridge-Bot/1.0'
@@ -262,56 +257,6 @@ jobs:
           except urllib.error.HTTPError as e:
               print(f"Discord error: {e.code} - {e.read().decode()}")
               sys.exit(1)
-
-          # ========== 更新 LATEST_STABLE_TAG 变量 ==========
-          if is_stable_release:
-              try:
-                  var_payload = jsonlib.dumps({"value": tag}).encode('utf-8')
-                  var_req = urllib.request.Request(
-                      f"https://api.github.com/repos/{repo}/variables/LATEST_STABLE_TAG",
-                      data=jsonlib.dumps({"value": tag}).encode('utf-8'),
-                      headers={
-                          'Authorization': f'Bearer {os.getenv("GITHUB_TOKEN")}',
-                          'Accept': 'application/vnd.github+json',
-                          'Content-Type': 'application/json',
-                          'User-Agent': 'WorldBridge-Bot/1.0'
-                      },
-                      method='PATCH'
-                  )
-                  # Try PATCH first (update), if 404 then POST (create)
-                  try:
-                      with urllib.request.urlopen(urllib.request.Request(
-                          f"https://api.github.com/repos/{repo}/variables/LATEST_STABLE_TAG",
-                          data=jsonlib.dumps({"value": tag}).encode('utf-8'),
-                          headers={
-                              'Authorization': f'Bearer {os.getenv("GITHUB_TOKEN")}',
-                              'Accept': 'application/vnd.github+json',
-                              'Content-Type': 'application/json',
-                              'User-Agent': 'WorldBridge-Bot/1.0'
-                          },
-                          method='PATCH'
-                      )) as resp:
-                          print(f"Updated variable: {resp.status}")
-                  except urllib.error.HTTPError as e:
-                      if e.code == 404:
-                          # Create new variable
-                          with urllib.request.urlopen(urllib.request.Request(
-                              f"https://api.github.com/repos/{repo}/variables",
-                              data=jsonlib.dumps({"name": "LATEST_STABLE_TAG", "value": tag}).encode('utf-8'),
-                              headers={
-                                  'Authorization': f'Bearer {os.getenv("GITHUB_TOKEN")}',
-                                  'Accept': 'application/vnd.github+json',
-                                  'Content-Type': 'application/json',
-                                  'User-Agent': 'WorldBridge-Bot/1.0'
-                              },
-                              method='POST'
-                          )) as resp:
-                              print(f"Created variable: {resp.status}")
-                      else:
-                          raise
-                  print(f"Updated LATEST_STABLE_TAG to {tag}")
-              except Exception as e:
-                  print(f"Failed to update variable: {e}")
 
           print("Done!")
           PYEOF
