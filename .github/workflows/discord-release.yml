@@ -27,7 +27,7 @@ jobs:
           RELEASE_TAG: ${{ github.event.release.tag_name }}
         run: |
           python3 << 'PYEOF'
-          import os, json, re, sys, subprocess, urllib.request
+          import os, json, re, sys, subprocess, urllib.request, urllib.error
 
           # ---- 1. 解析 tag ----
           event_name = os.getenv('GITHUB_EVENT_NAME')
@@ -59,7 +59,6 @@ jobs:
           # ---- 3. 获取 release 信息 ----
           gh_token = os.getenv('GITHUB_TOKEN')
           repo = os.getenv('GITHUB_REPOSITORY')
-          api_url = f"https://api.github.com/repos/{repo}/releases/tags/{tag}"
 
           body = "无更新说明"
           html_url = f"https://github.com/{repo}/releases/tag/{tag}"
@@ -70,9 +69,9 @@ jobs:
               req = urllib.request.Request(
                   f"https://api.github.com/repos/{repo}/releases/tags/{tag}",
                   headers={
-                      'Authorization': f'Bearer {gh_token}',
+                      'Authorization': f'Bearer {os.getenv("GITHUB_TOKEN")}',
                       'Accept': 'application/vnd.github+json',
-                      'User-Agent': 'WorldBridge-Bot'
+                      'User-Agent': 'WorldBridge-Bot/1.0'
                   }
               )
               with urllib.request.urlopen(req) as resp:
@@ -84,19 +83,22 @@ jobs:
                   print("Found release data")
           except Exception as e:
               print(f"No release found for tag {tag}: {e}")
-              published_at = subprocess.check_output(['date', '-u', '+%Y-%m-%dT%H:%M:%SZ'], text=True).strip()
+              import datetime
+              published_at = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
 
-          # ---- 4. 构建 payload ----
           if not published_at:
               import datetime
               published_at = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+
+          # ---- 4. 构建 payload ----
+          body_text = body if has_release else "该标签暂无 Release 详情（可能是裸标签），请前往 GitHub 查看详情。"
 
           payload = {
               "username": "WorldBridge Bot",
               "avatar_url": "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png",
               "embeds": [{
                   "title": f"🚀 新版本发布：{tag}",
-                  "description": body if has_release else "该标签暂无 Release 详情（可能是裸标签），请前往 GitHub 查看详情。",
+                  "description": body_text,
                   "url": html_url,
                   "color": 5814783,
                   "timestamp": published_at,
@@ -105,13 +107,6 @@ jobs:
           }
 
           # ---- 5. 发送到 Discord ----
-          webhook_urls = {
-              'stable': os.getenv('DISCORD_WEBHOOK_STABLE'),
-              'beta': os.getenv('DISCORD_WEBHOOK_BETA'),
-              'legacy': os.getenv('DISCORD_WEBHOOK_LEGACY')
-          }
-
-          # Determine which URL to use
           if 'beta' in channel_name:
               webhook_url = os.getenv('DISCORD_WEBHOOK_BETA')
           elif channel_name == 'stable':
@@ -124,11 +119,18 @@ jobs:
           data = json.dumps(payload).encode('utf-8')
           req = urllib.request.Request(
               webhook_url,
-              data=data,
-              headers={'Content-Type': 'application/json'}
+              data=json.dumps(payload).encode('utf-8'),
+              headers={
+                  'Content-Type': 'application/json',
+                  'User-Agent': 'WorldBridge-Bot/1.0'
+              }
           )
-          with urllib.request.urlopen(req) as resp:
-              print(f"Discord response: {resp.status}")
+          try:
+              with urllib.request.urlopen(req) as resp:
+                  print(f"Discord response: {resp.status}")
+          except urllib.error.HTTPError as e:
+              print(f"Discord error: {e.code} - {e.read().decode()}")
+              sys.exit(1)
 
           print("Done!")
           PYEOF
