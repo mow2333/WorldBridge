@@ -146,29 +146,32 @@ if 'has_release' not in locals() or not has_release:
     body_text = "该标签暂无 Release 详情（可能是裸标签），请前往 GitHub 查看详情。"
 
 # ========== 构建下载按钮 ==========
-components = []
-if 'assets' in locals() and assets:
-    print(f"Building buttons for {len(assets)} assets")
-    for asset in assets:
-        print(f"  Asset: {asset['name']} -> {asset['browser_download_url']}")
+print(f"Assets count: {len(assets)}")
+for asset in assets:
+    print(f"  Asset: {asset['name']} -> {asset['browser_download_url']}")
 
 # Build components (action rows with buttons)
 components = []
-if 'assets' in locals() and assets:
+if assets:
+    print(f"Building buttons for {len(assets)} assets")
     buttons = []
     for asset in assets[:5]:
-        buttons.append({
+        btn = {
             "type": 2,
             "style": 5,
             "label": f"下载 {asset['name']}"[:80],
             "url": asset['browser_download_url']
-        })
+        }
+        buttons.append(btn)
+        print(f"  Button: {btn['label']} -> {btn['url']}")
+    
     if buttons:
-        components.append({
+        components = [{
             "type": 1,
             "components": buttons
-        })
+        }]
         print(f"Built {len(buttons)} download buttons")
+        print(f"Components structure: {components}")
 
 # ========== 发布新版本消息 ==========
 if not published_at:
@@ -191,11 +194,18 @@ embed = {
 payload = {
     "username": "WorldBridge Bot",
     "avatar_url": "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png",
-    "embeds": [embed]
+    "embeds": [{
+        "title": f"🚀 新版本发布：{tag}",
+        "description": body_text,
+        "url": html_url,
+        "color": 5814783,
+        "timestamp": published_at if published_at else datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
+        "footer": {"text": "WorldBridge Auto-Release"}
+    }]
 }
 
 # Add components if there are assets
-if 'assets' in locals() and assets:
+if assets:
     buttons = []
     for asset in assets[:5]:
         buttons.append({
@@ -205,7 +215,55 @@ if 'assets' in locals() and assets:
             "url": asset['browser_download_url']
         })
     if buttons:
-        payload["components"] = [{"type": 1, "components": buttons}]
+        payload = {
+            "username": "WorldBridge Bot",
+            "avatar_url": "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png",
+            "embeds": [{
+                "title": f"🚀 新版本发布：{tag}",
+                "description": body_text,
+                "url": html_url,
+                "color": 5814783,
+                "timestamp": published_at if published_at else datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
+                "footer": {"text": "WorldBridge Auto-Release"}
+            }],
+            "components": [{
+                "type": 1,
+                "components": [
+                    {
+                        "type": 2,
+                        "style": 5,
+                        "label": f"下载 {asset['name']}"[:80],
+                        "url": asset['browser_download_url']
+                    } for asset in assets[:5]
+                ]
+            }]
+        }
+    else:
+        payload = {
+            "username": "WorldBridge Bot",
+            "avatar_url": "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png",
+            "embeds": [{
+                "title": f"🚀 新版本发布：{tag}",
+                "description": body_text,
+                "url": html_url,
+                "color": 5814783,
+                "timestamp": published_at if published_at else datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
+                "footer": {"text": "WorldBridge Auto-Release"}
+            }]
+        }
+else:
+    payload = {
+        "username": "WorldBridge Bot",
+        "avatar_url": "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png",
+        "embeds": [{
+            "title": f"🚀 新版本发布：{tag}",
+            "description": body_text,
+            "url": html_url,
+            "color": 5814783,
+            "timestamp": published_at if published_at else datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
+            "footer": {"text": "WorldBridge Auto-Release"}
+        }]
+    }
 
 # ========== 归档旧稳定版（仅稳定版发布时） ==========
 if is_stable_release and old_stable_tag and old_stable_tag != tag:
@@ -221,7 +279,18 @@ if is_stable_release and old_stable_tag and old_stable_tag != tag:
             "footer": {"text": "WorldBridge Auto-Archive"}
         }]
     }
-    data = json.dumps(archive_payload).encode('utf-8')
+    data = json.dumps({
+        "username": "WorldBridge Bot",
+        "avatar_url": "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png",
+        "embeds": [{
+            "title": f"📦 版本归档：{old_stable_tag}",
+            "description": f"版本 **{old_stable_tag}** 已归档，最新稳定版现为 **{tag}**。\n原下载链接：https://github.com/{os.getenv('GITHUB_REPOSITORY')}/releases/tag/{old_stable_tag}",
+            "url": f"https://github.com/{os.getenv('GITHUB_REPOSITORY')}/releases/tag/{old_stable_tag}",
+            "color": 10181046,
+            "timestamp": datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
+            "footer": {"text": "WorldBridge Auto-Archive"}
+        }]
+    }).encode('utf-8')
     req = urllib.request.Request(
         os.getenv('DISCORD_WEBHOOK_LEGACY'),
         data=data,
@@ -255,7 +324,7 @@ payload = {
 }
 
 # Add components if there are assets
-if 'assets' in locals() and assets:
+if assets:
     buttons = []
     for asset in assets[:5]:
         buttons.append({
@@ -266,8 +335,56 @@ if 'assets' in locals() and assets:
         })
     if buttons:
         payload["components"] = [{"type": 1, "components": buttons}]
+        print(f"Payload has components: {payload['components']}")
 
-data = json.dumps(payload).encode('utf-8')
+body_text = body if 'body' in locals() and body else "无更新说明"
+if 'has_release' not in locals() or not has_release:
+    body_text = "该标签暂无 Release 详情（可能是裸标签），请前往 GitHub 查看详情。"
+
+# ========== 发送到 Discord ==========
+if channel_name == 'beta':
+    webhook_url = os.getenv('DISCORD_WEBHOOK_BETA')
+elif channel_name == 'stable':
+    webhook_url = os.getenv('DISCORD_WEBHOOK_STABLE')
+else:
+    webhook_url = os.getenv('DISCORD_WEBHOOK_LEGACY')
+
+print(f"Channel: {channel_name}")
+print(f"Sending to {channel_name} channel...")
+
+# Build final payload
+final_payload = {
+    "username": "WorldBridge Bot",
+    "avatar_url": "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png",
+    "embeds": [{
+        "title": f"🚀 新版本发布：{tag}",
+        "description": body_text,
+        "url": html_url,
+        "color": 5814783,
+        "timestamp": published_at if published_at else datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
+        "footer": {"text": "WorldBridge Auto-Release"}
+    }]
+}
+
+# Add components if there are assets
+if assets:
+    buttons = []
+    for asset in assets[:5]:
+        buttons.append({
+            "type": 2,
+            "style": 5,
+            "label": f"下载 {asset['name']}"[:80],
+            "url": asset['browser_download_url']
+        })
+    if buttons:
+        final_payload["components"] = [{"type": 1, "components": buttons}]
+        print(f"Final payload has components: {final_payload['components']}")
+
+print(f"Final payload keys: {list(final_payload.keys())}")
+if 'components' in final_payload:
+    print(f"Final components: {final_payload['components']}")
+
+data = json.dumps(final_payload).encode('utf-8')
 req = urllib.request.Request(
     webhook_url,
     data=data,
@@ -284,3 +401,4 @@ except urllib.error.HTTPError as e:
     sys.exit(1)
 
 print("Done!")
+PYEOF
