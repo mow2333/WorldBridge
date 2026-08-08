@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Release tag to notify (e.g. v0.3.0, v0.2.3-beta)'
+        description: 'Release tag to notify (e.g. 0.3.0, 0.2.3-beta)'
         required: true
         type: string
 
@@ -14,62 +14,71 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
-      - name: Determine channel and tag
-        id: channel
+      - name: Debug - print inputs
         run: |
-          python3 << 'PYEOF'
-          import os, re, sys
+          echo "Event name: ${{ github.event_name }}"
+          echo "Input tag: '${{ github.event.inputs.tag }}'"
+          echo "Release tag: '${{ github.event.release.tag_name }}'"
+          echo "Repository: ${{ github.repository }}"
 
-          tag = os.getenv('INPUT_TAG') or os.getenv('GITHUB_REF_NAME', '')
-          # Determine channel
-          tag_lower = tag.lower()
-          if any(kw in tag_lower for kw in ('beta', 'rc', 'alpha', 'test')):
-              url = os.getenv('DISCORD_WEBHOOK_BETA')
-          elif re.match(r'^v?\d+\.\d+\.\d+$', tag):
-              url = os.getenv('DISCORD_WEBHOOK_STABLE')
-          else:
-              url = os.getenv('DISCORD_WEBHOOK_LEGACY')
+      - name: Resolve tag
+        id: resolve_tag
+        run: |
+          # Priority: manual input > release event tag
+          TAG="${{ github.event.inputs.tag || github.event.release.tag_name }}"
+          echo "Resolved TAG: $TAG"
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
 
-          print(f"url={url}")
-          print(f"tag={tag}")
-          PYEOF
-        env:
-          INPUT_TAG: ${{ github.event.inputs.tag }}
-          GITHUB_REF_NAME: ${{ github.event.release.tag_name }}
-          DISCORD_WEBHOOK_STABLE: ${{ secrets.DISCORD_WEBHOOK_STABLE }}
-          DISCORD_WEBHOOK_BETA: ${{ secrets.DISCORD_WEBHOOK_BETA }}
-          DISCORD_WEBHOOK_LEGACY: ${{ secrets.DISCORD_WEBHOOK_LEGACY }}
-
-      - name: Fetch release data (manual trigger)
-        id: release
-        if: github.event.inputs.tag != ''
+      - name: Check if release exists for tag
+        id: check_release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          TAG="${{ steps.channel.outputs.tag }}"
-          RELEASE=$(gh api repos/${{ github.repository }}/releases/tags/$TAG)
-          BODY=$(echo "$RELEASE" | jq -r '.body // "无更新说明"')
-          HTML_URL=$(echo "$RELEASE" | jq -r '.html_url')
-          PUBLISHED_AT=$(echo "$RELEASE" | jq -r '.published_at')
-          BODY_ESC=$(echo "$BODY" | jq -Rs .)
-          echo "body=$BODY_ESC" >> $GITHUB_OUTPUT
-          echo "html_url=$HTML_URL" >> $GITHUB_OUTPUT
-          echo "published_at=$PUBLISHED_AT" >> $GITHUB_OUTPUT
+          TAG="${{ steps.resolve_tag.outputs.tag }}"
+          echo "Checking release for tag: $TAG"
+          
+          # Try to get release by tag
+          RELEASE=$(gh api repos/${{ github.repository }}/releases/tags/$TAG 2>/dev/null || echo "NOT_FOUND")
+          
+          if [ "$RELEASE" = "NOT_FOUND" ] || [ -z "$RELEASE" ]; then
+            echo "has_release=false" >> $GITHUB_OUTPUT
+            echo "Release not found for tag: $TAG"
+          else
+            echo "has_release=true" >> $GITHUB_OUTPUT
+            BODY=$(echo "$RELEASE" | jq -r '.body // "无更新说明"')
+            HTML_URL=$(echo "$RELEASE" | jq -r '.html_url')
+            PUBLISHED_AT=$(echo "$RELEASE" | jq -r '.published_at')
+            BODY_ESC=$(echo "$BODY" | jq -Rs .)
+            echo "body=$BODY_ESC" >> $GITHUB_OUTPUT
+            echo "html_url=$HTML_URL" >> $GITHUB_OUTPUT
+            echo "published_at=$PUBLISHED_AT" >> $GITHUB_OUTPUT
+          fi
 
-      - name: Prepare payload
+      - name: Determine channel
+        id: channel
+        run: |
+          TAG="${{ steps.resolve_tag.outputs.tag }}"
+          TAG_LOWER=$(echo "$TAG" | tr '[:upper:]' '[:lower:]')
+          
+          if [[ "$TAG_LOWER" == *beta* ]] || [[ "$TAG_LOWER" == *rc* ]] || [[ "$TAG_LOWER" == *alpha* ]] || [[ "$TAG_LOWER" == *test* ]]; then
+            echo "url=${{ secrets.DISCORD_WEBHOOK_BETA }}" >> $GITHUB_OUTPUT
+          elif [[ "$TAG" =~ ^v?[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "url=${{ secrets.DISCORD_WEBHOOK_STABLE }}" >> $GITHUB_OUTPUT
+          else
+            echo "url=${{ secrets.DISCORD_WEBHOOK_LEGACY }}" >> $GITHUB_OUTPUT
+          fi
+          echo "tag=${{ steps.resolve_tag.outputs.tag }}" >> $GITHUB_OUTPUT
+
+      - name: Prepare payload (with release)
         id: payload
+        if: steps.check_release.outputs.has_release == 'true'
         run: |
           TAG="${{ steps.channel.outputs.tag }}"
           URL="${{ steps.channel.outputs.url }}"
-          if [ "${{ github.event.inputs.tag }}" != "" ]; then
-            BODY="${{ steps.release.outputs.body }}"
-            HTML_URL="${{ steps.release.outputs.html_url }}"
-            PUBLISHED_AT="${{ steps.release.outputs.published_at }}"
-          else
-            BODY="${{ github.event.release.body || '无更新说明' }}"
-            HTML_URL="${{ github.event.release.html_url }}"
-            PUBLISHED_AT="${{ github.event.release.published_at }}"
-          fi
+          BODY="${{ steps.check_release.outputs.body }}"
+          HTML_URL="${{ steps.check_release.outputs.html_url }}"
+          PUBLISHED_AT="${{ steps.check_release.outputs.published_at }}"
+          
           jq -n \
             --arg username "WorldBridge Bot" \
             --arg avatar_url "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png" \
@@ -93,8 +102,48 @@ jobs:
             }' > payload.json
           echo "payload_file=payload.json" >> $GITHUB_OUTPUT
 
+      - name: Prepare payload (no release fallback)
+        id: payload_fallback
+        if: steps.check_release.outputs.has_release != 'true'
+        run: |
+          TAG="${{ steps.channel.outputs.tag }}"
+          URL="${{ steps.channel.outputs.url }}"
+          
+          jq -n \
+            --arg username "WorldBridge Bot" \
+            --arg avatar_url "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png" \
+            --arg title "🚀 新版本发布：$TAG" \
+            --arg description "该标签暂无 Release 详情（可能是裸标签），请前往 GitHub 查看详情。" \
+            --arg url "https://github.com/${{ github.repository }}/releases/tag/${{ steps.channel.outputs.tag }}" \
+            --argjson color 5814783 \
+            --arg timestamp "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+            --arg footer "WorldBridge Auto-Release" \
+            '{
+              username: $username,
+              avatar_url: $avatar_url,
+              embeds: [{
+                title: $title,
+                description: $description,
+                url: $url,
+                color: $color,
+                timestamp: $timestamp,
+                footer: { text: $footer }
+              }]
+            }' > payload.json
+          echo "payload_file=payload.json" >> $GITHUB_OUTPUT
+
       - name: Send to Discord
         run: |
-          curl -X POST "${{ steps.channel.outputs.url }}" \
+          URL="${{ steps.channel.outputs.url }}"
+          PAYLOAD_FILE="${{ steps.payload.outputs.payload_file }}"
+          
+          # Fallback to fallback payload if main payload not set
+          if [ ! -f "$PAYLOAD_FILE" ]; then
+            PAYLOAD_FILE="${{ steps.payload_fallback.outputs.payload_file }}"
+          fi
+          
+          echo "Sending to Discord..."
+          curl -X POST "$URL" \
             -H "Content-Type: application/json" \
-            -d @${{ steps.payload.outputs.payload_file }}
+            -d @"$PAYLOAD_FILE"
+          echo "Done."
