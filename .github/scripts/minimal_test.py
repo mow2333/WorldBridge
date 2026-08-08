@@ -6,8 +6,9 @@ if not webhook_url:
     print("Error: DISCORD_WEBHOOK_STABLE not set")
     exit(1)
 
-# Minimal payload: ONLY a button component, no content, no embed
+# Minimal payload: content + button component
 payload = {
+    "content": "测试",
     "components": [{
         "type": 1,
         "components": [{
