@@ -14,136 +14,121 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
-      - name: Debug - print inputs
-        run: |
-          echo "Event name: ${{ github.event_name }}"
-          echo "Input tag: '${{ github.event.inputs.tag }}'"
-          echo "Release tag: '${{ github.event.release.tag_name }}'"
-          echo "Repository: ${{ github.repository }}"
-
-      - name: Resolve tag
-        id: resolve_tag
-        run: |
-          # Priority: manual input > release event tag
-          TAG="${{ github.event.inputs.tag || github.event.release.tag_name }}"
-          echo "Resolved TAG: $TAG"
-          echo "tag=$TAG" >> $GITHUB_OUTPUT
-
-      - name: Check if release exists for tag
-        id: check_release
+      - name: Run all logic in Python
+        id: main
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DISCORD_WEBHOOK_STABLE: ${{ secrets.DISCORD_WEBHOOK_STABLE }}
+          DISCORD_WEBHOOK_BETA: ${{ secrets.DISCORD_WEBHOOK_BETA }}
+          DISCORD_WEBHOOK_LEGACY: ${{ secrets.DISCORD_WEBHOOK_LEGACY }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          INPUT_TAG: ${{ github.event.inputs.tag }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
         run: |
-          TAG="${{ steps.resolve_tag.outputs.tag }}"
-          echo "Checking release for tag: $TAG"
-          
-          # Try to get release by tag
-          RELEASE=$(gh api repos/${{ github.repository }}/releases/tags/$TAG 2>/dev/null || echo "NOT_FOUND")
-          
-          if [ "$RELEASE" = "NOT_FOUND" ] || [ -z "$RELEASE" ]; then
-            echo "has_release=false" >> $GITHUB_OUTPUT
-            echo "Release not found for tag: $TAG"
-          else
-            echo "has_release=true" >> $GITHUB_OUTPUT
-            BODY=$(echo "$RELEASE" | jq -r '.body // "无更新说明"')
-            HTML_URL=$(echo "$RELEASE" | jq -r '.html_url')
-            PUBLISHED_AT=$(echo "$RELEASE" | jq -r '.published_at')
-            BODY_ESC=$(echo "$BODY" | jq -Rs .)
-            echo "body=$BODY_ESC" >> $GITHUB_OUTPUT
-            echo "html_url=$HTML_URL" >> $GITHUB_OUTPUT
-            echo "published_at=$PUBLISHED_AT" >> $GITHUB_OUTPUT
-          fi
+          python3 << 'PYEOF'
+          import os, json, re, sys, subprocess, urllib.request
 
-      - name: Determine channel
-        id: channel
-        run: |
-          TAG="${{ steps.resolve_tag.outputs.tag }}"
-          TAG_LOWER=$(echo "$TAG" | tr '[:upper:]' '[:lower:]')
-          
-          if [[ "$TAG_LOWER" == *beta* ]] || [[ "$TAG_LOWER" == *rc* ]] || [[ "$TAG_LOWER" == *alpha* ]] || [[ "$TAG_LOWER" == *test* ]]; then
-            echo "url=${{ secrets.DISCORD_WEBHOOK_BETA }}" >> $GITHUB_OUTPUT
-          elif [[ "$TAG" =~ ^v?[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "url=${{ secrets.DISCORD_WEBHOOK_STABLE }}" >> $GITHUB_OUTPUT
-          else
-            echo "url=${{ secrets.DISCORD_WEBHOOK_LEGACY }}" >> $GITHUB_OUTPUT
-          fi
-          echo "tag=${{ steps.resolve_tag.outputs.tag }}" >> $GITHUB_OUTPUT
+          # ---- 1. 解析 tag ----
+          event_name = os.getenv('GITHUB_EVENT_NAME')
+          input_tag = os.getenv('INPUT_TAG')
+          release_tag = os.getenv('RELEASE_TAG')
 
-      - name: Prepare payload (with release)
-        id: payload
-        if: steps.check_release.outputs.has_release == 'true'
-        run: |
-          TAG="${{ steps.channel.outputs.tag }}"
-          URL="${{ steps.channel.outputs.url }}"
-          BODY="${{ steps.check_release.outputs.body }}"
-          HTML_URL="${{ steps.check_release.outputs.html_url }}"
-          PUBLISHED_AT="${{ steps.check_release.outputs.published_at }}"
-          
-          jq -n \
-            --arg username "WorldBridge Bot" \
-            --arg avatar_url "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png" \
-            --arg title "🚀 新版本发布：$TAG" \
-            --arg description "$BODY" \
-            --arg url "$HTML_URL" \
-            --argjson color 5814783 \
-            --arg timestamp "$PUBLISHED_AT" \
-            --arg footer "WorldBridge Auto-Release" \
-            '{
-              username: $username,
-              avatar_url: $avatar_url,
-              embeds: [{
-                title: $title,
-                description: $description,
-                url: $url,
-                color: $color,
-                timestamp: $timestamp,
-                footer: { text: $footer }
+          tag = input_tag or release_tag
+          if not tag:
+              print("Error: No tag provided", file=sys.stderr)
+              sys.exit(1)
+
+          print(f"Resolved tag: {tag}")
+
+          # ---- 2. 判断频道 ----
+          tag_lower = tag.lower()
+          if any(kw in tag.lower() for kw in ('beta', 'rc', 'alpha', 'test')):
+              webhook_url = os.getenv('DISCORD_WEBHOOK_BETA')
+              channel_name = 'beta'
+          elif re.match(r'^v?\d+\.\d+\.\d+$', tag):
+              webhook_url = os.getenv('DISCORD_WEBHOOK_STABLE')
+              channel_name = 'stable'
+          else:
+              webhook_url = os.getenv('DISCORD_WEBHOOK_LEGACY')
+              channel_name = 'legacy'
+
+          print(f"Channel: {channel_name}")
+          print(f"Webhook URL: {webhook_url[:50]}...")
+
+          # ---- 3. 获取 release 信息 ----
+          gh_token = os.getenv('GITHUB_TOKEN')
+          repo = os.getenv('GITHUB_REPOSITORY')
+          api_url = f"https://api.github.com/repos/{repo}/releases/tags/{tag}"
+
+          body = "无更新说明"
+          html_url = f"https://github.com/{repo}/releases/tag/{tag}"
+          published_at = ""
+          has_release = False
+
+          try:
+              req = urllib.request.Request(
+                  f"https://api.github.com/repos/{repo}/releases/tags/{tag}",
+                  headers={
+                      'Authorization': f'Bearer {gh_token}',
+                      'Accept': 'application/vnd.github+json',
+                      'User-Agent': 'WorldBridge-Bot'
+                  }
+              )
+              with urllib.request.urlopen(req) as resp:
+                  release_data = json.load(resp)
+                  body = release_data.get('body') or "无更新说明"
+                  html_url = release_data.get('html_url', html_url)
+                  published_at = release_data.get('published_at', '')
+                  has_release = True
+                  print("Found release data")
+          except Exception as e:
+              print(f"No release found for tag {tag}: {e}")
+              published_at = subprocess.check_output(['date', '-u', '+%Y-%m-%dT%H:%M:%SZ'], text=True).strip()
+
+          # ---- 4. 构建 payload ----
+          if not published_at:
+              import datetime
+              published_at = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+
+          payload = {
+              "username": "WorldBridge Bot",
+              "avatar_url": "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png",
+              "embeds": [{
+                  "title": f"🚀 新版本发布：{tag}",
+                  "description": body if has_release else "该标签暂无 Release 详情（可能是裸标签），请前往 GitHub 查看详情。",
+                  "url": html_url,
+                  "color": 5814783,
+                  "timestamp": published_at,
+                  "footer": {"text": "WorldBridge Auto-Release"}
               }]
-            }' > payload.json
-          echo "payload_file=payload.json" >> $GITHUB_OUTPUT
+          }
 
-      - name: Prepare payload (no release fallback)
-        id: payload_fallback
-        if: steps.check_release.outputs.has_release != 'true'
-        run: |
-          TAG="${{ steps.channel.outputs.tag }}"
-          URL="${{ steps.channel.outputs.url }}"
-          
-          jq -n \
-            --arg username "WorldBridge Bot" \
-            --arg avatar_url "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png" \
-            --arg title "🚀 新版本发布：$TAG" \
-            --arg description "该标签暂无 Release 详情（可能是裸标签），请前往 GitHub 查看详情。" \
-            --arg url "https://github.com/${{ github.repository }}/releases/tag/${{ steps.channel.outputs.tag }}" \
-            --argjson color 5814783 \
-            --arg timestamp "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
-            --arg footer "WorldBridge Auto-Release" \
-            '{
-              username: $username,
-              avatar_url: $avatar_url,
-              embeds: [{
-                title: $title,
-                description: $description,
-                url: $url,
-                color: $color,
-                timestamp: $timestamp,
-                footer: { text: $footer }
-              }]
-            }' > payload.json
-          echo "payload_file=payload.json" >> $GITHUB_OUTPUT
+          # ---- 5. 发送到 Discord ----
+          webhook_urls = {
+              'stable': os.getenv('DISCORD_WEBHOOK_STABLE'),
+              'beta': os.getenv('DISCORD_WEBHOOK_BETA'),
+              'legacy': os.getenv('DISCORD_WEBHOOK_LEGACY')
+          }
 
-      - name: Send to Discord
-        run: |
-          URL="${{ steps.channel.outputs.url }}"
-          PAYLOAD_FILE="${{ steps.payload.outputs.payload_file }}"
-          
-          # Fallback to fallback payload if main payload not set
-          if [ ! -f "$PAYLOAD_FILE" ]; then
-            PAYLOAD_FILE="${{ steps.payload_fallback.outputs.payload_file }}"
-          fi
-          
-          echo "Sending to Discord..."
-          curl -X POST "$URL" \
-            -H "Content-Type: application/json" \
-            -d @"$PAYLOAD_FILE"
-          echo "Done."
+          # Determine which URL to use
+          if 'beta' in channel_name:
+              webhook_url = os.getenv('DISCORD_WEBHOOK_BETA')
+          elif channel_name == 'stable':
+              webhook_url = os.getenv('DISCORD_WEBHOOK_STABLE')
+          else:
+              webhook_url = os.getenv('DISCORD_WEBHOOK_LEGACY')
+
+          print(f"Sending to {channel_name} channel...")
+
+          data = json.dumps(payload).encode('utf-8')
+          req = urllib.request.Request(
+              webhook_url,
+              data=data,
+              headers={'Content-Type': 'application/json'}
+          )
+          with urllib.request.urlopen(req) as resp:
+              print(f"Discord response: {resp.status}")
+
+          print("Done!")
+          PYEOF
