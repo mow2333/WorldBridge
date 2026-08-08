@@ -1,0 +1,14 @@
+name: Minimal Button Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test minimal button
+        env:
+          DISCORD_WEBHOOK_STABLE: ${{ secrets.DISCORD_WEBHOOK_STABLE }}
+        run: python .github/scripts/minimal_test.py
