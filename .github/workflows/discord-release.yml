@@ -27,23 +27,25 @@ jobs:
           fi
           echo "tag=$TAG" >> $GITHUB_OUTPUT
 
-      - name: Fetch release data
+      - name: Fetch release data (manual trigger)
         id: release
         if: github.event.inputs.tag != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           TAG="${{ steps.channel.outputs.tag }}"
-          RELEASE=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            "https://api.github.com/repos/${{ github.repository }}/releases/tags/$TAG")
+          RELEASE=$(gh api repos/${{ github.repository }}/releases/tags/$TAG)
           BODY=$(echo "$RELEASE" | jq -r '.body // "无更新说明"')
           HTML_URL=$(echo "$RELEASE" | jq -r '.html_url')
           PUBLISHED_AT=$(echo "$RELEASE" | jq -r '.published_at')
-          # escape for JSON
-          BODY_ESC=$(echo "$BODY" | jq -Rs . | sed 's/^"//;s/"$//')
+          # escape for JSON using jq
+          BODY_ESC=$(echo "$BODY" | jq -Rs .)
           echo "body=$BODY_ESC" >> $GITHUB_OUTPUT
           echo "html_url=$HTML_URL" >> $GITHUB_OUTPUT
           echo "published_at=$PUBLISHED_AT" >> $GITHUB_OUTPUT
 
-      - name: Send to Discord
+      - name: Prepare payload
+        id: payload
         run: |
           TAG="${{ steps.channel.outputs.tag }}"
           URL="${{ steps.channel.outputs.url }}"
@@ -56,19 +58,32 @@ jobs:
             HTML_URL="${{ github.event.release.html_url }}"
             PUBLISHED_AT="${{ github.event.release.published_at }}"
           fi
-          curl -X POST "$URL" \
+          # Use jq to build JSON safely
+          jq -n \
+            --arg username "WorldBridge Bot" \
+            --arg avatar_url "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png" \
+            --arg title "🚀 新版本发布：$TAG" \
+            --arg description "$BODY" \
+            --arg url "$HTML_URL" \
+            --argjson color 5814783 \
+            --arg timestamp "$PUBLISHED_AT" \
+            --arg footer "WorldBridge Auto-Release" \
+            '{
+              username: $username,
+              avatar_url: $avatar_url,
+              embeds: [{
+                title: $title,
+                description: $description,
+                url: $url,
+                color: $color,
+                timestamp: $timestamp,
+                footer: { text: $footer }
+              }]
+            }' > payload.json
+          echo "payload_file=payload.json" >> $GITHUB_OUTPUT
+
+      - name: Send to Discord
+        run: |
+          curl -X POST "${{ steps.channel.outputs.url }}" \
             -H "Content-Type: application/json" \
-            -d @- <<EOF
-          {
-            "username": "WorldBridge Bot",
-            "avatar_url": "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png",
-            "embeds": [{
-              "title": "🚀 新版本发布：$TAG",
-              "description": $BODY,
-              "url": "$HTML_URL",
-              "color": 5814783,
-              "timestamp": "$PUBLISHED_AT",
-              "footer": { "text": "WorldBridge Auto-Release" }
-            }]
-          }
-          EOF
+            -d @${{ steps.payload.outputs.payload_file }}
