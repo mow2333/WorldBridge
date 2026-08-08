@@ -14,28 +14,31 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
-      - name: Determine channel
+      - name: Determine channel and tag
         id: channel
         run: |
-          TAG="${{ github.event.inputs.tag || github.event.release.tag_name }}"
-          # Use case statement instead of regex to avoid escaping issues
-          case "$TAG" in
-            *[Bb][Ee][Tt][Aa]*|*[Rr][Cc]*|*[Aa][Ll][Pp][Hh][Aa]*|*[Tt][Ee][Ss][Tt]*)
-              echo "url=${{ secrets.DISCORD_WEBHOOK_BETA }}" >> $GITHUB_OUTPUT
-              ;;
-            v[0-9]*.[0-9]*.[0-9]*|[0-9]*.[0-9]*.[0-9]*)
-              # Check if it's a standard version number (vX.Y.Z or X.Y.Z)
-              if [[ "$TAG" =~ ^v?[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-                echo "url=${{ secrets.DISCORD_WEBHOOK_STABLE }}" >> $GITHUB_OUTPUT
-              else
-                echo "url=${{ secrets.DISCORD_WEBHOOK_LEGACY }}" >> $GITHUB_OUTPUT
-              fi
-              ;;
-            *)
-              echo "url=${{ secrets.DISCORD_WEBHOOK_LEGACY }}" >> $GITHUB_OUTPUT
-              ;;
-          esac
-          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          python3 << 'PYEOF'
+          import os, re, sys
+
+          tag = os.getenv('INPUT_TAG') or os.getenv('GITHUB_REF_NAME', '')
+          # Determine channel
+          tag_lower = tag.lower()
+          if any(kw in tag_lower for kw in ('beta', 'rc', 'alpha', 'test')):
+              url = os.getenv('DISCORD_WEBHOOK_BETA')
+          elif re.match(r'^v?\d+\.\d+\.\d+$', tag):
+              url = os.getenv('DISCORD_WEBHOOK_STABLE')
+          else:
+              url = os.getenv('DISCORD_WEBHOOK_LEGACY')
+
+          print(f"url={url}")
+          print(f"tag={tag}")
+          PYEOF
+        env:
+          INPUT_TAG: ${{ github.event.inputs.tag }}
+          GITHUB_REF_NAME: ${{ github.event.release.tag_name }}
+          DISCORD_WEBHOOK_STABLE: ${{ secrets.DISCORD_WEBHOOK_STABLE }}
+          DISCORD_WEBHOOK_BETA: ${{ secrets.DISCORD_WEBHOOK_BETA }}
+          DISCORD_WEBHOOK_LEGACY: ${{ secrets.DISCORD_WEBHOOK_LEGACY }}
 
       - name: Fetch release data (manual trigger)
         id: release
