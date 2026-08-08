@@ -18,13 +18,23 @@ jobs:
         id: channel
         run: |
           TAG="${{ github.event.inputs.tag || github.event.release.tag_name }}"
-          if [[ "$TAG" =~ ^v?[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "url=${{ secrets.DISCORD_WEBHOOK_STABLE }}" >> $GITHUB_OUTPUT
-          elif [[ "$TAG" =~ (beta|rc|alpha|test) ]]; then
-            echo "url=${{ secrets.DISCORD_WEBHOOK_BETA }}" >> $GITHUB_OUTPUT
-          else
-            echo "url=${{ secrets.DISCORD_WEBHOOK_LEGACY }}" >> $GITHUB_OUTPUT
-          fi
+          # Use case statement instead of regex to avoid escaping issues
+          case "$TAG" in
+            *[Bb][Ee][Tt][Aa]*|*[Rr][Cc]*|*[Aa][Ll][Pp][Hh][Aa]*|*[Tt][Ee][Ss][Tt]*)
+              echo "url=${{ secrets.DISCORD_WEBHOOK_BETA }}" >> $GITHUB_OUTPUT
+              ;;
+            v[0-9]*.[0-9]*.[0-9]*|[0-9]*.[0-9]*.[0-9]*)
+              # Check if it's a standard version number (vX.Y.Z or X.Y.Z)
+              if [[ "$TAG" =~ ^v?[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+                echo "url=${{ secrets.DISCORD_WEBHOOK_STABLE }}" >> $GITHUB_OUTPUT
+              else
+                echo "url=${{ secrets.DISCORD_WEBHOOK_LEGACY }}" >> $GITHUB_OUTPUT
+              fi
+              ;;
+            *)
+              echo "url=${{ secrets.DISCORD_WEBHOOK_LEGACY }}" >> $GITHUB_OUTPUT
+              ;;
+          esac
           echo "tag=$TAG" >> $GITHUB_OUTPUT
 
       - name: Fetch release data (manual trigger)
@@ -38,7 +48,6 @@ jobs:
           BODY=$(echo "$RELEASE" | jq -r '.body // "无更新说明"')
           HTML_URL=$(echo "$RELEASE" | jq -r '.html_url')
           PUBLISHED_AT=$(echo "$RELEASE" | jq -r '.published_at')
-          # escape for JSON using jq
           BODY_ESC=$(echo "$BODY" | jq -Rs .)
           echo "body=$BODY_ESC" >> $GITHUB_OUTPUT
           echo "html_url=$HTML_URL" >> $GITHUB_OUTPUT
@@ -58,7 +67,6 @@ jobs:
             HTML_URL="${{ github.event.release.html_url }}"
             PUBLISHED_AT="${{ github.event.release.published_at }}"
           fi
-          # Use jq to build JSON safely
           jq -n \
             --arg username "WorldBridge Bot" \
             --arg avatar_url "https://raw.githubusercontent.com/mow2333/WorldBridge/master/icon.png" \
