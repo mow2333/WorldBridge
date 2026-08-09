@@ -11,24 +11,91 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   .notfound {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 100px 24px;
+    position: relative;
+    min-height: calc(100vh - 64px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
+    overflow: hidden;
+    background: radial-gradient(ellipse at 50% 120%, #1a2142 0%, #0d1128 55%, #060810 100%);
   }
-  .notfound h1 { font-size: 96px; margin: 0; color: var(--primary); font-weight: 700; }
-  .notfound p { color: var(--text-muted); font-size: 18px; margin: 12px 0 32px; }
-  .notfound a {
-    display: inline-block;
-    padding: 10px 24px;
+  .stars { position: absolute; inset: 0; }
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: #cdd6ff;
+    opacity: 0;
+    animation: twinkle 3s ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; }
+    50% { opacity: .9; }
+  }
+  .nf-card {
+    position: relative;
+    z-index: 1;
+    padding: 48px 24px;
+  }
+  .nf-code {
+    font-size: 132px;
+    font-weight: 700;
+    line-height: 1;
+    margin: 0;
+    letter-spacing: 4px;
+    background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  .nf-title {
+    font-size: 24px;
+    font-weight: 500;
+    margin: 20px 0 8px;
+    color: #e8eaf6;
+  }
+  .nf-desc {
+    color: rgba(180, 188, 218, .8);
+    font-size: 16px;
+    margin: 0 0 32px;
+    line-height: 1.9;
+  }
+  .nf-search input {
+    width: 340px;
+    max-width: 85%;
+    padding: 11px 18px;
     border-radius: 8px;
-    background: var(--primary);
+    border: 1px solid rgba(140, 158, 255, .35);
+    background: rgba(255, 255, 255, .06);
+    color: #e8eaf6;
+    font-size: 15px;
+    outline: none;
+    margin-bottom: 18px;
+    transition: border-color .15s ease, box-shadow .15s ease;
+  }
+  .nf-search input::placeholder { color: rgba(180, 188, 218, .55); }
+  .nf-search input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(140, 158, 255, .2);
+  }
+  .nf-btn {
+    display: inline-block;
+    padding: 11px 36px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     color: #fff;
     text-decoration: none;
     font-size: 15px;
     transition: opacity .15s ease;
   }
-  .notfound a:hover { opacity: .85; }
+  .nf-btn:hover { opacity: .85; }
+  .nf-foot {
+    margin-top: 44px;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: rgba(139, 148, 190, .55);
+  }
 </style>
 </head>
 <body>
@@ -58,17 +125,42 @@
   </div>
 </header>
 
-<main class="content" style="max-width:1440px;margin:0 auto">
+<main class="content" style="max-width:none;padding:0;margin:0 auto">
   <div class="notfound">
-    <h1>404</h1>
-    <p>页面不存在或已被移除</p>
-    <a href="/WorldBridge/">返回首页</a>
+    <div class="stars" id="stars" aria-hidden="true"></div>
+    <div class="nf-card">
+      <h1 class="nf-code">404</h1>
+      <p class="nf-title">这个维度不存在</p>
+      <p class="nf-desc">你坠入了世界之间的缝隙。<br>桥的另一端，没有你要找的坐标。</p>
+      <div class="nf-search">
+        <input type="search" id="nf-search" placeholder="搜索文档…" autocomplete="off" aria-label="搜索">
+      </div>
+      <br>
+      <a class="nf-btn" href="/WorldBridge/">返回首页</a>
+      <p class="nf-foot">—— 虚空之中，唯有星光长存 ——</p>
+    </div>
   </div>
 </main>
 
 <script>
 const SEARCH_INDEX = null;
 const SEARCH_DATA_URL = "search_index.json";
+</script>
+<script>
+(function () {
+  var stars = document.getElementById("stars");
+  for (var i = 0; i < 80; i++) {
+    var s = document.createElement("span");
+    s.className = "star";
+    s.style.left = (Math.random() * 100).toFixed(2) + "%";
+    s.style.top = (Math.random() * 100).toFixed(2) + "%";
+    var size = (Math.random() * 2 + 1).toFixed(1);
+    s.style.width = s.style.height = size + "px";
+    s.style.animationDelay = (Math.random() * 4).toFixed(2) + "s";
+    s.style.animationDuration = (Math.random() * 3 + 2).toFixed(2) + "s";
+    stars.appendChild(s);
+  }
+})();
 </script>
 <script src="assets/js/main.js"></script>
 </body>
