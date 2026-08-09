@@ -23,8 +23,10 @@ echo "${RELEASES}" | jq -c 'sort_by(.published_at) | .[]' | while read -r REL; d
   BODY=$(echo "${REL}" | jq -r .body)
   echo "==> syncing ${TAG}"
 
-  TAG_SHA=$(curl -s "${GITEE_API}/tags?per_page=100" | jq -r --arg t "${TAG}" \
+  TAG_SHA=$(curl -s "${GITEE_API}/tags?per_page=100&access_token=${GITEE_TOKEN}" | jq -r --arg t "${TAG}" \
     '.[] | select(.name==$t) | .commit.sha' | head -1)
+  # tag 未同步到 Gitee 时兜底用默认分支，避免 target_commitish 为空导致创建失败
+  [[ -z "${TAG_SHA}" ]] && TAG_SHA="master"
 
   RID=$(curl -s -X GET \
     "${GITEE_API}/releases/tags/${TAG}?access_token=${GITEE_TOKEN}" | jq -r '.id')
