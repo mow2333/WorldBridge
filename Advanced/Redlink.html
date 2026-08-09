@@ -146,6 +146,8 @@
 <ul>
 <li>实体站立发出 15 强度信号</li>
 <li>类似原版压力板，但信号强度固定为 15</li>
+<li>碰撞箱与模型对齐：单层 14×14 薄板（1px 高），朝下/贴墙四向对应旋转</li>
+<li>信号驱动：方块 <code>getTicker()</code> 注册 BE <code>tick()</code>，玩家/实体站上 → 对端配对红链方块收到 15 强度信号；自定义维度由服务端全局 tick 兜底</li>
 </ul>
 <h3 id="以太触发器-ether_trigger_block">以太触发器 (<code>ether_trigger_block</code>)</h3>
 <p>高级触发器方块，支持 5 种触发类型：</p>
