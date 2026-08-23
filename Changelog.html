@@ -101,6 +101,21 @@
 详见 <a href="/WorldBridge/../Changelog">CHANGELOG.md</a> 完整历史</p>
 </blockquote>
 <hr />
+<h2 id="0-3-4-2026-08-23">0.3.4 — 2026-08-23</h2>
+<h3 id="黄金崩坏带-仅-1-20-1">✨ 黄金崩坏带（仅 1.20.1）</h3>
+<p><strong>??? 迎来"维度不稳定效应"——黄金崩坏带</strong>：模拟浮点精度衰减，地形与视觉同步崩坏，碰撞不受任何影响。</p>
+<ul>
+<li>地形崩坏：噪声采样坐标 +2,500,000 常量偏移</li>
+<li>视觉崩坏：区块秒级微抖闪烁 + 方块面静态错位（双渲染层叠加）</li>
+<li>服务端配置 <code>chaos_abyssos.golden_collapse_belt_enabled</code>（默认开启）</li>
+<li>状态跨维度同步：登录/换维度即时推送，无残留污染</li>
+<li>其余版本分支同步排期中</li>
+</ul>
+<h3 id="修复">🐛 修复</h3>
+<ul>
+<li>??? 天空结构生成的共享随机源多线程崩溃（<code>Accessing LegacyRandomSource from multiple threads</code>）——改用 per-chunk 确定性随机源</li>
+</ul>
+<hr />
 <h2 id="0-3-3-2026-08-21">0.3.3 — 2026-08-21</h2>
 <h3 id="十版本矩阵正式达成">🏆 十版本矩阵正式达成</h3>
 <p><strong>WorldBridge 现已全面支持 1.19.x ~ 1.20.4 共 10 个版本分支</strong>，零源码改动编译通过。</p>
@@ -185,7 +200,7 @@
 </blockquote>
 </li>
 </ul>
-<h3 id="修复">🔧 修复</h3>
+<h3 id="修复_1">🔧 修复</h3>
 <ul>
 <li><strong>服务器启动自动恢复维度</strong>：修复 0.1.0 遗留 bug——在自定义维度退出游戏后重进被丢回原版维度；现 <code>ServerStartedEvent</code> 会重建所有已保存维度，玩家回到原坐标</li>
 <li><strong>far chunk 写入错误根治</strong>：修复 <code>Detected setBlock in a far chunk</code> 海量刷屏（打崩日志）；天空结构改为区块裁剪放置，结构完整且零越界写入</li>
@@ -262,7 +277,7 @@
 <li><code>DimensionType</code> 重做：<code>hasCeiling=true</code>、<code>hasSkylight=false</code></li>
 <li><code>NoiseSettings</code> 复用主世界噪声 + 固定 Deep Dark 群系</li>
 </ul>
-<h4 id="修复_1">🔧 修复</h4>
+<h4 id="修复_2">🔧 修复</h4>
 <ul>
 <li>深渊维度传送失败 (Y=-64 安全落点扫描)</li>
 </ul>
@@ -276,7 +291,7 @@
 <li>更新日志拆分：<code>CHANGELOG_EN.md</code> / <code>CHANGELOG_CN.md</code> 双文件</li>
 <li>AGENTS.md 新增「内心独白用中文」规则</li>
 </ul>
-<h4 id="修复_2">🔧 修复</h4>
+<h4 id="修复_3">🔧 修复</h4>
 <ul>
 <li>1.19.4 <code>ResourceLocation.parse()</code> 运行时崩溃 → 全量替换为 <code>new ResourceLocation(ns, path)</code></li>
 <li>种子交换静默失效修复：引用比较 <code>f.get(worldData) == expected</code></li>
@@ -318,7 +333,7 @@
 <li>结构发现：Tick 事件 3x3 区块扫描 + 静态 Map 记录</li>
 <li>进维度/创世/深度/高度触发器完整</li>
 </ul>
-<h3 id="修复_3">🐛 修复</h3>
+<h3 id="修复_4">🐛 修复</h3>
 <ul>
 <li><code>CriteriaTriggers.register</code> 线程安全 → 移入 <code>FMLCommonSetupEvent#enqueueWork</code></li>
 <li>成就标题隐藏：<code>enter_chaos_abyssos</code> 标题设为 <code>"???"</code></li>
@@ -364,7 +379,7 @@
   </main>
 
   <aside class="toc-sidebar">
-    <nav class="page-toc"><p class="toc-title">本页目录</p><ul><li><a href="#0-3-3-2026-08-21">0.3.3 — 2026-08-21</a></li><li><a href="#0-3-2-2026-08-13">0.3.2 — 2026-08-13</a></li><li><a href="#0-3-1-2026-08-09">0.3.1 — 2026-08-09</a></li><li><a href="#0-3-0-2026-08-06">0.3.0 — 2026-08-06</a></li><li><a href="#0-2-3-2026-07-13">0.2.3 — 2026-07-13</a></li><li><a href="#0-2-2-2026-07-11">0.2.2 — 2026-07-11</a></li><li><a href="#0-2-1-2026-07-10">0.2.1 — 2026-07-10</a></li><li><a href="#0-2-0-2026-07-09">0.2.0 — 2026-07-09</a></li><li><a href="#0-1-1-2026-07-07">0.1.1 — 2026-07-07</a></li><li><a href="#0-1-0-2026-07-06">0.1.0 - 2026-07-06</a></li></ul></nav>
+    <nav class="page-toc"><p class="toc-title">本页目录</p><ul><li><a href="#0-3-4-2026-08-23">0.3.4 — 2026-08-23</a></li><li><a href="#0-3-3-2026-08-21">0.3.3 — 2026-08-21</a></li><li><a href="#0-3-2-2026-08-13">0.3.2 — 2026-08-13</a></li><li><a href="#0-3-1-2026-08-09">0.3.1 — 2026-08-09</a></li><li><a href="#0-3-0-2026-08-06">0.3.0 — 2026-08-06</a></li><li><a href="#0-2-3-2026-07-13">0.2.3 — 2026-07-13</a></li><li><a href="#0-2-2-2026-07-11">0.2.2 — 2026-07-11</a></li><li><a href="#0-2-1-2026-07-10">0.2.1 — 2026-07-10</a></li><li><a href="#0-2-0-2026-07-09">0.2.0 — 2026-07-09</a></li><li><a href="#0-1-1-2026-07-07">0.1.1 — 2026-07-07</a></li><li><a href="#0-1-0-2026-07-06">0.1.0 - 2026-07-06</a></li></ul></nav>
   </aside>
 </div>
 
