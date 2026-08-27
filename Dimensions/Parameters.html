@@ -65,6 +65,7 @@
 <li><a class="nav-link" href="/WorldBridge/Items/World-Anchor">世界之锚</a></li>
 <li><a class="nav-link" href="/WorldBridge/Items/Star-Anchor">星锚奇点</a></li>
 <li><a class="nav-link" href="/WorldBridge/Items/Transdimensional-Hopper">跨维漏斗</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Dimension-Globe">维度地球仪</a></li>
 </ul>
 <p class="nav-group">成就系统</p>
 <ul class="nav-list">
@@ -97,6 +98,9 @@
       <h1 class="page-heading">维度参数详解</h1>
       <h1 id="维度参数详解">维度参数详解</h1>
 <p>创建维度时可配置的所有参数完整参考。</p>
+<blockquote>
+<p>仅做参考，实际效果可用TAB补全查看</p>
+</blockquote>
 <hr />
 <h2 id="参数总览表">📋 参数总览表</h2>
 <table>
@@ -274,7 +278,7 @@
 <ul>
 <li><strong>仅</strong> <code>single_biome</code> 类型<strong>必须</strong>填写</li>
 <li>格式：<code>namespace:path</code>，如 <code>minecraft:meadow</code>、<code>minecraft:cherry_grove</code></li>
-<li>可用 <code>/worldbridge create test single_biome -b minecraft:</code> + Tab 补全查看</li>
+<li>可用 <code>/worldbridge world create test single_biome -b minecraft:</code> + Tab 补全查看</li>
 </ul>
 <hr />
 <h3 id="seed-s-种子"><code>--seed</code> / <code>-s</code> 种子</h3>
@@ -357,7 +361,7 @@
 <li>长度：4-16 字符</li>
 <li>支持字母、数字、符号</li>
 <li>设置后：传送、编辑、删除均需验证</li>
-<li>重置：<code>/worldbridge resetpassword &lt;pairId&gt;</code> (OP 2)</li>
+<li>重置：<code>/worldbridge world resetpassword &lt;pairId&gt;</code> (OP 2)</li>
 </ul>
 <hr />
 <h3 id="difficulty-lock-dl-难度锁定"><code>--difficulty-lock</code> / <code>-dl</code> 难度锁定</h3>
@@ -368,23 +372,23 @@
 <hr />
 <h2 id="完整示例">📝 完整示例</h2>
 <div class="codehilite"><pre><span></span><code><span class="c1"># 标准生存世界</span>
-/worldbridge<span class="w"> </span>create<span class="w"> </span>Survival<span class="w"> </span>default<span class="w"> </span>-s<span class="w"> </span><span class="m">12345</span><span class="w"> </span>-d<span class="w"> </span>normal<span class="w"> </span>-st<span class="w"> </span><span class="nb">true</span><span class="w"> </span>-sl<span class="w"> </span><span class="m">63</span>
+/worldbridge<span class="w"> </span>world<span class="w"> </span>create<span class="w"> </span>Survival<span class="w"> </span>default<span class="w"> </span>-s<span class="w"> </span><span class="m">12345</span><span class="w"> </span>-d<span class="w"> </span>normal<span class="w"> </span>-st<span class="w"> </span><span class="nb">true</span><span class="w"> </span>-sl<span class="w"> </span><span class="m">63</span>
 
 <span class="c1"># 单一群系（樱花林），指定种子，困难模式</span>
-/worldbridge<span class="w"> </span>create<span class="w"> </span>Sakura<span class="w"> </span>single_biome<span class="w"> </span>-b<span class="w"> </span>minecraft:cherry_grove<span class="w"> </span>-s<span class="w"> </span><span class="m">987654321</span><span class="w"> </span>-d<span class="w"> </span>hard
+/worldbridge<span class="w"> </span>world<span class="w"> </span>create<span class="w"> </span>Sakura<span class="w"> </span>single_biome<span class="w"> </span>-b<span class="w"> </span>minecraft:cherry_grove<span class="w"> </span>-s<span class="w"> </span><span class="m">987654321</span><span class="w"> </span>-d<span class="w"> </span>hard
 
 <span class="c1"># 星界之野（浮空岛），关闭结构</span>
-/worldbridge<span class="w"> </span>create<span class="w"> </span>SkyIsles<span class="w"> </span>aetherial_fields<span class="w"> </span>-st<span class="w"> </span><span class="nb">false</span>
+/worldbridge<span class="w"> </span>world<span class="w"> </span>create<span class="w"> </span>SkyIsles<span class="w"> </span>aetherial_fields<span class="w"> </span>-st<span class="w"> </span><span class="nb">false</span>
 
 
 <span class="c1"># 幽邃深渊，锁定困难难度</span>
-/worldbridge<span class="w"> </span>create<span class="w"> </span>Deep<span class="w"> </span>deep_abyss<span class="w"> </span>-d<span class="w"> </span>hard<span class="w"> </span>-dl<span class="w"> </span><span class="nb">true</span>
+/worldbridge<span class="w"> </span>world<span class="w"> </span>create<span class="w"> </span>Deep<span class="w"> </span>deep_abyss<span class="w"> </span>-d<span class="w"> </span>hard<span class="w"> </span>-dl<span class="w"> </span><span class="nb">true</span>
 
 <span class="c1"># 超平坦创造世界</span>
-/worldbridge<span class="w"> </span>create<span class="w"> </span>Build<span class="w"> </span>flat<span class="w"> </span>-dl<span class="w"> </span><span class="nb">true</span>
+/worldbridge<span class="w"> </span>world<span class="w"> </span>create<span class="w"> </span>Build<span class="w"> </span>flat<span class="w"> </span>-dl<span class="w"> </span><span class="nb">true</span>
 
 <span class="c1"># 洞穴世界，关闭矿脉</span>
-/worldbridge<span class="w"> </span>create<span class="w"> </span>Cavern<span class="w"> </span>caves<span class="w"> </span>-ov<span class="w"> </span><span class="nb">false</span>
+/worldbridge<span class="w"> </span>world<span class="w"> </span>create<span class="w"> </span>Cavern<span class="w"> </span>caves<span class="w"> </span>-ov<span class="w"> </span><span class="nb">false</span>
 </code></pre></div>
 
 <hr />
@@ -421,7 +425,7 @@
 <tr>
 <td><code>Dimension 'xxx' not found</code></td>
 <td>tp 时维度不存在</td>
-<td>先 <code>/worldbridge list</code> 确认 pairId</td>
+<td>先 <code>/worldbridge world list</code> 确认 pairId</td>
 </tr>
 </tbody>
 </table>

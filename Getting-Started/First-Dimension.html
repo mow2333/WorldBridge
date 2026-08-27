@@ -65,6 +65,7 @@
 <li><a class="nav-link" href="/WorldBridge/Items/World-Anchor">世界之锚</a></li>
 <li><a class="nav-link" href="/WorldBridge/Items/Star-Anchor">星锚奇点</a></li>
 <li><a class="nav-link" href="/WorldBridge/Items/Transdimensional-Hopper">跨维漏斗</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Dimension-Globe">维度地球仪</a></li>
 </ul>
 <p class="nav-group">成就系统</p>
 <ul class="nav-list">
@@ -123,7 +124,7 @@
 <ol>
 <li>
 <p><strong>打开创建界面</strong>
-   - 聊天栏输入 <code>/worldbridge create</code>
+   - 聊天栏输入 <code>/worldbridge world create</code>
    - 或在主菜单点击 "WorldBridge" 按钮（需模组加载完成）</p>
 </li>
 <li>
@@ -159,7 +160,7 @@
 <hr />
 <h2 id="命令行创建">⌨️ 命令行创建</h2>
 <h3 id="基础语法">基础语法</h3>
-<div class="codehilite"><pre><span></span><code>/worldbridge<span class="w"> </span>create<span class="w"> </span>&lt;name&gt;<span class="w"> </span>&lt;worldType&gt;<span class="w"> </span><span class="o">[</span>options...<span class="o">]</span>
+<div class="codehilite"><pre><span></span><code>/worldbridge<span class="w"> </span>world<span class="w"> </span>create<span class="w"> </span>&lt;name&gt;<span class="w"> </span>&lt;worldType&gt;<span class="w"> </span><span class="o">[</span>options...<span class="o">]</span>
 </code></pre></div>
 
 <h3 id="完整参数表">完整参数表</h3>
@@ -243,14 +244,14 @@
 </table>
 <h3 id="示例">示例</h3>
 <div class="codehilite"><pre><span></span><code><span class="c1"># 创建一个默认世界</span>
-/worldbridge<span class="w"> </span>create<span class="w"> </span>MyWorld<span class="w"> </span>default
+/worldbridge<span class="w"> </span>world<span class="w"> </span>create<span class="w"> </span>MyWorld<span class="w"> </span>default
 
 <span class="c1"># 创建单一生物群系（繁花丘陵），指定种子</span>
-/worldbridge<span class="w"> </span>create<span class="w"> </span>FlowerWorld<span class="w"> </span>single_biome<span class="w"> </span>--biome<span class="w"> </span>minecraft:meadow<span class="w"> </span>--seed<span class="w"> </span><span class="m">123456789</span>
+/worldbridge<span class="w"> </span>world<span class="w"> </span>create<span class="w"> </span>FlowerWorld<span class="w"> </span>single_biome<span class="w"> </span>--biome<span class="w"> </span>minecraft:meadow<span class="w"> </span>--seed<span class="w"> </span><span class="m">123456789</span>
 
 
 <span class="c1"># 创建星界之野，关闭结构</span>
-/worldbridge<span class="w"> </span>create<span class="w"> </span>VoidIsles<span class="w"> </span>aetherial_fields<span class="w"> </span>--structures<span class="w"> </span><span class="nb">false</span>
+/worldbridge<span class="w"> </span>world<span class="w"> </span>create<span class="w"> </span>VoidIsles<span class="w"> </span>aetherial_fields<span class="w"> </span>--structures<span class="w"> </span><span class="nb">false</span>
 </code></pre></div>
 
 <hr />
@@ -296,8 +297,8 @@
 <hr />
 <h2 id="小技巧">💡 小技巧</h2>
 <ul>
-<li><strong>批量创建</strong>：写脚本循环调用 <code>/worldbridge create</code>，配合 <code>--seed</code> 固定地形</li>
-<li><strong>模板复用</strong>：先用 GUI 创建一个满意的，用 <code>/worldbridge info &lt;name&gt;</code> 导出参数，再用命令行批量复制</li>
+<li><strong>批量创建</strong>：写脚本循环调用 <code>/worldbridge world create</code>，配合 <code>--seed</code> 固定地形</li>
+<li><strong>模板复用</strong>：先用 GUI 创建一个满意的，用 <code>/worldbridge world info &lt;name&gt;</code> 导出参数，再用命令行批量复制</li>
 <li><strong>备份种子</strong>：重要维度记下种子，万一世界损坏可用种子重建</li>
 </ul>
     </article>

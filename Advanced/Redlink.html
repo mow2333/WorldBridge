@@ -65,6 +65,7 @@
 <li><a class="nav-link" href="/WorldBridge/Items/World-Anchor">世界之锚</a></li>
 <li><a class="nav-link" href="/WorldBridge/Items/Star-Anchor">星锚奇点</a></li>
 <li><a class="nav-link" href="/WorldBridge/Items/Transdimensional-Hopper">跨维漏斗</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Dimension-Globe">维度地球仪</a></li>
 </ul>
 <p class="nav-group">成就系统</p>
 <ul class="nav-list">
@@ -197,7 +198,7 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>红链扳手</strong></td>
+<td><strong>扳手</strong></td>
 <td><code>redlink_wrench</code></td>
 <td>配对工具：右键配对/切换模式</td>
 </tr>
@@ -306,13 +307,14 @@
 <h3 id="worldbridge-redlink"><code>/worldbridge redlink</code></h3>
 <div class="codehilite"><pre><span></span><code>worldbridge
 └── redlink
-    ├── pair list                    # 列出所有配对
-    ├── pair disconnect &lt;pairId&gt;     # 解除配对
-    ├── pair locate &lt;pairId&gt;         # 定位配对
-    ├── trigger list                 # 列出以太触发器
-    ├── trigger info &lt;pos&gt;           # 查看触发器详情
-    ├── trigger clear &lt;pos&gt;          # 清除触发器区域
-    └── trigger setregion &lt;pos&gt;      # 设置检测区域
+    ├── pair
+    |   ├── list                    # 列出所有配对
+    |   ├── disconnect &lt;pairId&gt;     # 解除配对
+    |   └── locate &lt;pairId&gt;         # 定位配对
+    └── trigger list                 # 列出以太触发器
+        ├── info &lt;pos&gt;           # 查看触发器详情
+        ├── clear &lt;pos&gt;          # 清除触发器区域
+        └── setregion &lt;pos&gt;      # 设置检测区域
 </code></pre></div>
 
 <h3 id="坐标格式">坐标格式</h3>

@@ -202,19 +202,19 @@
 </table>
 <hr />
 <h2 id="快速上手-3-步">🎮 快速上手 3 步</h2>
-<div class="codehilite"><pre><span></span><code><span class="c1"># 1. 安装 Forge (1.19.4 - 45.2.0+ / 1.20.1 - 47.2.0+ / 1.20.4 - 49.2.9+)</span>
-<span class="c1"># 2. 将 WorldBridge-x.x.x.jar 放入 mods/</span>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 1. 安装 Forge (1.19.4 - 45.2.0+ / 1.20.1 - 47.2.0+ / 1.20.4 - 49.2.9+ / ...)</span>
+<span class="c1"># 2. 将 WorldBridge-&lt;forge/fabric&gt;-&lt;min_forge/fabric&gt;+-x.x.x-&lt;Minecraft_Version&gt;.jar 放入 mods/</span>
 <span class="c1"># 3. 启动服务端/客户端 → 完成！</span>
 </code></pre></div>
 
 <div class="codehilite"><pre><span></span><code><span class="c1"># 游戏内首次创建维度</span>
-<span class="o">/</span><span class="kc">worldbridge</span><span class="w"> </span><span class="kc">create</span><span class="w"> </span><span class="kc">MyWorld</span><span class="w"> </span><span class="kc">default</span><span class="w"> </span><span class="nf">minecraft:plains</span><span class="w"> </span><span class="mf">12345</span>
+<span class="o">/</span><span class="kc">worldbridge</span><span class="w"> </span><span class="kc">world</span><span class="w"> </span><span class="kc">create</span><span class="w"> </span><span class="kc">MyWorld</span><span class="w"> </span><span class="kc">default</span><span class="w"> </span><span class="nf">minecraft:plains</span><span class="w"> </span><span class="mf">12345</span>
 <span class="c1"># → 生成 PairID (如 a3f2) → 自动创建维度 → 返回 PairID</span>
 
 <span class="c1"># 传送进去</span>
-<span class="o">/</span><span class="kc">worldbridge</span><span class="w"> </span><span class="kc">tp</span><span class="w"> </span><span class="kc">MyWorld</span>
+<span class="o">/</span><span class="kc">worldbridge</span><span class="w"> </span><span class="kc">world</span><span class="w"> </span><span class="kc">tp</span><span class="w"> </span><span class="kc">MyWorld</span>
 <span class="c1"># 或使用 PairID</span>
-<span class="o">/</span><span class="kc">worldbridge</span><span class="w"> </span><span class="kc">tp</span><span class="w"> </span><span class="kc">a3f2b1c4</span>
+<span class="o">/</span><span class="kc">worldbridge</span><span class="w"> </span><span class="kc">world</span><span class="w"> </span><span class="kc">tp</span><span class="w"> </span><span class="kc">a3f2b1c4</span>
 </code></pre></div>
 
 <hr />
@@ -230,17 +230,21 @@
 ├── items/               # 物品与方块
 │   ├── world-anchor.md
 │   ├── star-anchor.md
-│   └── transdimensional-hopper.md
+│   ├── corrupted-block.md
+|   ├── transdimensional-hopper.md
+|   └── dimension-globe.md
 ├── advancements/        # 成就系统
 │   ├── list.md
 │   └── triggers.md
 ├── config/              # 服务端配置
-│   └── server-config.md
+│   ├── server-config.md
+|   └── permissions.md
 ├── advanced/            # 进阶
 │   ├── star-anchor-light.md
 │   ├── redlink.md
 │   ├── datapack.md
-│   └── faq.md
+│   ├── faq.md
+|   └── anchor-gui.md
 └── changelog.md         # 更新日志
 </code></pre></div>
 
@@ -250,7 +254,7 @@
 <li><strong>GitHub</strong>: <a href="https://github.com/mow2333/WorldBridge">WorldBridge Repository</a></li>
 <li><strong>Issues</strong>: <a href="https://github.com/mow2333/WorldBridge/issues">Bug 报告 / 功能建议</a></li>
 <li><strong>Discord</strong>: <a href="https://discord.gg/zxG3zmsR9P">加入讨论</a></li>
-<li><strong>CurseForge</strong>: <a href="https://www.curseforge.com/minecraft/mc-mods/worldbridge">下载发布版</a></li>
+<li><strong>CurseForge</strong>:  <strong>暂未开放</strong></li>
 </ul>
 <hr />
 <blockquote>

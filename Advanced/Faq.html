@@ -65,6 +65,7 @@
 <li><a class="nav-link" href="/WorldBridge/Items/World-Anchor">世界之锚</a></li>
 <li><a class="nav-link" href="/WorldBridge/Items/Star-Anchor">星锚奇点</a></li>
 <li><a class="nav-link" href="/WorldBridge/Items/Transdimensional-Hopper">跨维漏斗</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Dimension-Globe">维度地球仪</a></li>
 </ul>
 <p class="nav-group">成就系统</p>
 <ul class="nav-list">
@@ -110,12 +111,44 @@
 </thead>
 <tbody>
 <tr>
+<td>1.19</td>
+<td>41.0.68+</td>
+</tr>
+<tr>
+<td>1.19.1</td>
+<td>42.0.0+</td>
+</tr>
+<tr>
+<td>1.19.2</td>
+<td>43.2.0+</td>
+</tr>
+<tr>
+<td>1.19.3</td>
+<td>44.0.20+</td>
+</tr>
+<tr>
 <td>1.19.4</td>
 <td>45.2.0+</td>
 </tr>
 <tr>
+<td>1.20</td>
+<td>46.0.1+</td>
+</tr>
+<tr>
 <td>1.20.1</td>
 <td>47.2.0+</td>
+</tr>
+<tr>
+<td>1.20.2</td>
+<td>48.0.0+</td>
+</tr>
+<tr>
+<td>1.20.3</td>
+<td>49.0.0+</td>
+</tr>
+<tr>
+<td>1.20.4</td>
+<td>49.1.0+</td>
 </tr>
 </tbody>
 </table>
@@ -124,23 +157,23 @@
 <hr />
 <h2 id="维度创建与管理">🌍 维度创建与管理</h2>
 <h3 id="q-为什么-worldbridge-create-报错-unknown-command">Q: 为什么 <code>/worldbridge create</code> 报错 "Unknown command"?</h3>
-<p><strong>A:</strong> 模组只注册了 <code>worldbridge</code>，<strong>没有 <code>wb</code> 别名</strong>。请用完整命令 <code>/worldbridge create ...</code>。</p>
-<h3 id="q-为什么-worldbridge-tp-myworld-提示-invalid-dimension">Q: 为什么 <code>/worldbridge tp MyWorld</code> 提示 "Invalid dimension"?</h3>
+<p><strong>A:</strong> 模组只注册了 <code>/worldbridge world</code>，<strong>没有 <code>worldbridge create</code> 别名</strong>。请用完整命令 <code>/worldbridge world create ...</code>。</p>
+<h3 id="q-为什么-worldbridge-world-tp-myworld-提示-invalid-dimension">Q: 为什么 <code>/worldbridge world tp MyWorld</code> 提示 "Invalid dimension"?</h3>
 <p><strong>A:</strong> <code>tp</code> 接受的是 <strong>完整 ResourceLocation</strong>，不是维度名或 PairID。<br />
 正确用法：</p>
-<div class="codehilite"><pre><span></span><code>/worldbridge<span class="w"> </span>tp<span class="w"> </span>world_bridge:a3f2b1c4
+<div class="codehilite"><pre><span></span><code>/worldbridge<span class="w"> </span>world<span class="w"> </span>tp<span class="w"> </span>world_bridge:a3f2b1c4
 <span class="c1"># 或</span>
-/worldbridge<span class="w"> </span>tp<span class="w"> </span>minecraft:the_nether
+/worldbridge<span class="w"> </span>world<span class="w"> </span>tp<span class="w"> </span>minecraft:the_nether
 </code></pre></div>
 
-<p>用 <code>/worldbridge list</code> 查看 PairID，拼成 <code>world_bridge:&lt;pairId&gt;</code>。</p>
+<p>用 <code>/worldbridge world list</code> 查看 PairID，拼成 <code>world_bridge:&lt;pairId&gt;</code>。</p>
 <h3 id="q-创建维度后传送失败-卡在虚空">Q: 创建维度后传送失败 / 卡在虚空？</h3>
 <p><strong>A:</strong> 常见原因：
-- 安全落点扫描超时 → 尝试指定种子 <code>/worldbridge create ... -s 12345</code>
-- 目标维度未加载 → 先 <code>/worldbridge list</code> 确认状态，或先 <code>/worldbridge tp</code> 触发加载
+- 安全落点扫描超时 → 尝试指定种子 <code>/worldbridge world create ... -s 12345</code>
+- 目标维度未加载 → 先 <code>/worldbridge world list</code> 确认状态，或先 <code>/worldbridge world tp</code> 触发加载
 - 日志 <code>latest.log</code> 搜 <code>TeleportHelper</code> 看报错堆栈</p>
 <h3 id="q-密码忘了怎么办">Q: 密码忘了怎么办？</h3>
-<p><strong>A:</strong> OP 执行 <code>/worldbridge resetpassword &lt;pairId&gt;</code> 清空密码，随后传送时重新设置。</p>
+<p><strong>A:</strong> OP 执行 <code>/worldbridge world resetpassword &lt;pairId&gt;</code> 清空密码，随后传送时重新设置。</p>
 <h3 id="q-能不能修改已创建维度的类型-种子-群系">Q: 能不能修改已创建维度的类型/种子/群系？</h3>
 <p><strong>A:</strong> 不能。创建后 <strong>类型、种子、群系、PairID 全部锁定</strong>，不可修改。</p>
 <hr />
@@ -206,7 +239,7 @@
 <hr />
 <h2 id="其它">📦 其它</h2>
 <h3 id="q-能不能把模组加到模组包里发布">Q: 能不能把模组加到模组包里发布？</h3>
-<p><strong>A:</strong> 可以，遵循 MIT 许可证即可。</p>
+<p><strong>A:</strong> 可以，需注明来源并遵循模组发布页的转载说明。</p>
 <h3 id="q-有没有-fabric-neoforge-版本">Q: 有没有 Fabric / NeoForge 版本？</h3>
 <p><strong>A:</strong> 目前仅 Forge。其它加载器暂无计划。</p>
 <h3 id="q-能不能跟-xxx-模组兼容">Q: 能不能跟 XXX 模组兼容？</h3>
