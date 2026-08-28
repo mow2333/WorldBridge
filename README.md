@@ -1,8 +1,8 @@
 # WorldBridge
 
-> **⚠️ 非开源项目 | All Rights Reserved**  
-> 本仓库仅提供 **API 文档与依赖坐标**，供模组开发者将 WorldBridge 作为库/依赖集成。  
-> **源代码不公开**，禁止反编译、修改、再分发、商用。  
+> **⚠️ 非开源项目 | All Rights Reserved**
+> 本仓库仅提供 **API 文档与依赖坐标**，供模组开发者将 WorldBridge 作为库/依赖集成。
+> **源代码不公开**，禁止反编译、修改、再分发、商用。
 > 仅允许作为 **库依赖** 在你的模组中使用 WorldBridge 的公开 API。
 > 本模组目前是**开发状态**中，存在部分**已知Bug**，欢迎各位玩家提出问题到issues，我将处理大部分的问题。
 > **如需源代码，请在社交媒体上直接询问作者，酌情提供。**
@@ -15,159 +15,169 @@
 
 ```groovy
 repositories {
-    maven { url 'https://maven.mow2333.top/releases' }
+// 注意：0.4.0 版本的 Maven 仓库可能不可用，建议改用本地 JAR 方式
+// maven { url 'https://maven.mow2333.top/releases' }
 }
 
 dependencies {
-    // 仅在编译期需要，运行时由 WorldBridge 模组提供
-    compileOnly fg.deobf("com.mow.mod.worldbridge:world_bridge:0.2.0")
-    
-    // 如果需要运行时也依赖（强制要求用户安装 WorldBridge）
-    // runtimeOnly fg.deobf("com.mow.mod.worldbridge:world_bridge:0.2.0")
+// 推荐方式：直接将 JAR 放入项目根目录的 libs 文件夹
+implementation fg.deobf(fileTree("libs"))
+
+// 如果 Maven 仓库修复，可改用：
+// compileOnly fg.deobf("com.mow.mod.worldbridge:world_bridge:0.4.0")
 }
 ```
 
-### Maven (pom.xml)
-
-```xml
-<repository>
-    <id>worldbridge-releases</id>
-    <url>https://maven.mow2333.top/releases</url>
-</repository>
-
-<dependency>
-    <groupId>com.mow.mod.worldbridge</groupId>
-    <artifactId>world_bridge</artifactId>
-    <version>0.2.0</version>
-    <scope>provided</scope>
-</dependency>
-```
-
-> **版本对应关系**  
-> - `0.2.0` → Minecraft 1.19.4 (Forge 45.2.0+) / 1.20.1 (Forge 47.2.0+)  
-> - 请根据你的目标 MC 版本选择对应的 Forge 版本
+> **⚠️ 注意**：`0.4.0` 版本的 Maven 仓库可能不可用，建议直接从 GitHub Releases 下载 JAR 并放入 `libs` 文件夹。
 
 ---
 
-## 🔧 公开 API 概览
+## 🔧 公开 API 概览（基于 0.4.0 版本实际 JAR 结构）
 
 WorldBridge 为模组开发者暴露以下核心 API 包：
 
-### 1. 维度管理 API (`com.mow.mod.worldbridge.dimension`)
+### 1. 维度管理 API
 
-| 类/接口 | 用途 |
-|---------|------|
-| `DimensionData` | 维度数据实体（pairId、名称、世界类型、生物群系、种子、生成配置等） |
-| `DimensionDataManager` | 维度数据的增删改查、持久化、查询（`SavedData` 单例） |
-| `CustomDimensionData` | 自定义维度模板数据（biome_mix、generation、stacking 等完整配置） |
-| `CustomDimensionManager` | 自定义维度模板的 CRUD、文件管理、关联维度查询 |
-| `ModDimensions` | 维度创建、传送、删除、列表的核心工具类（反射创建维度） |
-| `TeleportHelper` | 实体跨维度传送、安全出生点扫描、成就触发 |
+| 类/接口 | 实际路径 |
+|---------|----------|
+| `DimensionData` | `com.mow.mod.worldbridge.dimension.DimensionData` |
+| `DimensionDataManager` | `com.mow.mod.worldbridge.dimension.DimensionDataManager` |
+| `ModDimensions` | `com.mow.mod.worldbridge.dimension.ModDimensions` |
+| `GameRuleConfig` | `com.mow.mod.worldbridge.dimension.GameRuleConfig` |
+| `GenerationConfig` | `com.mow.mod.worldbridge.dimension.GenerationConfig` |
+| `PermissionSettings` | `com.mow.mod.worldbridge.dimension.PermissionSettings` |
+| `RuinedChunkGenerator` | `com.mow.mod.worldbridge.dimension.RuinedChunkGenerator` |
+| `CustomDimensionData` | `com.mow.mod.worldbridge.dimension.custom.CustomDimensionData` |
+| `CustomDimensionManager` | `com.mow.mod.worldbridge.dimension.custom.CustomDimensionManager` |
+| `CommandDimensionEntry` | `com.mow.mod.worldbridge.dimension.custom.CommandDimensionEntry` |
+| `WeightedBiomeSource` | `com.mow.mod.worldbridge.dimension.custom.WeightedBiomeSource` |
 
 **常用示例：**
 ```java
 // 获取维度管理器
 DimensionDataManager manager = DimensionDataManager.get(serverLevel);
 
-// 创建自定义维度
-ResourceKey<Level> dimKey = ModDimensions.createDynamicDimension(
-    server, 
-    "my_dimension", 
-    "custom", 
-    jsonConfig,  // 包含 biome_mix、generation、stacking 等完整配置
-    player.getUUID()
-);
+// 获取所有维度
+List<DimensionData> allDims = manager.getAllDimensions();
 
-// 跨维度传送
+// 获取维度数据
+DimensionData data = manager.getDimensionData(pairId);
+```
+
+### 2. 事件总线 API
+
+所有事件监听请使用 `WorldBridgeEvents` 类，位于 `api` 包下。
+
+| 类/接口 | 实际路径 |
+|---------|----------|
+| `WorldBridgeEvents\` | `com.mow.mod.worldbridge.api.WorldBridgeEvents\` |
+| `WorldBridgeEvents.DimensionCreateEvent\` | `com.mow.mod.worldbridge.api.WorldBridgeEvents$DimensionCreateEvent\` |
+| `WorldBridgeEvents.DimensionRemoveEvent\` | `com.mow.mod.worldbridge.api.WorldBridgeEvents$DimensionRemoveEvent\` |
+| `WorldBridgeEvents.DimensionUpdateEvent\` | `com.mow.mod.worldbridge.api.WorldBridgeEvents$DimensionUpdateEvent\` |
+| `WorldBridgeEvents.PlayerTeleportEvent\` | `com.mow.mod.worldbridge.api.WorldBridgeEvents$PlayerTeleportEvent\` |
+
+**监听示例：**
+```java
+import com.mow.mod.worldbridge.api.WorldBridgeEvents;
+import com.mow.mod.worldbridge.api.WorldBridgeEvents.DimensionCreateEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+
+public class MyListener {
+@SubscribeEvent
+public void onDimensionCreate(DimensionCreateEvent event) {
+// 维度被创建时触发
+System.out.println("维度已创建");
+}
+}
+```
+
+### 3. 跨维度传送 API
+
+| 类 | 实际路径 |
+|----|----------|
+| `TeleportHelper` | `com.mow.mod.worldbridge.util.TeleportHelper` |
+
+**传送示例：**
+```java
+import com.mow.mod.worldbridge.util.TeleportHelper;
+
+// 传送玩家到目标维度
 TeleportHelper.teleportToDimension(player, targetDimKey, x, y, z, true);
 ```
 
-### 2. 世界之锚 API (`com.mow.mod.worldbridge.block.entity`)
+### 4. 配置系统
 
-| 类 | 用途 |
-|----|------|
-| `WorldAnchorBlockEntity` | 锚点方块实体，存储 PairID、自定义名、过载状态、冷却、祝福光环 |
-| `WorldAnchorBlock` | 锚点方块，支持红石触发、右键交互、跨维度传送、过载模式 |
+| 类 | 实际路径 |
+|----|----------|
+| `ModConfig` | `com.mow.mod.worldbridge.config.ModConfig` |
 
-**事件监听：**
 ```java
-// 监听锚点传送事件
-ModEventBusEvents.WORLD_ANCHOR_TELEPORT.register((player, sourceAnchor, targetAnchor) -> {
-    // 传送前/后逻辑
-});
+import com.mow.mod.worldbridge.config.ModConfig;
+
+// 读取服务端配置
+ModConfig.DIMENSION_CONFIG.get().maxDimensionsPerPlayer();
 ```
 
-### 3. 红链系统 API (`com.mow.mod.worldbridge.redlink`)
+### 5. 世界之锚 API
 
-| 类/接口 | 用途 |
-|---------|------|
-| `RedlinkBlockEntity` | 红链方块实体，双模式（发射器/接收器）、配对、信号强度 |
-| `RedlinkWrenchItem` | 配对工具，两步点击配对/切换模式 |
-| `EtherTriggerBlock` / `EtherTriggerBlockEntity` | 以太触发器（玩家/实体/物品/计时器/天气触发） |
+| 类 | 实际路径 |
+|----|----------|
+| `WorldAnchorBlock` | `com.mow.mod.worldbridge.block.WorldAnchorBlock` |
+| `WorldAnchorBlockEntity` | `com.mow.mod.worldbridge.block.entity.WorldAnchorBlockEntity` |
 
-**信号同步（跨维度零延迟）：**
+### 6. 红链系统 API
+
+| 类/接口 | 实际路径 |
+|---------|----------|
+| `RedlinkBlock` | `com.mow.mod.worldbridge.redlink.RedlinkBlock` |
+| `RedlinkBlockEntity` | `com.mow.mod.worldbridge.redlink.RedlinkBlockEntity` |
+| `RedlinkWrenchItem` | `com.mow.mod.worldbridge.redlink.RedlinkWrenchItem` |
+| `RedlinkButtonBlock` | `com.mow.mod.worldbridge.redlink.RedlinkButtonBlock` |
+| `RedlinkLeverBlock` | `com.mow.mod.worldbridge.redlink.RedlinkLeverBlock` |
+| `RedlinkPressurePlateBlock` | `com.mow.mod.worldbridge.redlink.RedlinkPressurePlateBlock` |
+| `EtherTriggerBlock` | `com.mow.mod.worldbridge.redlink.EtherTriggerBlock` |
+| `EtherTriggerBlockEntity` | `com.mow.mod.worldbridge.redlink.EtherTriggerBlockEntity` |
+| `TriggerType` | `com.mow.mod.worldbridge.redlink.TriggerType` |
+| `RedlinkPairData` | `com.mow.mod.worldbridge.redlink.RedlinkPairData` |
+
+### 7. 跨维漏斗 API
+
+| 类 | 实际路径 |
+|----|----------|
+| `TransdimensionalHopperBlock` | `com.mow.mod.worldbridge.block.TransdimensionalHopperBlock` |
+| `TransdimensionalHopperBlockEntity` | `com.mow.mod.worldbridge.block.entity.TransdimensionalHopperBlockEntity` |
+
+### 8. 成就/进度系统
+
+| 类 | 实际路径 |
+|----|----------|
+| `ModCriteria` | `com.mow.mod.worldbridge.advancement.ModCriteria` |
+| `ModTrigger` | `com.mow.mod.worldbridge.advancement.ModTrigger` |
+
 ```java
-// 发射器自动同步给对端接收器，零延迟、同 tick
-// 无需额外网络包，自动通过 server.getLevel(ResourceKey) 加载目标维度
-```
+import com.mow.mod.worldbridge.advancement.ModCriteria;
 
-### 4. 跨维漏斗 API (`com.mow.mod.worldbridge.block.entity`)
-
-| 类 | 用途 |
-|----|------|
-| `TransdimensionalHopperBlockEntity` | 跨维漏斗核心逻辑：INPUT/OUTPUT/BOTH 模式、缓冲区、过滤器、配对、传送 |
-
-```java
-// 手动触发传送
-hopperEntity.tryTransfer();
-```
-
-### 5. 成就/进度系统 (`com.mow.mod.worldbridge.advancement`)
-
-| 类 | 用途 |
-|----|------|
-| `ModTrigger` | 可复用的 `SimpleCriterionTrigger` 基类，含 `awardDirectly()` 兜底授予 |
-| `ModCriteria` | 11 个 Trigger 实例（进维度×3、结构发现×5、创世、深处、高空） |
-| `ModCriteria.ENTER_AETHERIAL_FIELDS` | 进入星界之野 |
-| `ModCriteria.ENTER_DEEP_ABYSS` | 进入幽邃深渊 |
-| `ModCriteria.GENESIS` | 创世（首次创建维度） |
-| `ModCriteria.DEEP_DOWN` | 深不可测 (Y ≤ -64) |
-| `ModCriteria.HIGH_FLY` | 星辰大海 (Y ≥ 100) |
-
-**手动触发成就：**
-```java
+// 触发成就
 ModCriteria.ENTER_CHAOS_ABYSSOS.trigger(player);
 ```
 
-### 6. 事件总线 (`com.mow.mod.worldbridge.event`)
+### 9. 核心 API 入口
 
-```java
-// 服务端 Tick 事件（每 tick）
-ModEventBusEvents.SERVER_TICK.register(server -> { ... });
+| 类 | 实际路径 |
+|----|----------|
+| `WorldBridgeAPI` | `com.mow.mod.worldbridge.api.WorldBridgeAPI` |
+| `IDimensionFactory` | `com.mow.mod.worldbridge.api.IDimensionFactory` |
+| `DimensionFactoryRegistry` | `com.mow.mod.worldbridge.api.DimensionFactoryRegistry` |
 
-// 玩家 Tick 事件（每 tick）
-ModEventBusEvents.PLAYER_TICK.register(player -> { ... });
+### 10. 方块/物品/容器注册
 
-// 维度创建/删除事件
-ModEventBusEvents.DIMENSION_CREATED.register(dimKey -> { ... });
-ModEventBusEvents.DIMENSION_DELETED.register(pairId -> { ... });
-
-// 锚点传送
-ModEventBusEvents.WORLD_ANCHOR_TELEPORT.register((player, src, tgt) -> { ... });
-
-// 红链信号变化
-ModEventBusEvents.REDLINK_SIGNAL_CHANGED.register((be, oldStrength, newStrength) -> { ... });
-```
-
-### 6. 配置系统 (`com.mow.mod.worldbridge.config`)
-
-```java
-// 服务端配置（worldbridge-server.toml）
-ModConfig.DIMENSION_CONFIG.get().maxDimensionsPerPlayer();  // -1 无限制
-ModConfig.WORLD_ANCHOR_CONFIG.get().baseTeleportRange();    // 5
-ModConfig.REDLINK_CONFIG.get().allowCrossDimension();       // true
-ModConfig.TRANSHOPPER_CONFIG.get().maxRate();               // 64 items/sec
-```
+| 类 | 实际路径 |
+|----|----------|
+| `ModBlocks` | `com.mow.mod.worldbridge.block.ModBlocks` |
+| `ModItems` | `com.mow.mod.worldbridge.item.ModItems` |
+| `ModMenus` | `com.mow.mod.worldbridge.container.ModMenus` |
+| `ModScreens` | `com.mow.mod.worldbridge.gui.ModScreens` |
+| `ModSounds` | `com.mow.mod.worldbridge.sound.ModSounds` |
 
 ---
 
@@ -175,36 +185,32 @@ ModConfig.TRANSHOPPER_CONFIG.get().maxRate();               // 64 items/sec
 
 | WorldBridge | Minecraft | Forge | 备注 |
 |-------------|-----------|-------|------|
-| 最新版本 | 1.19.4 | 45.2.0+ | 完整功能 |
-| 最新版本 | 1.20.1 | 47.2.0+ | 完整功能 |
-| 旧版本 | 1.19.4/1.20.1 | 对应版本 | 不再维护 |
+| `0.4.0` | 1.20.1/1.19.4/ ... | 47.2.0+/ ... | 当前推荐版本 |
+| 旧版本 | 1.20.1/1.19.4/ ... | 对应版本 | 不再维护 |
 
-> **双分支同步维护**：`1.19.4` 分支与 `1.20.1` 分支功能完全一致，仅适配层差异。
-> 
-> **具体版本对应关系请查看**：[GitHub Releases](https://github.com/mow2333/WorldBridge/releases) 或 [CHANGELOG_CN.md](CHANGELOG_CN.md)
+> **具体版本请查看**：[GitHub Releases](https://github.com/mow2333/WorldBridge/releases)
+
 ---
 
 ## 📖 文档与支持
 
 | 链接 | 说明 |
 |------|------|
-| **Wiki** | `https://github.com/mow2333/WorldBridge/wiki` |
+| **Wiki** | `https://github.com/mow2333/WorldBridge/wiki\` |
 | **更新日志 (中文)** | `CHANGELOG_CN.md` |
-| **更新日志 (English)** | `CHANGELOG_EN.md` |
 | **功能完整文档** | `FEATURES.md` |
-| **问题反馈** | `https://github.com/mow2333/WorldBridge/issues` |
+| **问题反馈** | `https://github.com/mow2333/WorldBridge/issues\` |
 
 ---
 
 ## ⚖️ 许可证
 
-**All Rights Reserved**  
+**All Rights Reserved**
 Copyright (c) 2026 mow2333
 
-> 本项目**不开源**，不遵循 MIT/GPL/Apache 等开源协议。  
-> **仅允许**：作为库依赖（`compileOnly`/`provided`）在你的模组中使用 WorldBridge 的公开 API。  
-> **禁止**：反编译、修改、再分发、商用、二次打包、托管到其他站点。  
-> 仅允许从官方渠道下载发布版 JAR 作为依赖。
+> 本项目**不开源**，不遵循 MIT/GPL/Apache 等开源协议。
+> **仅允许**：作为库依赖（`compileOnly`/`provided`/本地 JAR）在你的模组中使用 WorldBridge 的公开 API。
+> **禁止**：反编译、修改、再分发、商用、二次打包、托管到其他站点。
 
 ---
 
@@ -212,13 +218,14 @@ Copyright (c) 2026 mow2333
 
 | 版本 | Minecraft | Forge | 下载 |
 |------|-----------|-------|------|
-| `{version}` | 1.20.1 | 47.2.0+ | [world_bridge-forge-47.2.0+-{version}-1.20.1.jar](https://github.com/mow2333/WorldBridge/releases/tag/{version}) |
-| `{version}` | 1.19.4 | 45.2.0+ | [world_bridge-forge-45.2.0+-{version}-1.19.4.jar](https://github.com/mow2333/WorldBridge/releases/tag/{version}) |
+| `{version}` | 1.20.1 | 47.2.0+ | world_bridge-forge-47.2.0+-{version}-1.20.1.jar |
+| `{version}` | 1.19.4 | 45.2.0+ | world_bridge-forge-45.2.0+-{version}-1.19.4.jar |
 
-> **使用说明**：将上表中的 `{version}` 替换为具体版本号（如 `0.2.0`、`0.2.1`、`0.3.0` 等），即可得到对应版本的下载链接。  
+> **使用说明**：将上表中的 `{version}` 替换为具体版本号（如 `0.2.0`、`0.2.1`、`0.3.0`、`0.4.0` 等），即可得到对应版本的下载链接。
 > 仅从 GitHub Releases 下载，请勿从第三方站点下载。
+> **当前推荐版本**：`0.4.0`（适用于 Minecraft 1.20.1 / Forge 47.2.0+）
 
 ---
 
-**WorldBridge** — 连接不同世界的桥梁  
+WorldBridge — 连接不同世界的桥梁
 `A bridge connecting different worlds.`
