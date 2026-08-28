@@ -172,14 +172,6 @@
 <td>海平面 (-64~255)</td>
 </tr>
 <tr>
-<td><code>--caves</code></td>
-<td><code>-c</code></td>
-<td>boolean</td>
-<td><code>true</code></td>
-<td>除 <code>flat</code></td>
-<td>洞穴生成开关</td>
-</tr>
-<tr>
 <td><code>--ore-veins</code></td>
 <td><code>-ov</code></td>
 <td>boolean</td>
@@ -194,22 +186,6 @@
 <td><code>false</code></td>
 <td>所有</td>
 <td>旧版随机种子兼容</td>
-</tr>
-<tr>
-<td><code>--password</code></td>
-<td><code>-p</code></td>
-<td>string</td>
-<td>无</td>
-<td>所有</td>
-<td>4-16 位密码</td>
-</tr>
-<tr>
-<td><code>--difficulty-lock</code></td>
-<td><code>-dl</code></td>
-<td>boolean</td>
-<td><code>false</code></td>
-<td>所有</td>
-<td>锁定难度不可改</td>
 </tr>
 </tbody>
 </table>
@@ -326,29 +302,6 @@
 <li><code>aetherial_fields</code> 实际海平面受 Y&lt;100 虚空化影响</li>
 </ul>
 <hr />
-<h3 id="caves-c-与-ore-veins-ov"><code>--caves</code> / <code>-c</code> 与 <code>--ore-veins</code> / <code>-ov</code></h3>
-<table>
-<thead>
-<tr>
-<th>开关</th>
-<th>作用</th>
-<th>不适用类型</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>--caves</code></td>
-<td>洞穴/峡谷生成</td>
-<td><code>flat</code></td>
-</tr>
-<tr>
-<td><code>--ore-veins</code></td>
-<td>矿脉（铜/铁/金等大矿脉）</td>
-<td><code>flat</code></td>
-</tr>
-</tbody>
-</table>
-<hr />
 <h3 id="legacy-random-lr-旧版随机"><code>--legacy-random</code> / <code>-lr</code> 旧版随机</h3>
 <ul>
 <li><code>true</code> = 使用 1.17 前的随机种子算法（旧版地形兼容）</li>
@@ -364,31 +317,15 @@
 <li>重置：<code>/worldbridge world resetpassword &lt;pairId&gt;</code> (OP 2)</li>
 </ul>
 <hr />
-<h3 id="difficulty-lock-dl-难度锁定"><code>--difficulty-lock</code> / <code>-dl</code> 难度锁定</h3>
-<ul>
-<li><code>true</code> = 创建后不可通过 <code>/difficulty</code> 或 GUI 修改难度</li>
-<li><code>false</code> = 允许后续修改（默认）</li>
-</ul>
-<hr />
 <h2 id="完整示例">📝 完整示例</h2>
 <div class="codehilite"><pre><span></span><code><span class="c1"># 标准生存世界</span>
-/worldbridge<span class="w"> </span>world<span class="w"> </span>create<span class="w"> </span>Survival<span class="w"> </span>default<span class="w"> </span>-s<span class="w"> </span><span class="m">12345</span><span class="w"> </span>-d<span class="w"> </span>normal<span class="w"> </span>-st<span class="w"> </span><span class="nb">true</span><span class="w"> </span>-sl<span class="w"> </span><span class="m">63</span>
+/worldbridge<span class="w"> </span>world<span class="w"> </span>create<span class="w"> </span>dimID<span class="w"> </span>default<span class="o">{</span><span class="s2">&quot;seed&quot;</span>:12345,<span class="s2">&quot;difficulty&quot;</span>:<span class="s2">&quot;normal&quot;</span>,<span class="s2">&quot;structures&quot;</span>:<span class="s2">&quot;true&quot;</span>,<span class="s2">&quot;generation&quot;</span>:<span class="o">{</span><span class="s2">&quot;sea_level&quot;</span>:63<span class="o">}}</span>
 
 <span class="c1"># 单一群系（樱花林），指定种子，困难模式</span>
-/worldbridge<span class="w"> </span>world<span class="w"> </span>create<span class="w"> </span>Sakura<span class="w"> </span>single_biome<span class="w"> </span>-b<span class="w"> </span>minecraft:cherry_grove<span class="w"> </span>-s<span class="w"> </span><span class="m">987654321</span><span class="w"> </span>-d<span class="w"> </span>hard
+/worldbridge<span class="w"> </span>world<span class="w"> </span>create<span class="w"> </span>dimID<span class="w"> </span>single_biome<span class="o">{</span><span class="s2">&quot;biome&quot;</span>:<span class="s2">&quot;minecraft:cherry_grove&quot;</span>,<span class="s2">&quot;seed&quot;</span>:987654321,<span class="s2">&quot;difficulty&quot;</span>:<span class="s2">&quot;hard&quot;</span><span class="o">}</span>
 
 <span class="c1"># 星界之野（浮空岛），关闭结构</span>
-/worldbridge<span class="w"> </span>world<span class="w"> </span>create<span class="w"> </span>SkyIsles<span class="w"> </span>aetherial_fields<span class="w"> </span>-st<span class="w"> </span><span class="nb">false</span>
-
-
-<span class="c1"># 幽邃深渊，锁定困难难度</span>
-/worldbridge<span class="w"> </span>world<span class="w"> </span>create<span class="w"> </span>Deep<span class="w"> </span>deep_abyss<span class="w"> </span>-d<span class="w"> </span>hard<span class="w"> </span>-dl<span class="w"> </span><span class="nb">true</span>
-
-<span class="c1"># 超平坦创造世界</span>
-/worldbridge<span class="w"> </span>world<span class="w"> </span>create<span class="w"> </span>Build<span class="w"> </span>flat<span class="w"> </span>-dl<span class="w"> </span><span class="nb">true</span>
-
-<span class="c1"># 洞穴世界，关闭矿脉</span>
-/worldbridge<span class="w"> </span>world<span class="w"> </span>create<span class="w"> </span>Cavern<span class="w"> </span>caves<span class="w"> </span>-ov<span class="w"> </span><span class="nb">false</span>
+/worldbridge<span class="w"> </span>world<span class="w"> </span>create<span class="w"> </span>dimID<span class="w"> </span>aetherial_fields<span class="o">{</span><span class="s2">&quot;structures&quot;</span>:false<span class="o">}</span>
 </code></pre></div>
 
 <hr />

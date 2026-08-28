@@ -98,104 +98,39 @@
       <h1 class="page-heading">常用命令</h1>
       <h1 id="常用命令">常用命令</h1>
 <h2 id="命令总览">📋 命令总览</h2>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>权限</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>/worldbridge world create</code></td>
-<td>OP 2</td>
-<td>创建新维度</td>
-</tr>
-<tr>
-<td><code>/worldbridge world create &lt;dimId&gt; &lt;typeAndJson&gt;</code></td>
-<td>OP 2</td>
-<td>命令行创建指令维度（含内联 JSON 全参数）</td>
-</tr>
-<tr>
-<td><code>/worldbridge world tp &lt;targetDim&gt; [player] [x y z]</code></td>
-<td>OP 2</td>
-<td>传送，世界桥维度需提供坐标</td>
-</tr>
-<tr>
-<td><code>/worldbridge world list</code></td>
-<td>OP 2</td>
-<td>列出所有已创建维度</td>
-</tr>
-<tr>
-<td><code>/worldbridge world edit &lt;pairId&gt;</code></td>
-<td>OP 2</td>
-<td>编辑维度配置（GUI）</td>
-</tr>
-<tr>
-<td><code>/worldbridge world rename &lt;pairId&gt; &lt;name&gt;</code></td>
-<td>OP 2</td>
-<td>重命名维度</td>
-</tr>
-<tr>
-<td><code>/worldbridge world delete &lt;pairId&gt;</code></td>
-<td>OP 3</td>
-<td>删除维度（需确认）</td>
-</tr>
-<tr>
-<td><code>/worldbridge world resetpassword &lt;pairId&gt;</code></td>
-<td>OP 2</td>
-<td>重置维度密码</td>
-</tr>
-<tr>
-<td><code>/worldbridge reload</code></td>
-<td>OP 2</td>
-<td>热重载服务端配置</td>
-</tr>
-<tr>
-<td><code>/worldbridge redlink pair list</code></td>
-<td>OP 2</td>
-<td>列出所有红链配对</td>
-</tr>
-<tr>
-<td><code>/worldbridge redlink pair disconnect &lt;pairId&gt;</code></td>
-<td>OP 2</td>
-<td>解除指定配对</td>
-</tr>
-<tr>
-<td><code>/worldbridge redlink pair locate &lt;pairId&gt;</code></td>
-<td>OP 2</td>
-<td>定位配对位置</td>
-</tr>
-<tr>
-<td><code>/worldbridge redlink trigger list</code></td>
-<td>OP 2</td>
-<td>列出所有以太触发器</td>
-</tr>
-<tr>
-<td><code>/worldbridge redlink trigger info &lt;pos&gt;</code></td>
-<td>OP 2</td>
-<td>查看触发器详情</td>
-</tr>
-<tr>
-<td><code>/worldbridge redlink trigger clear &lt;pos&gt;</code></td>
-<td>OP 2</td>
-<td>清除触发器区域</td>
-</tr>
-<tr>
-<td><code>/worldbridge redlink trigger setregion &lt;pos&gt;</code></td>
-<td>OP 2</td>
-<td>设置触发器检测区域</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p><strong>权限等级</strong>：OP 2 = <code>op-permission-level=2</code>，OP 3 = <code>op-permission-level=3</code>（服务端 <code>server.properties</code> 设置）</p>
-</blockquote>
+<div class="codehilite"><pre><span></span><code>worldbridge
+├── redlink                      （跨维度红石）
+│   ├── pair
+│   │   ├── disconnect           （解除配对）
+│   │   ├── list                 （列出配对）
+│   │   └── locate               （定位配对对象）
+│   └── trigger
+│       ├── clear                （清除触发器）
+│       ├── info                 （查看触发器信息）
+│       ├── list                 （列出触发器）
+│       └── setregion            （设置触发区域）
+├── gui
+│   └── preview                  （预览维度拓扑/地球仪）
+├── world                        （维度管理）
+│   ├── create                   （创建新维度）
+│   ├── delete                   （删除维度（需确认））
+│   ├── edit                     （编辑维度配置）
+│   ├── list                     （列出所有维度）
+│   ├── map                      （查看维度地图）
+│   ├── rename                   （重命名维度）
+│   ├── resetpassword            （重置维度密码）
+│   └── tp                       （传送至维度）
+└── transhopper                  （跨维漏斗）
+    ├── list                     （列出漏斗配对）
+    ├── pair                     （创建配对）
+    ├── reload                   （重载配置）
+    └── unbind                   （解绑配对）
+</code></pre></div>
+
 <hr />
 <h2 id="详细用法">📖 详细用法</h2>
 <h3 id="worldbridge-world-create"><code>/worldbridge world create</code></h3>
-<div class="codehilite"><pre><span></span><code>/worldbridge<span class="w"> </span>world<span class="w"> </span>create<span class="w"> </span>&lt;name&gt;<span class="w"> </span>&lt;worldType&gt;<span class="w"> </span><span class="o">[</span>options...<span class="o">]</span>
+<div class="codehilite"><pre><span></span><code>/worldbridge<span class="w"> </span>world<span class="w"> </span>create<span class="w"> </span>&lt;dimID&gt;<span class="w"> </span>&lt;typeAndJson&gt;
 </code></pre></div>
 
 <p>详见 <a href="/WorldBridge/First-Dimension#命令行创建">首次创建维度</a></p>
@@ -208,6 +143,8 @@
 <div class="codehilite"><pre><span></span><code><span class="c1"># 创建默认维度</span>
 /worldbridge<span class="w"> </span>world<span class="w"> </span>create<span class="w"> </span>myworld<span class="w"> </span>default
 
+<span class="c1"># 创建幽邃深渊，自定义名称和难度</span>
+/worldbridge<span class="w"> </span>world<span class="w"> </span>create<span class="w"> </span>deeps<span class="w"> </span>deep_abyss<span class="o">{</span><span class="s2">&quot;name&quot;</span>:<span class="s2">&quot;真正的深渊&quot;</span>,<span class="s2">&quot;difficulty&quot;</span>:<span class="s2">&quot;hard&quot;</span><span class="o">}</span>
 
 <span class="c1"># 使用自定义模板</span>
 /worldbridge<span class="w"> </span>world<span class="w"> </span>create<span class="w"> </span>custom_world<span class="w"> </span>custom:mytemplate
@@ -388,6 +325,11 @@ a1b2c3d4
 <td><code>world resetpassword</code></td>
 <td>2</td>
 <td>重置密码</td>
+</tr>
+<tr>
+<td><code>world map</code></td>
+<td>2</td>
+<td>打开维度地球仪面板</td>
 </tr>
 <tr>
 <td><code>reload</code></td>
