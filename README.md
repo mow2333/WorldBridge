@@ -77,7 +77,6 @@ dependencies {
 }
 ```
 
-> 公开 API 以独立仓库维护：**https://github.com/mow2333/WorldBridge-API**（接口 / 事件 / 数据类，MIT）
 
 ## 🔧 公开 API 一览
 
