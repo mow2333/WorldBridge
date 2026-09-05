@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="auto">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="WorldBridge Static Docs Builder">
+<title>开发者 API（0.5.0） - WorldBridge</title>
+<link rel="icon" type="image/svg+xml" href="/WorldBridge/assets/favicon.svg">
+<link rel="stylesheet" href="/WorldBridge/assets/css/styles.css">
+<link rel="stylesheet" href="/WorldBridge/assets/css/pygments.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <button class="icon-btn menu-btn" id="menu-btn" aria-label="打开导航" title="打开导航">
+      <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+    </button>
+    <a class="brand" href="/WorldBridge/">
+      <span class="brand-logo" aria-hidden="true"></span>
+      <span class="brand-name">WorldBridge</span>
+    </a>
+    <div class="search-wrap">
+      <input type="search" id="search-input" placeholder="搜索文档…" autocomplete="off" aria-label="搜索">
+      <div class="search-dropdown" id="search-dropdown" hidden></div>
+    </div>
+    <div class="header-actions">
+      <a class="icon-btn" href="https://mow2333.github.io/" target="_blank" rel="noopener" aria-label="个人主页" title="个人主页">
+        <svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2"/></svg>
+      </a>
+      <a class="icon-btn" href="https://github.com/mow2333/WorldBridge" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+        <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.56 9.56 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+      </a>
+      <a class="icon-btn" href="https://discord.gg/zxG3zmsR9P" target="_blank" rel="noopener" aria-label="Discord" title="Discord">
+        <svg viewBox="0 0 24 24"><path d="M20.32 4.37a19.8 19.8 0 0 0-4.89-1.52.07.07 0 0 0-.08.04c-.21.38-.44.87-.6 1.25a18.3 18.3 0 0 0-5.5 0 12.6 12.6 0 0 0-.61-1.25.08.08 0 0 0-.08-.04c-1.7.3-3.34.8-4.88 1.52a.07.07 0 0 0-.04.03C.53 9.05-.32 13.58.1 18.06c0 .02.01.04.03.05a19.9 19.9 0 0 0 6 3.03.08.08 0 0 0 .08-.03c.46-.63.87-1.3 1.22-2 .02-.04 0-.08-.04-.1a13 13 0 0 1-1.87-.9.08.08 0 0 1 0-.12c.13-.1.25-.19.37-.29a.07.07 0 0 1 .08-.01 14.2 14.2 0 0 0 12.06 0 .07.07 0 0 1 .08.01c.12.1.25.2.37.3a.08.08 0 0 1 0 .12c-.6.35-1.22.64-1.88.89a.08.08 0 0 0-.04.1c.36.7.78 1.37 1.22 2a.08.08 0 0 0 .08.03 19.8 19.8 0 0 0 6.02-3.03.08.08 0 0 0 .03-.05c.5-5.18-.84-9.68-3.55-13.66a.06.06 0 0 0-.03-.03zM8.02 15.33c-1.18 0-2.16-1.08-2.16-2.42s.96-2.42 2.16-2.42c1.21 0 2.18 1.09 2.16 2.42 0 1.34-.96 2.42-2.16 2.42zm7.97 0c-1.18 0-2.15-1.08-2.15-2.42s.95-2.42 2.15-2.42c1.22 0 2.18 1.09 2.16 2.42 0 1.34-.94 2.42-2.16 2.42z"/></svg>
+      </a>
+      <button class="icon-btn theme-btn" id="theme-btn" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0-5a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0V3a1 1 0 0 1 1-1zm9 9h-2a1 1 0 0 0 0 2h2a1 1 0 0 0 0-2zM5 12a1 1 0 0 0-1-1H2a1 1 0 0 0 0 2h2a1 1 0 0 0 1-1zm12.3 5.66a1 1 0 0 0-1.41 1.41l1.41 1.41a1 1 0 1 0 1.42-1.41l-1.42-1.41zM6.7 6.7a1 1 0 0 0-1.41-1.41L3.88 6.7a1 1 0 0 0 1.41 1.41L6.7 6.7zm12.42 0-1.41-1.41a1 1 0 0 0-1.41 1.41l1.41 1.42a1 1 0 1 0 1.41-1.42zM6.7 17.3a1 1 0 0 0-1.42 1.41l1.41 1.42a1 1 0 1 0 1.42-1.42L6.7 17.3zM12 20a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1z"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <nav class="sidebar-nav">
+<p class="nav-group">快速开始</p>
+<ul class="nav-list">
+<li><a class="nav-link" href="/WorldBridge/Getting-Started/Installation">安装与配置</a></li>
+<li><a class="nav-link" href="/WorldBridge/Getting-Started/First-Dimension">首次创建维度</a></li>
+<li><a class="nav-link" href="/WorldBridge/Getting-Started/Commands">命令大全</a></li>
+</ul>
+<p class="nav-group">维度系统</p>
+<ul class="nav-list">
+<li><a class="nav-link" href="/WorldBridge/Dimensions/World-Types">世界类型</a></li>
+<li><a class="nav-link" href="/WorldBridge/Dimensions/Parameters">维度参数</a></li>
+<li><a class="nav-link" href="/WorldBridge/Dimensions/Password">密码保护</a></li>
+</ul>
+<p class="nav-group">物品与方块</p>
+<ul class="nav-list">
+<li><a class="nav-link" href="/WorldBridge/Items/World-Anchor">世界之锚</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Star-Anchor">星锚奇点</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Transdimensional-Hopper">跨维漏斗</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Dimension-Globe">维度地球仪</a></li>
+</ul>
+<p class="nav-group">成就系统</p>
+<ul class="nav-list">
+<li><a class="nav-link" href="/WorldBridge/Advancements/List">成就列表</a></li>
+<li><a class="nav-link" href="/WorldBridge/Advancements/Triggers">触发器</a></li>
+</ul>
+<p class="nav-group">服务端配置</p>
+<ul class="nav-list">
+<li><a class="nav-link" href="/WorldBridge/Config/Server-Config">服务端配置</a></li>
+<li><a class="nav-link" href="/WorldBridge/Config/Permissions">权限</a></li>
+</ul>
+<p class="nav-group">进阶主题</p>
+<ul class="nav-list">
+<li><a class="nav-link" href="/WorldBridge/Advanced/Star-Anchor-Light">星锚动态光源</a></li>
+<li><a class="nav-link" href="/WorldBridge/Advanced/Redlink">红链系统</a></li>
+<li><a class="nav-link" href="/WorldBridge/Advanced/Datapack">数据包</a></li>
+<li><a class="nav-link" href="/WorldBridge/Advanced/Anchor-Gui">锚点 GUI</a></li>
+<li><a class="nav-link" href="/WorldBridge/Advanced/Faq">常见问题</a></li>
+</ul>
+<p class="nav-group">开发者</p>
+<ul class="nav-list">
+<li><a class="nav-link active" href="/WorldBridge/Developer/Api">公开 API</a></li>
+</ul>
+<p class="nav-group">更新日志</p>
+<ul class="nav-list">
+<li><a class="nav-link" href="/WorldBridge/Changelog">更新日志</a></li>
+</ul>
+</nav>
+  </aside>
+  <div class="sidebar-overlay" id="sidebar-overlay" hidden></div>
+
+  <main class="content">
+    <article class="article">
+      <h1 class="page-heading">开发者 API（0.5.0）</h1>
+      <h1 id="开发者-api-0-5-0">开发者 API（0.5.0）</h1>
+<blockquote>
+<p>WorldBridge 从 0.5.0 起提供<strong>公开 API</strong>：接口 / 事件 / 数据类放在独立仓库
+<strong>https://github.com/mow2333/WorldBridge-API</strong>（MIT），实现由主 mod 闭源提供。
+本页面向想要把 WorldBridge 作为<strong>库 / 依赖</strong>集成的模组开发者。</p>
+</blockquote>
+<hr />
+<h2 id="api-总览">API 总览</h2>
+<table>
+<thead>
+<tr>
+<th>系统</th>
+<th>门面</th>
+<th>事件</th>
+<th>服务接口</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>维度</td>
+<td><code>WorldBridgeAPI</code></td>
+<td><code>WorldBridgeEvents</code></td>
+<td><code>IWorldBridgeService</code></td>
+<td>维度数据 CRUD / 传送 / LevelStem 生成</td>
+</tr>
+<tr>
+<td>红链</td>
+<td><code>RedlinkAPI</code></td>
+<td><code>RedlinkEvents</code></td>
+<td><code>RedlinkService</code></td>
+<td>信号查询 / 断连操作；配对、断连、信号变化事件</td>
+</tr>
+<tr>
+<td>跨维漏斗</td>
+<td><code>HopperAPI</code></td>
+<td><code>HopperEvents</code></td>
+<td><code>HopperService</code></td>
+<td>配对状态 / 吞吐查询；配对、断连、传输事件</td>
+</tr>
+<tr>
+<td>维度地球仪</td>
+<td><code>GlobeAPI</code></td>
+<td>—</td>
+<td><code>GlobeService</code></td>
+<td>只读查询维度网络节点 / 边</td>
+</tr>
+</tbody>
+</table>
+<p>所有门面位于 <code>com.mow.mod.worldbridge.api</code> 包，事件经 <strong>Forge 事件总线</strong>发布。</p>
+<h2 id="支持版本">支持版本</h2>
+<ul>
+<li>Minecraft <strong>1.19 ~ 1.20.4 共 10 个版本</strong>（Forge 41.0.68+ ~ 49.1.0+）</li>
+<li>API 仓库每个版本一个独立工程目录（<code>1.19/</code> … <code>1.20.4/</code>），按对应 MC/Forge 编译</li>
+</ul>
+<h2 id="依赖方式">依赖方式</h2>
+<div class="codehilite"><pre><span></span><code><span class="c1">// build.gradle — 将对应版本 API jar 作为 compileOnly 依赖</span>
+<span class="n">dependencies</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="c1">// 推荐：从 WorldBridge-API 仓库克隆对应版本目录后编译，或直接用 release jar</span>
+<span class="w">    </span><span class="n">compileOnly</span><span class="w"> </span><span class="n">files</span><span class="o">(</span><span class="s1">&#39;libs/worldbridge-api-0.5.0-1.20.1.jar&#39;</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div>
+
+<blockquote>
+<p>运行期请确保 WorldBridge 主 mod 已安装（实现由此提供，API 模块本身不含实现）。</p>
+</blockquote>
+<h2 id="调用约定">调用约定</h2>
+<p>所有门面采用<strong>服务定位模式</strong>：主 mod 加载后自动注册服务实现。调用前先确认服务可用：</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">com.mow.mod.worldbridge.api.WorldBridgeAPI</span><span class="p">;</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">WorldBridgeAPI</span><span class="p">.</span><span class="na">isServiceAvailable</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 安全调用，如：获取全部维度数据</span>
+<span class="w">    </span><span class="n">Collection</span><span class="o">&lt;</span><span class="n">DimensionData</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dims</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">WorldBridgeAPI</span><span class="p">.</span><span class="na">getAllDimensions</span><span class="p">(</span><span class="n">serverLevel</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>若服务未注册（主 mod 未加载）而强行调用，门面会抛出 <code>IllegalStateException</code>。</p>
+<h2 id="监听事件">监听事件</h2>
+<p>生命周期事件通过 Forge 事件总线发布，用 <code>@SubscribeEvent</code> 监听：</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">com.mow.mod.worldbridge.api.RedlinkEvents</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">net.minecraftforge.eventbus.api.SubscribeEvent</span><span class="p">;</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MyListener</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nd">@SubscribeEvent</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">onPair</span><span class="p">(</span><span class="n">RedlinkEvents</span><span class="p">.</span><span class="na">RedlinkPairEvent</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">pairId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">event</span><span class="p">.</span><span class="na">getPairId</span><span class="p">();</span>
+<span class="w">        </span><span class="c1">// event.getPosA() / getPosB() / getDimensionA() / getDimensionB() ...</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@SubscribeEvent</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">onSignal</span><span class="p">(</span><span class="n">RedlinkEvents</span><span class="p">.</span><span class="na">RedlinkSignalEvent</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// event.getOldStrength() -&gt; event.getNewStrength()</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>事件清单：</p>
+<table>
+<thead>
+<tr>
+<th>事件类</th>
+<th>触发时机</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>WorldBridgeEvents.DimensionCreateEvent</code></td>
+<td>维度数据创建前（可取消）</td>
+</tr>
+<tr>
+<td><code>WorldBridgeEvents.DimensionRemoveEvent</code></td>
+<td>维度数据删除前（可取消）</td>
+</tr>
+<tr>
+<td><code>WorldBridgeEvents.DimensionUpdateEvent</code></td>
+<td>维度数据更新后</td>
+</tr>
+<tr>
+<td><code>WorldBridgeEvents.PlayerTeleportEvent</code></td>
+<td>玩家传送至 WB 维度前（可取消）</td>
+</tr>
+<tr>
+<td><code>RedlinkEvents.RedlinkPairEvent</code></td>
+<td>红链配对建立</td>
+</tr>
+<tr>
+<td><code>RedlinkEvents.RedlinkUnpairEvent</code></td>
+<td>红链配对断开</td>
+</tr>
+<tr>
+<td><code>RedlinkEvents.RedlinkSignalEvent</code></td>
+<td>红链信号强度变化</td>
+</tr>
+<tr>
+<td><code>HopperEvents.HopperPairEvent</code></td>
+<td>跨维漏斗配对建立</td>
+</tr>
+<tr>
+<td><code>HopperEvents.HopperUnpairEvent</code></td>
+<td>跨维漏斗配对断开</td>
+</tr>
+<tr>
+<td><code>HopperEvents.HopperTransferEvent</code></td>
+<td>物品跨维传输成功</td>
+</tr>
+</tbody>
+</table>
+<h2 id="数据类">数据类</h2>
+<p>API 仓库附带纯数据类（无实现逻辑），可直接用于读写维度配置：</p>
+<table>
+<thead>
+<tr>
+<th>类</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DimensionData</code></td>
+<td>维度全参数（含 <code>AnchorPoint</code> 锚点）</td>
+</tr>
+<tr>
+<td><code>GenerationConfig</code> / <code>PermissionSettings</code> / <code>GameRuleConfig</code></td>
+<td>维度生成 / 权限 / 游戏规则配置</td>
+</tr>
+<tr>
+<td><code>GlobeData</code>（含 <code>Node</code> / <code>Edge</code>）</td>
+<td>维度网络快照</td>
+</tr>
+</tbody>
+</table>
+<h2 id="扩展维度生成器-可选">扩展维度生成器（可选）</h2>
+<p>附属 mod 可实现 <code>IDimensionFactory</code> 并注册，接管特定 <code>dimType</code> 的维度生成：</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">com.mow.mod.worldbridge.api.IDimensionFactory</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">com.mow.mod.worldbridge.api.DimensionFactoryRegistry</span><span class="p">;</span>
+
+<span class="n">DimensionFactoryRegistry</span><span class="p">.</span><span class="na">register</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">IDimensionFactory</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nd">@Override</span><span class="w"> </span><span class="kd">public</span><span class="w"> </span><span class="n">ResourceLocation</span><span class="w"> </span><span class="nf">getId</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ResourceLocation</span><span class="p">(</span><span class="s">&quot;myaddon&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;void_world&quot;</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="nd">@Override</span><span class="w"> </span><span class="kd">public</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">matches</span><span class="p">(</span><span class="n">DimensionData</span><span class="w"> </span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;void_world&quot;</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="na">dimType</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="nd">@Override</span><span class="w"> </span><span class="kd">public</span><span class="w"> </span><span class="n">LevelStem</span><span class="w"> </span><span class="nf">createStem</span><span class="p">(</span><span class="n">MinecraftServer</span><span class="w"> </span><span class="n">server</span><span class="p">,</span><span class="w"> </span><span class="n">DimensionData</span><span class="w"> </span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ... */</span><span class="w"> </span><span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<h2 id="license">License</h2>
+<ul>
+<li><strong>API 模块</strong>：MIT（<a href="https://github.com/mow2333/WorldBridge-API">WorldBridge-API</a>）</li>
+<li><strong>主 mod 实现</strong>：All Rights Reserved（非开源）——仅允许作为库依赖使用公开 API，禁止反编译 / 修改 / 再分发 / 商用</li>
+</ul>
+    </article>
+    <div class="prev-next"><a class="prev" href="/WorldBridge/Advanced/Faq">← 常见问题</a><a class="next" href="/WorldBridge/Changelog">更新日志 →</a></div>
+    <footer class="site-footer">
+      <p>© 2026 WorldBridge · All Rights Reserved · 开源协议详见 <a href="https://github.com/mow2333/WorldBridge" target="_blank" rel="noopener">GitHub 仓库</a></p>
+      <p><a href="/WorldBridge/Developer/Api">本站页面</a> · <a href="/WorldBridge/Changelog">更新日志</a> · <a href="https://discord.gg/zxG3zmsR9P" target="_blank" rel="noopener">加入讨论</a></p>
+    </footer>
+  </main>
+
+  <aside class="toc-sidebar">
+    <nav class="page-toc"><p class="toc-title">本页目录</p><ul><li><a href="#api-总览">API 总览</a></li><li><a href="#支持版本">支持版本</a></li><li><a href="#依赖方式">依赖方式</a></li><li><a href="#调用约定">调用约定</a></li><li><a href="#监听事件">监听事件</a></li><li><a href="#数据类">数据类</a></li><li><a href="#扩展维度生成器-可选">扩展维度生成器（可选）</a></li><li><a href="#license">License</a></li></ul></nav>
+  </aside>
+</div>
+
+<script>
+const SEARCH_INDEX = null;
+const SEARCH_DATA_URL = "/WorldBridge/search_index.json";
+</script>
+<script src="/WorldBridge/assets/js/main.js"></script>
+</body>
+</html>

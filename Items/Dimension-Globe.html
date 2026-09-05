@@ -85,6 +85,10 @@
 <li><a class="nav-link" href="/WorldBridge/Advanced/Anchor-Gui">锚点 GUI</a></li>
 <li><a class="nav-link" href="/WorldBridge/Advanced/Faq">常见问题</a></li>
 </ul>
+<p class="nav-group">开发者</p>
+<ul class="nav-list">
+<li><a class="nav-link" href="/WorldBridge/Developer/Api">公开 API</a></li>
+</ul>
 <p class="nav-group">更新日志</p>
 <ul class="nav-list">
 <li><a class="nav-link" href="/WorldBridge/Changelog">更新日志</a></li>
@@ -154,10 +158,62 @@
 <p>放置维度地球仪后<strong>右键点击</strong>打开「维度链路地球仪」界面；管理员也可直接使用指令 <code>/worldbridge world map</code> 打开（等效入口）。</p>
 <p>地球仪将维度网络以<strong>原生 3D 力导向图</strong>可视化：</p>
 <ul>
-<li><strong>节点</strong>：每个维度一个节点，按维度类型区分形状（圆形 / 菱形 / 十二边形 / 方形 / 六角星）</li>
+<li><strong>节点</strong>：每个维度一个节点，按维度类型区分形状（圆形 / 菱形 / 十二边形 / 方形 / 六角星 / 六边形）</li>
 <li><strong>连线</strong>：连接线样式区分连接类型（实线 / 宽实线 / 虚线 / 细虚线），跨维漏斗连线带流光粒子动画</li>
 <li><strong>轨道相机</strong>：拖动旋转视角、滚轮缩放、右键平移</li>
 </ul>
+<h3 id="维度类型与节点样式">维度类型与节点样式</h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>颜色</th>
+<th>形状</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主世界</td>
+<td>绿</td>
+<td>圆</td>
+<td>原版维度</td>
+</tr>
+<tr>
+<td>下界</td>
+<td>橙</td>
+<td>菱形</td>
+<td>原版维度</td>
+</tr>
+<tr>
+<td>末地</td>
+<td>紫</td>
+<td>十二边形</td>
+<td>原版维度</td>
+</tr>
+<tr>
+<td>自定义</td>
+<td>蓝</td>
+<td>方形</td>
+<td>WorldBridge 自建维度</td>
+</tr>
+<tr>
+<td>指令</td>
+<td>黄</td>
+<td>六角星</td>
+<td>指令创建的维度</td>
+</tr>
+<tr>
+<td><strong>外部</strong></td>
+<td><strong>灰</strong></td>
+<td><strong>六边形</strong></td>
+<td><strong>其它模组创建的维度（如暮色森林）</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>外部维度节点自动连一条到主世界的虚线边；OP 可见全部维度（含未加载），普通玩家只看已加载维度。</p>
+</blockquote>
 <h3 id="界面操作">界面操作</h3>
 <table>
 <thead>
@@ -227,6 +283,7 @@
 <li>地球仪需要 <strong>OP 权限</strong> 才能使用（数据收集按 OP 过滤）</li>
 <li>右键菜单的「传送」走 <code>/worldbridge world tp</code> 指令通道，权限与回滚逻辑保持一致</li>
 <li>创建维度时记录「父维度」信息，地球仪上呈现父 → 子的连接方向（旧存档数据无父维度信息时回退显示为主世界连接）</li>
+<li><strong>外部维度</strong>（其它模组创建，如暮色森林）：显示为灰色六边形并连向主世界；普通玩家只看到已加载的外部维度</li>
 </ul>
     </article>
     <div class="prev-next"><a class="prev" href="/WorldBridge/Items/Transdimensional-Hopper">← 跨维漏斗</a><a class="next" href="/WorldBridge/Advancements/List">成就列表 →</a></div>
