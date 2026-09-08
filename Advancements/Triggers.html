@@ -218,8 +218,8 @@
 <span class="p">}</span>
 </code></pre></div>
 
-<blockquote>
-<p><strong>关键点</strong>：<code>SimpleCriterionTrigger.trigger()</code> 在 1.20.1 中 listener map 可能为空，导致静默失败。<code>ModTrigger</code> 在 <code>super.trigger()</code> 后额外调用 <code>awardDirectly()</code> 直接授予 criterion，确保进度必触发。</p>
+<blockquote class="q-key">
+<p><span class="q-tag">关键</span>：<code>SimpleCriterionTrigger.trigger()</code> 在 1.20.1 中 listener map 可能为空，导致静默失败。<code>ModTrigger</code> 在 <code>super.trigger()</code> 后额外调用 <code>awardDirectly()</code> 直接授予 criterion，确保进度必触发。</p>
 </blockquote>
 <hr />
 <h2 id="触发器与成就映射">📋 触发器与成就映射</h2>
