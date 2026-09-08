@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="auto">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="WorldBridge Static Docs Builder">
+<title>更新日志 - WorldBridge</title>
+<link rel="icon" type="image/svg+xml" href="/WorldBridge/assets/favicon.svg">
+<link rel="stylesheet" href="/WorldBridge/assets/css/styles.css">
+<link rel="stylesheet" href="/WorldBridge/assets/css/pygments.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <button class="icon-btn menu-btn" id="menu-btn" aria-label="打开导航" title="打开导航">
+      <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+    </button>
+    <a class="brand" href="/WorldBridge/">
+      <span class="brand-logo" aria-hidden="true"></span>
+      <span class="brand-name">WorldBridge</span>
+    </a>
+    <div class="search-wrap">
+      <input type="search" id="search-input" placeholder="搜索文档…" autocomplete="off" aria-label="搜索">
+      <div class="search-dropdown" id="search-dropdown" hidden></div>
+    </div>
+    <div class="header-actions">
+      <a class="icon-btn" href="https://mow2333.github.io/" target="_blank" rel="noopener" aria-label="个人主页" title="个人主页">
+        <svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2"/></svg>
+      </a>
+      <a class="icon-btn" href="https://github.com/mow2333/WorldBridge" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+        <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.56 9.56 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+      </a>
+      <a class="icon-btn" href="https://discord.gg/zxG3zmsR9P" target="_blank" rel="noopener" aria-label="Discord" title="Discord">
+        <svg viewBox="0 0 24 24"><path d="M20.32 4.37a19.8 19.8 0 0 0-4.89-1.52.07.07 0 0 0-.08.04c-.21.38-.44.87-.6 1.25a18.3 18.3 0 0 0-5.5 0 12.6 12.6 0 0 0-.61-1.25.08.08 0 0 0-.08-.04c-1.7.3-3.34.8-4.88 1.52a.07.07 0 0 0-.04.03C.53 9.05-.32 13.58.1 18.06c0 .02.01.04.03.05a19.9 19.9 0 0 0 6 3.03.08.08 0 0 0 .08-.03c.46-.63.87-1.3 1.22-2 .02-.04 0-.08-.04-.1a13 13 0 0 1-1.87-.9.08.08 0 0 1 0-.12c.13-.1.25-.19.37-.29a.07.07 0 0 1 .08-.01 14.2 14.2 0 0 0 12.06 0 .07.07 0 0 1 .08.01c.12.1.25.2.37.3a.08.08 0 0 1 0 .12c-.6.35-1.22.64-1.88.89a.08.08 0 0 0-.04.1c.36.7.78 1.37 1.22 2a.08.08 0 0 0 .08.03 19.8 19.8 0 0 0 6.02-3.03.08.08 0 0 0 .03-.05c.5-5.18-.84-9.68-3.55-13.66a.06.06 0 0 0-.03-.03zM8.02 15.33c-1.18 0-2.16-1.08-2.16-2.42s.96-2.42 2.16-2.42c1.21 0 2.18 1.09 2.16 2.42 0 1.34-.96 2.42-2.16 2.42zm7.97 0c-1.18 0-2.15-1.08-2.15-2.42s.95-2.42 2.15-2.42c1.22 0 2.18 1.09 2.16 2.42 0 1.34-.94 2.42-2.16 2.42z"/></svg>
+      </a>
+      <button class="icon-btn theme-btn" id="theme-btn" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0-5a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0V3a1 1 0 0 1 1-1zm9 9h-2a1 1 0 0 0 0 2h2a1 1 0 0 0 0-2zM5 12a1 1 0 0 0-1-1H2a1 1 0 0 0 0 2h2a1 1 0 0 0 1-1zm12.3 5.66a1 1 0 0 0-1.41 1.41l1.41 1.41a1 1 0 1 0 1.42-1.41l-1.42-1.41zM6.7 6.7a1 1 0 0 0-1.41-1.41L3.88 6.7a1 1 0 0 0 1.41 1.41L6.7 6.7zm12.42 0-1.41-1.41a1 1 0 0 0-1.41 1.41l1.41 1.42a1 1 0 1 0 1.41-1.42zM6.7 17.3a1 1 0 0 0-1.42 1.41l1.41 1.42a1 1 0 1 0 1.42-1.42L6.7 17.3zM12 20a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1z"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <nav class="sidebar-nav">
+<p class="nav-group">快速开始</p>
+<ul class="nav-list">
+<li><a class="nav-link" href="/WorldBridge/Getting-Started/Installation">安装与配置</a></li>
+<li><a class="nav-link" href="/WorldBridge/Getting-Started/First-Dimension">首次创建维度</a></li>
+<li><a class="nav-link" href="/WorldBridge/Getting-Started/Commands">命令大全</a></li>
+</ul>
+<p class="nav-group">维度系统</p>
+<ul class="nav-list">
+<li><a class="nav-link" href="/WorldBridge/Dimensions/World-Types">世界类型</a></li>
+<li><a class="nav-link" href="/WorldBridge/Dimensions/Parameters">维度参数</a></li>
+<li><a class="nav-link" href="/WorldBridge/Dimensions/Password">密码保护</a></li>
+</ul>
+<p class="nav-group">物品与方块</p>
+<ul class="nav-list">
+<li><a class="nav-link" href="/WorldBridge/Items/World-Anchor">世界之锚</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Star-Anchor">星锚奇点</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Transdimensional-Hopper">跨维漏斗</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Dimension-Globe">维度地球仪</a></li>
+</ul>
+<p class="nav-group">成就系统</p>
+<ul class="nav-list">
+<li><a class="nav-link" href="/WorldBridge/Advancements/List">成就列表</a></li>
+<li><a class="nav-link" href="/WorldBridge/Advancements/Triggers">触发器</a></li>
+</ul>
+<p class="nav-group">服务端配置</p>
+<ul class="nav-list">
+<li><a class="nav-link" href="/WorldBridge/Config/Server-Config">服务端配置</a></li>
+<li><a class="nav-link" href="/WorldBridge/Config/Permissions">权限</a></li>
+</ul>
+<p class="nav-group">进阶主题</p>
+<ul class="nav-list">
+<li><a class="nav-link" href="/WorldBridge/Advanced/Star-Anchor-Light">星锚动态光源</a></li>
+<li><a class="nav-link" href="/WorldBridge/Advanced/Redlink">红链系统</a></li>
+<li><a class="nav-link" href="/WorldBridge/Advanced/Datapack">数据包</a></li>
+<li><a class="nav-link" href="/WorldBridge/Advanced/Anchor-Gui">锚点 GUI</a></li>
+<li><a class="nav-link" href="/WorldBridge/Advanced/Faq">常见问题</a></li>
+</ul>
+<p class="nav-group">开发者</p>
+<ul class="nav-list">
+<li><a class="nav-link" href="/WorldBridge/Developer/Api">公开 API</a></li>
+</ul>
+<p class="nav-group">更新日志</p>
+<ul class="nav-list">
+<li><a class="nav-link active" href="/WorldBridge/Changelog">更新日志</a></li>
+</ul>
+</nav>
+  </aside>
+  <div class="sidebar-overlay" id="sidebar-overlay" hidden></div>
+
+  <main class="content">
+    <article class="article">
+      <h1 class="page-heading">更新日志</h1>
+      <h1 id="更新日志">更新日志</h1>
+<blockquote>
+<p>格式：版本号 — 发布日期 — 变更摘要<br />
+详见 <a href="/WorldBridge/../Changelog">CHANGELOG.md</a> 完整历史</p>
+</blockquote>
+<hr />
+<h2 id="0-5-0-未发布">0.5.0 — 未发布</h2>
+<h3 id="公开-api">🔌 公开 API</h3>
+<ul>
+<li>新增 <strong>WorldBridge-API</strong> 独立仓库（MIT），10 版本工程全覆盖（1.19 ~ 1.20.4）</li>
+<li><code>WorldBridgeAPI</code> 改服务定位模式（接口 + 服务注册，<code>isServiceAvailable()</code> 确认）</li>
+<li>新增红链 / 跨维漏斗 / 维度地球仪三套 API 与事件（配对、断连、信号、传输）</li>
+<li>数据类（<code>DimensionData</code> 等）移入 API 模块，原包路径不变、import 零改动</li>
+<li>全部 10 分支接入 API 模块编译 + 事件插桩</li>
+</ul>
+<hr />
+<h2 id="0-4-1-未发布">0.4.1 — 未发布</h2>
+<h3 id="维度地球仪-显示外部模组维度">🌍 维度地球仪：显示外部模组维度</h3>
+<p><strong>维度地球仪现在能显示其它模组创建的维度了</strong>（如暮色森林）——之前只显示原版三维度和 WorldBridge 自建维度：</p>
+<ul>
+<li><strong>外部维度节点</strong>：新增 <code>EXTERNAL</code> 类型——灰色六边形节点，与 WorldBridge 自建维度的蓝色方形明显区分</li>
+<li><strong>连接主世界</strong>：外部维度自动连一条到主世界的虚线边（与自定义维度一致）</li>
+<li><strong>全量扫描</strong>：通过服务器注册表扫描所有已加载/已注册维度，不再局限于 WorldBridge 自建维度</li>
+<li><strong>权限过滤不变</strong>：OP 可见全部维度（含未加载），普通玩家只看已加载维度</li>
+</ul>
+<h3 id="修复">🐛 修复</h3>
+<ul>
+<li>地球仪数据源遗漏外部模组维度的问题（仅收集原版 + WorldBridge 自建维度）</li>
+</ul>
+<hr />
+<h2 id="0-4-0-2026-08-28">0.4.0 — 2026-08-28</h2>
+<h3 id="维度链路地球仪">🌍 维度链路地球仪</h3>
+<p><strong>WorldBridge 新增「维度链路地球仪」</strong>——用原生 3D 力导向图把维度网络可视化，一眼看清所有维度的连接关系：</p>
+<ul>
+<li><strong>新方块 <code>dimension_globe</code>（维度地球仪）</strong>：放置后右击打开地球仪界面，或使用指令 <code>/worldbridge world map</code></li>
+<li><strong>原生 3D 力导向图</strong>：轨道相机 + 力导向求解器，节点/连线实时铺开，星野视差 + 呼吸脉动</li>
+<li><strong>节点形状区分</strong>：圆形 / 菱形 / 十二边形 / 方形 / 六角星——按维度类型一眼分辨</li>
+<li><strong>连线样式区分</strong>：实线 / 宽实线 / 虚线 / 细虚线——区分世界之锚、跨维漏斗、指令维度连接</li>
+<li><strong>搜索实时筛选</strong>：输入关键词即时过滤节点与连线</li>
+<li><strong>30 秒数据轮询</strong>：界面保持打开时自动原地刷新（不重开）</li>
+<li><strong>右键菜单</strong>：传送至维度 / 复制 ID / 删除维度</li>
+<li><strong>选中节点相机飞行聚焦</strong>：左键选中 → 相机平滑飞向节点，营造节点放大效果</li>
+<li><strong>合成配方</strong>：玻璃 ×3 + 红石粉 ×2 + 世界之锚 ×1 + 荧石粉 ×3（3×3 有序合成）</li>
+<li><strong>服务器配置</strong>：<code>[globe]</code> 段（<code>globe.enabled</code> / <code>globe.metrics_interval</code>）</li>
+</ul>
+<h3 id="修复_1">🐛 修复</h3>
+<ul>
+<li>地球仪节点不可见系列：3D 渲染缺 shader / 力导向斥力符号反转致节点坍缩 / Screen 上下文 modelView 残留致双重变换 / 2D 缓冲覆盖 3D 绘制</li>
+<li>1.19.0 ~ 1.19.4 背景透明（叠加深空渐变底色）</li>
+<li>1.19.0 ~ 1.19.2 节点异常：<code>com.mojang.math</code> 矩阵为列访问约定（v·M 行向量右乘），lookAt / worldToScreen / unproject 全面对齐（DBG 手算验证）</li>
+<li><code>/worldbridge world</code> 指令树接线修复（注册后未挂载 dispatcher，历史断线）</li>
+</ul>
+<h3 id="十版本贯通">✅ 十版本贯通</h3>
+<p>维度链路地球仪已在全部 10 个分支同步落地：1.20.1 → 1.20.0 → 1.20.2 → 1.20.3 / 1.20.4 → 1.19.4 → 1.19.3 → 1.19.2 → 1.19.1 → 1.19</p>
+<hr />
+<h2 id="0-3-5-2026-08-23">0.3.5 — 2026-08-23</h2>
+<h3 id="界面全面翻新-十版本贯通">🎨 界面全面翻新（十版本贯通）</h3>
+<p><strong>WorldBridge 所有自有界面换上全新主题外观</strong>——创建维度、世界之锚控制面板、跨维漏斗、自定义维度管理等全部界面告别原版按钮，统一使用自定义样式：</p>
+<ul>
+<li>主题组件：主题化按钮 / 输入框 / 循环选择按钮，支持悬停高亮、按下动效、键盘焦点环</li>
+<li>客户端配置：<code>config/worldbridge/client.toml</code> 可切换界面风格、开关动画</li>
+<li>传送过渡动画：跨维度传送新增四阶段过场演出</li>
+<li>世界之锚 HUD 常驻显示，过载进度一目了然</li>
+<li>组件预览页：管理员可用 <code>/wb gui preview</code> 查看全部组件效果</li>
+<li><strong>1.19 / 1.19.1 / 1.19.2</strong> 创建维度界面同步完成主题化收尾</li>
+</ul>
+<h3 id="修复_2">🐛 修复</h3>
+<ul>
+<li>预览页需要点击多次"关闭"才能关闭的问题（1.19 ~ 1.19.2）</li>
+<li>1.19.3 启动崩溃与预览页打不开等系列问题</li>
+<li>1.20.2 世界之锚偶发永久过载不恢复</li>
+<li>1.20.3 / 1.20.4 启动崩溃（传送数据包重复注册）</li>
+</ul>
+<hr />
+<h2 id="0-3-4-2026-08-23">0.3.4 — 2026-08-23</h2>
+<h3 id="黄金崩坏带-仅-1-20-1">✨ 黄金崩坏带（仅 1.20.1）</h3>
+<p><strong>??? 迎来"维度不稳定效应"——黄金崩坏带</strong>：模拟浮点精度衰减，地形与视觉同步崩坏，碰撞不受任何影响。</p>
+<ul>
+<li>地形崩坏：噪声采样坐标 +2,500,000 常量偏移</li>
+<li>视觉崩坏：区块秒级微抖闪烁 + 方块面静态错位（双渲染层叠加）</li>
+<li>服务端配置 <code>chaos_abyssos.golden_collapse_belt_enabled</code>（默认开启）</li>
+<li>状态跨维度同步：登录/换维度即时推送，无残留污染</li>
+<li>其余版本分支同步排期中</li>
+</ul>
+<h3 id="修复_3">🐛 修复</h3>
+<ul>
+<li>??? 天空结构生成的共享随机源多线程崩溃（<code>Accessing LegacyRandomSource from multiple threads</code>）——改用 per-chunk 确定性随机源</li>
+</ul>
+<hr />
+<h2 id="0-3-3-2026-08-21">0.3.3 — 2026-08-21</h2>
+<h3 id="十版本矩阵正式达成">🏆 十版本矩阵正式达成</h3>
+<p><strong>WorldBridge 现已全面支持 1.19.x ~ 1.20.4 共 10 个版本分支</strong>，零源码改动编译通过。</p>
+<table>
+<thead>
+<tr>
+<th>版本分支</th>
+<th>Forge</th>
+<th>状态</th>
+<th>角色</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.20.4 / 1.20.3</td>
+<td>49.x</td>
+<td>✅</td>
+<td>同步分支</td>
+</tr>
+<tr>
+<td>1.20.2</td>
+<td>48.x</td>
+<td>✅</td>
+<td>同步分支</td>
+</tr>
+<tr>
+<td><strong>1.20.1</strong></td>
+<td><strong>47.x</strong></td>
+<td>🟢</td>
+<td><strong>主开发分支</strong></td>
+</tr>
+<tr>
+<td>1.20</td>
+<td>46.x</td>
+<td>✅</td>
+<td>同步分支</td>
+</tr>
+<tr>
+<td><strong>1.19.4</strong></td>
+<td><strong>45.x</strong></td>
+<td>🟢</td>
+<td><strong>副主力分支</strong></td>
+</tr>
+<tr>
+<td>1.19.3</td>
+<td>44.x</td>
+<td>✅</td>
+<td>注册表扁平化攻坚完成</td>
+</tr>
+<tr>
+<td>1.19.2 / 1.19.1 / 1.19</td>
+<td>43/41/40.x</td>
+<td>✅</td>
+<td>同步分支</td>
+</tr>
+</tbody>
+</table>
+<h3 id="双分支同步机制落地">⚙️ 双分支同步机制落地</h3>
+<ul>
+<li>主开发分支：1.20.1 → 新功能首发</li>
+<li>副主力分支：1.19.4 ← 同步回合</li>
+<li>其余 8 分支：编译通过即可，核心逻辑完全同步</li>
+<li>Forge 版本线、API 断点、差异表（<code>BRANCH_API_DIFFS.md</code>）全文档化</li>
+</ul>
+<h3 id="关键技术攻坚-摘要">🔧 关键技术攻坚（摘要）</h3>
+<ul>
+<li><strong>1.19.3 注册表扁平化</strong>（最难）：RegistryAccess/ResourceKey 全面迁移、BiomeSource/ChunkGenerator 接口重写</li>
+<li><strong>1.19.3→1.19.4</strong>：GuiGraphics 引入、LayerLightSectionStorage NPE 修复、渲染 API 适配</li>
+<li><strong>1.20.1→1.20.2+</strong>：ResourceLocation.parse 移除、村民交易重构、光照 API 变更</li>
+</ul>
+<hr />
+<h2 id="0-3-2-2026-08-13">0.3.2 — 2026-08-13</h2>
+<h3 id="新增">✨ 新增</h3>
+<ul>
+<li><strong>多语言支持</strong>：新增日语、繁体中文、法语、韩语 4 种语言（共 6 种），全量 234 键翻译</li>
+<li><strong>崩坏方块全语言彩色</strong>：英文/法语也按字母循环红→金→黄→绿渐变，任何语言下都不会变成单色</li>
+<li><strong>??? 区块生成性能优化</strong>：<blockquote>
+<p><em>大地不再反复自证，</em>
+<em>一次抚触便记下每寸脉络。</em>
+<em>扫描的刀锋收鞘，</em>
+<em>风蚀的断面各归其位。</em></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="修复_4">🔧 修复</h3>
+<ul>
+<li><strong>服务器启动自动恢复维度</strong>：修复 0.1.0 遗留 bug——在自定义维度退出游戏后重进被丢回原版维度；现 <code>ServerStartedEvent</code> 会重建所有已保存维度，玩家回到原坐标</li>
+<li><strong>far chunk 写入错误根治</strong>：修复 <code>Detected setBlock in a far chunk</code> 海量刷屏（打崩日志）；天空结构改为区块裁剪放置，结构完整且零越界写入</li>
+</ul>
+<hr />
+<h2 id="0-3-1-2026-08-09">0.3.1 — 2026-08-09</h2>
+<h3 id="变更">✨ 变更</h3>
+<ul>
+<li><strong>配方成本降低</strong>：世界之锚 下合金块→下合金锭；星锚奇点 下合金锭→下合金碎片</li>
+<li><strong>星锚奇点耐久系统</strong>：50 点耐久，召回传送耗 1、虚空护盾耗 5、过载耗 6.35（平均），铁砧 + 下界碎片修复，耗尽碎裂</li>
+<li><strong>红链压力板碰撞箱修复</strong>：碰撞箱从双层小板改为与模型对齐的单层 14×14 薄板</li>
+<li><strong>红链压力板信号修复</strong>：补 <code>getTicker()</code> 使 BE 每 tick 检测踩踏；自定义维度由 <code>EventHandler</code> 全局手动 tick 兜底，站上即向配对红链方块发 15 强度信号</li>
+</ul>
+<hr />
+<h2 id="0-3-0-2026-08-06">0.3.0 — 2026-08-06</h2>
+<h3 id="新增_1">✨ 新增</h3>
+<ul>
+<li><strong>自定义维度模板系统</strong>：JSON 模板 CRUD + GUI 管理，支持 <code>biome_mix</code> 多群系权重混合</li>
+<li><strong>指令创建维度</strong>：<code>/worldbridge world create &lt;dimId&gt; &lt;typeAndJson&gt;</code>，支持内联 JSON 全参数覆盖，8 种内建类型 + 自定义模板</li>
+<li><strong>红链无线红石系统</strong>：5 种方块（发射器/接收器/按钮/拉杆/压力板/以太触发器）+ 扳手配对，跨维度零延迟信号传输</li>
+<li><strong>跨维度漏斗</strong>：INPUT/OUTPUT/BOTH 三模式，27 格缓冲 + 9 格过滤器，扳手两步配对，自动区块保活</li>
+<li><strong>玩家可见红字错误提示</strong>：全链路异常反馈到聊天框</li>
+</ul>
+<h3 id="修复-1-19-4">🔧 修复 (1.19.4)</h3>
+<ul>
+<li><strong>坐标要求规则扩大</strong>：任何 <code>world_bridge:</code> 命名空间维度传送均需坐标，原版维度间不需</li>
+<li><strong>biome_mix 群系键名修正</strong>：<code>biome_name</code> → <code>biome</code>，修复全变平原的 Bug</li>
+<li><strong>跨维漏斗 pairId 不匹配/相邻箱子推送失败</strong> 兜底修复</li>
+<li><strong>日志精简</strong>：移除高频调试日志，消除启动器崩溃隐患</li>
+</ul>
+<hr />
+<h2 id="0-2-3-2026-07-13">0.2.3 — 2026-07-13</h2>
+<h4 id="成就系统扩展-2-新进度">🏆 成就系统扩展 (2 新进度)</h4>
+<ul>
+<li><strong>无底深渊</strong> (<code>deepest.json</code>)：幽邃深渊 Y=-64 触发，challenge 框</li>
+<li><strong>一场空</strong> (<code>dimension_death.json</code>)：任意模组维度死亡触发，task 框</li>
+<li>新增 Trigger：<code>deepest_reached</code>、<code>dimension_death</code></li>
+<li>诗化描述：<code>§8你触碰到了世界的根基，它在颤抖。</code> / <code>§4异乡的土地拒绝记住你的名字。</code></li>
+</ul>
+<h4 id="星锚动态光源-v1">🎨 星锚动态光源 v1</h4>
+<ul>
+<li>手持/掉落/展示发光 (光照 14)</li>
+<li><code>ClientLevelMixin</code> 拦截 <code>LevelRenderer.getLightColor</code></li>
+<li>粒子/掉落物/物品展示全覆盖</li>
+</ul>
+<hr />
+<h3 id="0-2-3b-2026-07-14">0.2.3b — 2026-07-14</h3>
+<h4 id="密码功能完全实现">🔐 密码功能完全实现</h4>
+<ul>
+<li>维度创建/编辑时可设密码 (4-16 字符)</li>
+<li>传送验证流程：<code>TeleportPacket</code> → <code>OpenPasswordScreenPacket</code> → <code>PasswordScreen</code> → <code>VerifyPasswordPacket</code> → 服务端 SHA-256 比对</li>
+<li>OP 重置：<code>/worldbridge resetpassword &lt;pairId&gt;</code></li>
+<li>翻译键全覆盖：8 个密码相关 key (中英双语)</li>
+</ul>
+<hr />
+<h3 id="0-2-3c-2026-07-15">0.2.3c — 2026-07-15</h3>
+<h4 id="星锚动态光源修复">🌟 星锚动态光源修复</h4>
+<ul>
+<li><strong>并发修复</strong>：<code>StarAnchorLightManager.dirtyChunks</code> → <code>CopyOnWriteArraySet</code></li>
+<li><strong>光照叠加修复</strong>：<code>Math.max(blockLight, boosted)</code> 保留原版光源</li>
+<li><strong>实体渲染光照</strong>：新增 <code>EntityRendererMixin</code> 拦截 <code>BlockAndTintGetter.getBrightness</code></li>
+<li><strong>清理调试日志</strong>：移除所有 <code>logThrottled</code>、计数器字段</li>
+</ul>
+<h4 id="并发修复">🔧 并发修复</h4>
+<ul>
+<li><code>LayerLightSectionStorage.getStoredLevel</code> NPE → Mixin <code>@Redirect</code> 空检查返回 0</li>
+<li>种子交换静默失效 → 引用比较修复</li>
+</ul>
+<hr />
+<h3 id="0-2-3d-2026-07-16">0.2.3d — 2026-07-16</h3>
+<h4 id="新增_2">✨ 新增</h4>
+<ul>
+<li>幽邃深渊重做：洞穴式结构、Y=0~127、基岩天花板、海平面 -64</li>
+<li><code>DimensionType</code> 重做：<code>hasCeiling=true</code>、<code>hasSkylight=false</code></li>
+<li><code>NoiseSettings</code> 复用主世界噪声 + 固定 Deep Dark 群系</li>
+</ul>
+<h4 id="修复_5">🔧 修复</h4>
+<ul>
+<li>深渊维度传送失败 (Y=-64 安全落点扫描)</li>
+</ul>
+<hr />
+<h3 id="0-2-3e-2026-07-17">0.2.3e — 2026-07-17</h3>
+<h4 id="新增_3">✨ 新增</h4>
+<ul>
+<li>Wiki 完整重构：MkDocs Material 主题、双语 (EN/ZH)、GitHub Pages 部署</li>
+<li>FEATURES.md 同步更新：新增 14 大功能模块文档</li>
+<li>成就系统全英文化：EN/ZH 双语言文件完整同步</li>
+<li>更新日志拆分：<code>CHANGELOG_EN.md</code> / <code>CHANGELOG_CN.md</code> 双文件</li>
+<li>AGENTS.md 新增「内心独白用中文」规则</li>
+</ul>
+<h4 id="修复_6">🔧 修复</h4>
+<ul>
+<li>1.19.4 <code>ResourceLocation.parse()</code> 运行时崩溃 → 全量替换为 <code>new ResourceLocation(ns, path)</code></li>
+<li>种子交换静默失效修复：引用比较 <code>f.get(worldData) == expected</code></li>
+<li>成就 Toast 不显示兜底机制 <code>ModTrigger.awardDirectly()</code> 优化</li>
+<li>星锚动态光源并发安全：<code>CopyOnWriteArraySet</code> 替换 <code>HashSet</code></li>
+<li>移除所有节流日志 (<code>logThrottled</code>)，消除启动器崩溃隐患</li>
+</ul>
+<h4 id="文档">📚 文档</h4>
+<ul>
+<li>Wiki 结构重组：首页、快速开始、维度、物品、成就、配置、进阶、FAQ</li>
+<li>双语更新日志：EN/ZH 完整对应</li>
+<li>TODO.md 精简为「未实现 + 已知 Bug」仅两类</li>
+</ul>
+<hr />
+<h2 id="0-2-2-2026-07-11">0.2.2 — 2026-07-11</h2>
+<h3 id="服务端配置系统">⚙️ 服务端配置系统</h3>
+<ul>
+<li>新增 <code>worldbridge-server.toml</code> (13 项配置)</li>
+<li>分类：<code>[dimension]</code>、<code>[world_anchor]</code>、<code>[feature]</code></li>
+<li>热重载：<code>/worldbridge reload</code></li>
+</ul>
+<h3 id="小功能合集">🎮 小功能合集</h3>
+<ul>
+<li>维度删除清理内存 (<code>TeleportHelper.cleanupDimension</code> + <code>RuinedChunkGenerator.cleanupDimension</code>)</li>
+<li>维度列表增强：显示 LOADED/UNLOADED、玩家数、难度、结构</li>
+<li>自定义维度名称：<code>/worldbridge rename &lt;pairId&gt; &lt;name&gt;</code></li>
+<li>维度创建/删除全服广播</li>
+<li>星锚奇点查询模式：潜行+右键空气 → 显示最近锚点信息</li>
+<li>传送冷却 Actionbar 倒计时</li>
+<li>过载粒子环 (ENCHANT + END_ROD)</li>
+<li>F3 调试面板显示过载倒计时</li>
+</ul>
+<hr />
+<h2 id="0-2-1-2026-07-10">0.2.1 — 2026-07-10</h2>
+<h3 id="成就系统上线">🏆 成就系统上线</h3>
+<ul>
+<li>9 个原版进度 + 自定义 Criterion Trigger</li>
+<li><code>ModTrigger</code> / <code>ModCriteria</code> 注册 11 个触发器</li>
+<li>结构发现：Tick 事件 3x3 区块扫描 + 静态 Map 记录</li>
+<li>进维度/创世/深度/高度触发器完整</li>
+</ul>
+<h3 id="修复_7">🐛 修复</h3>
+<ul>
+<li><code>CriteriaTriggers.register</code> 线程安全 → 移入 <code>FMLCommonSetupEvent#enqueueWork</code></li>
+<li>成就标题隐藏：<code>enter_chaos_abyssos</code> 标题设为 <code>"???"</code></li>
+<li>成就等级多样化：task/goal/challenge 分配</li>
+</ul>
+<hr />
+<h2 id="0-2-0-2026-07-09">0.2.0 — 2026-07-09</h2>
+<h3 id="初始版本-三大维度-核心系统">🌍 初始版本：三大维度 + 核心系统</h3>
+<ul>
+<li><strong>星界之野</strong> (<code>aetherial_fields</code>)：Y&lt;100 虚空、放大化地形</li>
+<li><strong>幽邃深渊</strong> (<code>deep_abyss</code>)：Deep Dark 标准生成</li>
+<li><strong>世界之锚</strong>：跨维传送、红石触发、Chunk 常加载、祝福/传送光环、过载模式</li>
+<li><strong>星锚奇点</strong>：召回、过载充能、虚空护盾、查询模式</li>
+<li><strong>GUI 系统</strong>：创建/编辑/配对/密码/重命名全套界面</li>
+<li><strong>种子注入核心</strong>：反射替换 <code>WorldOptions.seed()</code> → <code>ChunkMap</code> 构造前交换</li>
+<li><strong>数据持久化</strong>：<code>DimensionDataManager</code> (SavedData) → <code>world_bridge_dimensions.dat</code></li>
+<li><strong>命令系统</strong>：<code>tp/list/delete/edit/rename/resetpassword/create</code> (GUI)</li>
+<li><strong>网络包</strong>：10 种自定义包双向通信</li>
+</ul>
+<hr />
+<h2 id="0-1-1-2026-07-07">0.1.1 — 2026-07-07</h2>
+<h3 id="修复-指令">修复+指令</h3>
+<ul>
+<li>修复部分已知Bug</li>
+<li>添加部分基础指令</li>
+</ul>
+<hr />
+<h2 id="0-1-0-2026-07-06">0.1.0 - 2026-07-06</h2>
+<h3 id="首个可运行版本">🎉 首个可运行版本</h3>
+<ul>
+<li>自定义维度创建 (GUI + 命令)</li>
+<li>WorldAnchor 方块 + BE + 红石触发</li>
+<li>基础传送 + 安全落点扫描</li>
+<li>NBT 持久化 + 反射维度注册</li>
+<li>双语言文件 (EN/ZH) 同步</li>
+</ul>
+    </article>
+    <div class="prev-next"><a class="prev" href="/WorldBridge/Developer/Api">← 公开 API</a></div>
+    <footer class="site-footer">
+      <p>© 2026 WorldBridge · All Rights Reserved · 开源协议详见 <a href="https://github.com/mow2333/WorldBridge" target="_blank" rel="noopener">GitHub 仓库</a></p>
+      <p><a href="/WorldBridge/Changelog">本站页面</a> · <a href="/WorldBridge/Changelog">更新日志</a> · <a href="https://discord.gg/zxG3zmsR9P" target="_blank" rel="noopener">加入讨论</a></p>
+    </footer>
+  </main>
+
+  <aside class="toc-sidebar">
+    <nav class="page-toc"><p class="toc-title">本页目录</p><ul><li><a href="#0-5-0-未发布">0.5.0 — 未发布</a></li><li><a href="#0-4-1-未发布">0.4.1 — 未发布</a></li><li><a href="#0-4-0-2026-08-28">0.4.0 — 2026-08-28</a></li><li><a href="#0-3-5-2026-08-23">0.3.5 — 2026-08-23</a></li><li><a href="#0-3-4-2026-08-23">0.3.4 — 2026-08-23</a></li><li><a href="#0-3-3-2026-08-21">0.3.3 — 2026-08-21</a></li><li><a href="#0-3-2-2026-08-13">0.3.2 — 2026-08-13</a></li><li><a href="#0-3-1-2026-08-09">0.3.1 — 2026-08-09</a></li><li><a href="#0-3-0-2026-08-06">0.3.0 — 2026-08-06</a></li><li><a href="#0-2-3-2026-07-13">0.2.3 — 2026-07-13</a></li><li><a href="#0-2-2-2026-07-11">0.2.2 — 2026-07-11</a></li><li><a href="#0-2-1-2026-07-10">0.2.1 — 2026-07-10</a></li><li><a href="#0-2-0-2026-07-09">0.2.0 — 2026-07-09</a></li><li><a href="#0-1-1-2026-07-07">0.1.1 — 2026-07-07</a></li><li><a href="#0-1-0-2026-07-06">0.1.0 - 2026-07-06</a></li></ul></nav>
+  </aside>
+</div>
+
+<script>
+const SEARCH_INDEX = null;
+const SEARCH_DATA_URL = "/WorldBridge/search_index.json";
+</script>
+<script src="/WorldBridge/assets/js/main.js"></script>
+</body>
+</html>
