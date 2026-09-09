@@ -64,16 +64,13 @@
 
 ```groovy
 repositories {
-    // 注意：Maven 仓库可能不可用，建议改用本地 JAR 方式
-    // maven { url 'https://maven.mow2333.top/releases' }
+    mavenCentral()
 }
 
 dependencies {
-    // 推荐方式：从 Releases 下载 JAR 放入项目 libs 文件夹
-    implementation fg.deobf(fileTree("libs"))
-
-    // 若 Maven 仓库可用，可改用：
-    // compileOnly fg.deobf("com.mow.mod.worldbridge:world_bridge:0.5.0")
+    // 选择与你的 Minecraft 版本对应的 artifact
+    compileOnly 'io.github.mow2333:worldbridge-api-1.20.1:0.5.0'
+    // 例如 1.19.4 → worldbridge-api-1.19.4；1.20.4 → worldbridge-api-1.20.4 ...
 }
 ```
 
