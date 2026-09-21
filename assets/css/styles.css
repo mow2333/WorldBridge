@@ -164,6 +164,11 @@ body {
   background: linear-gradient(90deg, transparent, var(--rift));
 }
 .sidebar-nav .nav-list { list-style: none; margin: 0; padding: 0; }
+.sidebar-nav .nav-subgroup {
+  margin: 12px 8px 4px; font-size: 12px; font-weight: 600;
+  color: var(--ink-faint); opacity: .9;
+}
+.sidebar-nav .nav-sublist .nav-link { padding-left: 20px; }
 .nav-link {
   display: block; padding: 7px 12px; margin: 2px 0;
   text-decoration: none; color: var(--ink-dim); font-size: 14px;
