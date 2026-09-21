@@ -200,7 +200,6 @@
 <h3 id="q-成就解锁了但-toast-不弹出">Q: 成就解锁了但 Toast 不弹出？</h3>
 <p><strong>A:</strong> 已知 1.20.1 下 <code>SimpleCriterionTrigger</code> 内部 listener map 可能为空导致静默失败。模组已在 <code>ModTrigger.trigger()</code> 中调用 <code>awardDirectly()</code> 兜底，极少数边缘情况仍可能漏触发。</p>
 <h3 id="q-进度标题显示-是-bug-吗">Q: 进度标题显示 "???" 是 Bug 吗？</h3>
-<p><strong>A:</strong> 不是。<code>enter_chaos_abyssos</code> 成就标题刻意设为 <code>"???"</code>，配合诗化描述隐晦暗示某个未知维度的名字。</p>
 <hr />
 <h2 id="配置与权限">⚙️ 配置与权限</h2>
 <h3 id="q-修改-worldbridge-server-toml-后不生效">Q: 修改 <code>worldbridge-server.toml</code> 后不生效？</h3>

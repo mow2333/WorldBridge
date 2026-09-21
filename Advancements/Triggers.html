@@ -136,9 +136,9 @@
 <td><code>pairId</code> (string)</td>
 </tr>
 <tr>
-<td><code>enter_chaos_abyssos</code></td>
+<td><code>???</code></td>
 <td><code>ModTrigger</code></td>
-<td>首次进入未知领域</td>
+<td>首次进入 ???</td>
 <td>—</td>
 </tr>
 <tr>
@@ -265,9 +265,9 @@
 <td>首次创建维度</td>
 </tr>
 <tr>
-<td><code>enter_chaos_abyssos</code></td>
-<td><code>enter_chaos_abyssos</code></td>
-<td>进入未知领域</td>
+<td><code>???</code></td>
+<td><code>???</code></td>
+<td>进入 ???</td>
 </tr>
 <tr>
 <td><code>enter_aetherial_fields</code></td>
@@ -314,12 +314,12 @@
 <hr />
 <h2 id="触发器注册">🔧 触发器注册</h2>
 <div class="codehilite"><pre><span></span><code><span class="c1">// ModCriteria.java</span>
-<span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">ModTrigger</span><span class="w"> </span><span class="n">ENTER_CHAOS_ABYSSOS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">register</span><span class="p">(</span><span class="s">&quot;enter_chaos_abyssos&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">EmptyTriggerInstance</span><span class="p">::</span><span class="k">new</span><span class="p">);</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">ModTrigger</span><span class="w"> </span><span class="o">???</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">register</span><span class="p">(</span><span class="s">&quot;???&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">EmptyTriggerInstance</span><span class="p">::</span><span class="k">new</span><span class="p">);</span>
 <span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">ModTrigger</span><span class="w"> </span><span class="n">ENTER_AETHERIAL_FIELDS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">register</span><span class="p">(</span><span class="s">&quot;enter_aetherial_fields&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">EmptyTriggerInstance</span><span class="p">::</span><span class="k">new</span><span class="p">);</span>
 <span class="c1">// ... 共 14 个注册</span>
 
 <span class="c1">// FMLCommonSetupEvent#enqueueWork</span>
-<span class="n">CriteriaTriggers</span><span class="p">.</span><span class="na">register</span><span class="p">(</span><span class="n">ModCriteria</span><span class="p">.</span><span class="na">ENTER_CHAOS_ABYSSOS</span><span class="p">);</span>
+<span class="n">CriteriaTriggers</span><span class="p">.</span><span class="na">register</span><span class="p">(</span><span class="n">ModCriteria</span><span class="p">.</span><span class="o">???</span><span class="p">);</span>
 <span class="c1">// 必须在 enqueueWork 中注册，非线程安全</span>
 </code></pre></div>
 

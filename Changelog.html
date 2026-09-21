@@ -292,12 +292,7 @@
 </ul>
 <hr />
 <h2 id="0-3-4-2026-08-23">0.3.4 — 2026-08-23</h2>
-<h3 id="黄金崩坏带-仅-1-20-1">✨ 黄金崩坏带（仅 1.20.1）</h3>
-<p><strong>??? 迎来"维度不稳定效应"——黄金崩坏带</strong>：模拟浮点精度衰减，地形与视觉同步崩坏，碰撞不受任何影响。</p>
 <ul>
-<li>地形崩坏：噪声采样坐标 +2,500,000 常量偏移</li>
-<li>视觉崩坏：区块秒级微抖闪烁 + 方块面静态错位（双渲染层叠加）</li>
-<li>服务端配置 <code>chaos_abyssos.golden_collapse_belt_enabled</code>（默认开启）</li>
 <li>状态跨维度同步：登录/换维度即时推送，无残留污染</li>
 <li>其余版本分支同步排期中</li>
 </ul>
@@ -368,7 +363,7 @@
 <li>主开发分支：1.20.1 → 新功能首发</li>
 <li>副主力分支：1.19.4 ← 同步回合</li>
 <li>其余 8 分支：编译通过即可，核心逻辑完全同步</li>
-<li>Forge 版本线、API 断点、差异表（<code>BRANCH_API_DIFFS.md</code>）全文档化</li>
+<li>Forge 版本线、API 断点、差异表全文档化</li>
 </ul>
 <h3 id="关键技术攻坚-摘要">🔧 关键技术攻坚（摘要）</h3>
 <ul>
@@ -381,7 +376,6 @@
 <h3 id="新增">✨ 新增</h3>
 <ul>
 <li><strong>多语言支持</strong>：新增日语、繁体中文、法语、韩语 4 种语言（共 6 种），全量 234 键翻译</li>
-<li><strong>崩坏方块全语言彩色</strong>：英文/法语也按字母循环红→金→黄→绿渐变，任何语言下都不会变成单色</li>
 <li><strong>??? 区块生成性能优化</strong>：<blockquote>
 <p><em>大地不再反复自证，</em>
 <em>一次抚触便记下每寸脉络。</em>
@@ -476,10 +470,9 @@
 <h4 id="新增_3">✨ 新增</h4>
 <ul>
 <li>Wiki 完整重构：MkDocs Material 主题、双语 (EN/ZH)、GitHub Pages 部署</li>
-<li>FEATURES.md 同步更新：新增 14 大功能模块文档</li>
+<li>功能文档同步更新：新增 14 大功能模块</li>
 <li>成就系统全英文化：EN/ZH 双语言文件完整同步</li>
-<li>更新日志拆分：<code>CHANGELOG_EN.md</code> / <code>CHANGELOG_CN.md</code> 双文件</li>
-<li>AGENTS.md 新增「内心独白用中文」规则</li>
+<li>更新日志拆分为中英双文件</li>
 </ul>
 <h4 id="修复_7">🔧 修复</h4>
 <ul>
@@ -493,7 +486,7 @@
 <ul>
 <li>Wiki 结构重组：首页、快速开始、维度、物品、成就、配置、进阶、FAQ</li>
 <li>双语更新日志：EN/ZH 完整对应</li>
-<li>TODO.md 精简为「未实现 + 已知 Bug」仅两类</li>
+<li>待办清单精简为「未实现 + 已知 Bug」仅两类</li>
 </ul>
 <hr />
 <h2 id="0-2-2-2026-07-11">0.2.2 — 2026-07-11</h2>
@@ -526,12 +519,12 @@
 <h3 id="修复_8">🐛 修复</h3>
 <ul>
 <li><code>CriteriaTriggers.register</code> 线程安全 → 移入 <code>FMLCommonSetupEvent#enqueueWork</code></li>
-<li>成就标题隐藏：<code>enter_chaos_abyssos</code> 标题设为 <code>"???"</code></li>
+<li>成就标题隐藏：<code>???</code> 标题设为 <code>"???"</code></li>
 <li>成就等级多样化：task/goal/challenge 分配</li>
 </ul>
 <hr />
 <h2 id="0-2-0-2026-07-09">0.2.0 — 2026-07-09</h2>
-<h3 id="初始版本-三大维度-核心系统">🌍 初始版本：三大维度 + 核心系统</h3>
+<h3 id="初始版本-两大维度-核心系统">🌍 初始版本：两大维度 + 核心系统</h3>
 <ul>
 <li><strong>星界之野</strong> (<code>aetherial_fields</code>)：Y&lt;100 虚空、放大化地形</li>
 <li><strong>幽邃深渊</strong> (<code>deep_abyss</code>)：Deep Dark 标准生成</li>
