@@ -469,3 +469,23 @@ body {
   .header-inner { gap: 4px; }
   .page-heading { font-size: 27px; }
 }
+
+/* ========== 滚动条 —— 一道细缝，不是铁管 ========== */
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--ink-faint) 40%, transparent);
+  border: 4px solid transparent;
+  background-clip: content-box;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--rift);
+  border: 4px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-corner { background: transparent; }
+/* Firefox：只在 Gecko 生效，避免覆盖上面的 WebKit 自定义 */
+@supports (-moz-appearance: none) {
+  html { scrollbar-width: thin; scrollbar-color: var(--edge-bright) transparent; }
+}
