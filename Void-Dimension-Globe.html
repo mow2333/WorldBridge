@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="auto">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="WorldBridge Static Docs Builder">
+<title>维度地球仪·黯 - WorldBridge</title>
+<link rel="icon" type="image/svg+xml" href="/WorldBridge/assets/favicon.svg">
+<link rel="stylesheet" href="/WorldBridge/assets/css/styles.css">
+<link rel="stylesheet" href="/WorldBridge/assets/css/pygments.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <button class="icon-btn menu-btn" id="menu-btn" aria-label="打开导航" title="打开导航">
+      <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+    </button>
+    <a class="brand" href="/WorldBridge/">
+      <span class="brand-logo" aria-hidden="true"></span>
+      <span class="brand-name">WorldBridge</span>
+    </a>
+    <div class="search-wrap">
+      <input type="search" id="search-input" placeholder="搜索文档…" autocomplete="off" aria-label="搜索">
+      <div class="search-dropdown" id="search-dropdown" hidden></div>
+    </div>
+    <div class="header-actions">
+      <a class="icon-btn" href="https://mow2333.github.io/" target="_blank" rel="noopener" aria-label="个人主页" title="个人主页">
+        <svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2"/></svg>
+      </a>
+      <a class="icon-btn" href="https://github.com/mow2333/WorldBridge" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+        <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.56 9.56 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+      </a>
+      <a class="icon-btn" href="https://discord.gg/zxG3zmsR9P" target="_blank" rel="noopener" aria-label="Discord" title="Discord">
+        <svg viewBox="0 0 24 24"><path d="M20.32 4.37a19.8 19.8 0 0 0-4.89-1.52.07.07 0 0 0-.08.04c-.21.38-.44.87-.6 1.25a18.3 18.3 0 0 0-5.5 0 12.6 12.6 0 0 0-.61-1.25.08.08 0 0 0-.08-.04c-1.7.3-3.34.8-4.88 1.52a.07.07 0 0 0-.04.03C.53 9.05-.32 13.58.1 18.06c0 .02.01.04.03.05a19.9 19.9 0 0 0 6 3.03.08.08 0 0 0 .08-.03c.46-.63.87-1.3 1.22-2 .02-.04 0-.08-.04-.1a13 13 0 0 1-1.87-.9.08.08 0 0 1 0-.12c.13-.1.25-.19.37-.29a.07.07 0 0 1 .08-.01 14.2 14.2 0 0 0 12.06 0 .07.07 0 0 1 .08.01c.12.1.25.2.37.3a.08.08 0 0 1 0 .12c-.6.35-1.22.64-1.88.89a.08.08 0 0 0-.04.1c.36.7.78 1.37 1.22 2a.08.08 0 0 0 .08.03 19.8 19.8 0 0 0 6.02-3.03.08.08 0 0 0 .03-.05c.5-5.18-.84-9.68-3.55-13.66a.06.06 0 0 0-.03-.03zM8.02 15.33c-1.18 0-2.16-1.08-2.16-2.42s.96-2.42 2.16-2.42c1.21 0 2.18 1.09 2.16 2.42 0 1.34-.96 2.42-2.16 2.42zm7.97 0c-1.18 0-2.15-1.08-2.15-2.42s.95-2.42 2.15-2.42c1.22 0 2.18 1.09 2.16 2.42 0 1.34-.94 2.42-2.16 2.42z"/></svg>
+      </a>
+      <button class="icon-btn theme-btn" id="theme-btn" aria-label="切换主题" title="切换主题">
+        <svg class="icon-sun" viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0-5a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0V3a1 1 0 0 1 1-1zm9 9h-2a1 1 0 0 0 0 2h2a1 1 0 0 0 0-2zM5 12a1 1 0 0 0-1-1H2a1 1 0 0 0 0 2h2a1 1 0 0 0 1-1zm12.3 5.66a1 1 0 0 0-1.41 1.41l1.41 1.41a1 1 0 1 0 1.42-1.41l-1.42-1.41zM6.7 6.7a1 1 0 0 0-1.41-1.41L3.88 6.7a1 1 0 0 0 1.41 1.41L6.7 6.7zm12.42 0-1.41-1.41a1 1 0 0 0-1.41 1.41l1.41 1.42a1 1 0 1 0 1.41-1.42zM6.7 17.3a1 1 0 0 0-1.42 1.41l1.41 1.42a1 1 0 1 0 1.42-1.42L6.7 17.3zM12 20a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1z"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <nav class="sidebar-nav">
+<p class="nav-group">快速开始</p>
+<ul class="nav-list">
+<li><a class="nav-link" href="/WorldBridge/Getting-Started/Installation">安装与配置</a></li>
+<li><a class="nav-link" href="/WorldBridge/Getting-Started/First-Dimension">首次创建维度</a></li>
+<li><a class="nav-link" href="/WorldBridge/Getting-Started/Commands">命令大全</a></li>
+</ul>
+<p class="nav-group">维度系统</p>
+<ul class="nav-list">
+<li><a class="nav-link" href="/WorldBridge/Dimensions/World-Types">世界类型</a></li>
+<li><a class="nav-link" href="/WorldBridge/Dimensions/Vanitatis">虚空维度</a></li>
+<li><a class="nav-link" href="/WorldBridge/Dimensions/Parameters">维度参数</a></li>
+<li><a class="nav-link" href="/WorldBridge/Dimensions/Password">密码保护</a></li>
+</ul>
+<p class="nav-group">物品与方块</p>
+<ul class="nav-list">
+<li><a class="nav-link" href="/WorldBridge/Items/World-Anchor">世界之锚</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Star-Anchor">星锚奇点</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Transdimensional-Hopper">跨维漏斗</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Dimension-Globe">维度地球仪</a></li>
+<li><a class="nav-link active" href="/WorldBridge/Items/Void-Dimension-Globe">维度地球仪·黯</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Worldroot-Riftmaker">世界根裂解器</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Stabilizer">虚空稳定器</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Block">虚空之块</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Worldroot-Keycore">世界根钥核</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Ingot">虚空之锭</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Star-Anchor-Singularity">星锚奇点·黯</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Upgrade-Template">升级模板</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Armor">虚空护甲套装</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Tools">虚空工具与武器</a></li>
+</ul>
+<p class="nav-group">附魔</p>
+<ul class="nav-list">
+<li><a class="nav-link" href="/WorldBridge/Enchantments/Void">虚空附魔</a></li>
+</ul>
+<p class="nav-group">成就系统</p>
+<ul class="nav-list">
+<li><a class="nav-link" href="/WorldBridge/Advancements/List">成就列表</a></li>
+<li><a class="nav-link" href="/WorldBridge/Advancements/Triggers">触发器</a></li>
+</ul>
+<p class="nav-group">服务端配置</p>
+<ul class="nav-list">
+<li><a class="nav-link" href="/WorldBridge/Config/Server-Config">服务端配置</a></li>
+<li><a class="nav-link" href="/WorldBridge/Config/Permissions">权限</a></li>
+</ul>
+<p class="nav-group">进阶主题</p>
+<ul class="nav-list">
+<li><a class="nav-link" href="/WorldBridge/Advanced/Star-Anchor-Light">星锚动态光源</a></li>
+<li><a class="nav-link" href="/WorldBridge/Advanced/Redlink">红链系统</a></li>
+<li><a class="nav-link" href="/WorldBridge/Advanced/Datapack">数据包</a></li>
+<li><a class="nav-link" href="/WorldBridge/Advanced/Anchor-Gui">锚点 GUI</a></li>
+<li><a class="nav-link" href="/WorldBridge/Advanced/Faq">常见问题</a></li>
+</ul>
+<p class="nav-group">开发者</p>
+<ul class="nav-list">
+<li><a class="nav-link" href="/WorldBridge/Developer/Api">公开 API</a></li>
+</ul>
+<p class="nav-group">更新日志</p>
+<ul class="nav-list">
+<li><a class="nav-link" href="/WorldBridge/Changelog">更新日志</a></li>
+</ul>
+</nav>
+  </aside>
+  <div class="sidebar-overlay" id="sidebar-overlay" hidden></div>
+
+  <main class="content">
+    <article class="article">
+      <h1 class="page-heading">维度地球仪·黯</h1>
+      <h1 id="维度地球仪-黯">维度地球仪·黯</h1>
+<blockquote>
+<p>普通地球仪看不见虚空维度。<strong>因为按常理它不存在。</strong>
+用虚空锭把地球仪染过一遍，才照得见。</p>
+</blockquote>
+<h2 id="基础信息">📦 基础信息</h2>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>注册名</strong></td>
+<td><code>world_bridge:void_dimension_globe</code></td>
+</tr>
+<tr>
+<td><strong>堆叠数</strong></td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>模型 / 功能</strong></td>
+<td>与<a href="/WorldBridge/Items/Dimension-Globe">普通地球仪</a><strong>完全复用</strong></td>
+</tr>
+<tr>
+<td><strong>差异</strong></td>
+<td>仅<strong>球体贴图</strong>换成逐像素重建的暗紫版</td>
+</tr>
+<tr>
+<td><strong>挖掉</strong></td>
+<td>掉暗版自身</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="与普通版的区别">🔧 与普通版的区别</h2>
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>普通地球仪</th>
+<th>维度地球仪·黯</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>虚空维度节点</strong></td>
+<td>❌ <strong>不显示</strong>（连节点都不建）</td>
+<td>✅ <strong>看得见</strong></td>
+</tr>
+<tr>
+<td><strong>背景</strong></td>
+<td>深蓝黑渐变 + 白色星野</td>
+<td><strong>暗紫渐变</strong> + 压暗偏紫的星 + 3 团缓慢漂移的<strong>暗紫星云</strong></td>
+</tr>
+<tr>
+<td><strong>标题</strong></td>
+<td><code>维度链路地球仪</code>（粉紫）</td>
+<td><code>维度链路地球仪·黯</code>（暗紫）</td>
+</tr>
+<tr>
+<td><strong>选中环</strong></td>
+<td>白色</td>
+<td><strong>暗紫</strong></td>
+</tr>
+<tr>
+<td><strong>右键菜单</strong></td>
+<td>3 项</td>
+<td><strong>5 项</strong>（多出重命名 / 克隆）</td>
+</tr>
+<tr>
+<td><strong>创造栏</strong></td>
+<td>单独一项</td>
+<td><strong>单独一项</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>「虚空维度在常规认知里不存在」不是一句设定，而是<strong>实现上的过滤</strong>——
+普通地球仪收集数据时直接跳过该维度。</p>
+</blockquote>
+<hr />
+<h2 id="虚空维度的节点样式">🌑 虚空维度的节点样式</h2>
+<p>虚空维度在地球仪上<strong>独立成第 7 类</strong> <code>DimType.VANITATIS</code>：</p>
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>颜色</strong></td>
+<td>暗紫 <code>#7B2FBE</code></td>
+</tr>
+<tr>
+<td><strong>形状</strong></td>
+<td><strong>球体</strong>（与主世界同形）</td>
+</tr>
+<tr>
+<td><strong>为什么同形</strong></td>
+<td>它本就是主世界的投影，不在轮廓上做区隔</td>
+</tr>
+<tr>
+<td><strong>中心</strong></td>
+<td><strong>黑洞</strong>——近黑圆盘 + 一圈亮紫薄边</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>形成「外暗紫辉光 → 暗紫壳 → 中心近黑」的吞噬感，与普通节点的实心圆盘一眼可分。</p>
+</blockquote>
+<hr />
+<h2 id="黯版专属操作">🖱️ 黯版专属操作</h2>
+<p>右键菜单对<strong>可管理的自定义维度</strong>追加两项：</p>
+<table>
+<thead>
+<tr>
+<th>菜单项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>重命名维度</strong></td>
+<td>弹出输入框，预填当前名字；Enter 确认 / ESC 取消；名字非空且不超过 32 字</td>
+</tr>
+<tr>
+<td><strong>克隆维度</strong></td>
+<td>以源维度为模板新建一个同参数维度，名字加「 副本」后缀，<strong>只克隆不传送</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="权限">权限</h3>
+<p><strong>创建者本人 + OP（等级 2）</strong>。</p>
+<ul>
+<li>无权限时这两项<strong>置灰不可点</strong></li>
+<li>服务端仍会<strong>二次校验</strong>，客户端改包绕不过去</li>
+</ul>
+<h3 id="克隆的边界">克隆的边界</h3>
+<ul>
+<li>以源维度数据做 <strong>NBT 深拷贝</strong>（连生成配置 / 权限设置 / 游戏规则一并带走），换新的随机 pairId</li>
+<li><strong>清空锚点</strong>（新世界没有锚），父维度沿用源维度</li>
+<li><strong>种子照搬</strong> → 新世界<strong>地形与源维度完全一致</strong></li>
+<li>⚠️ 但<strong>玩家建筑不会复制</strong>——那些在 region 文件里，新 pairId 就是新文件夹</li>
+<li>受 <code>maxDimensionsPerPlayer</code> 约束（与手工创建同一条限制）</li>
+<li><strong>只对 WorldBridge 自定义维度生效</strong>：原版三维度与外部模组维度不在数据表里，既无从改名也不该被克隆 → 置灰</li>
+</ul>
+<hr />
+<h2 id="合成配方">💎 合成配方</h2>
+<table>
+<thead>
+<tr>
+<th>产出</th>
+<th>配方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>维度地球仪·黯</strong></td>
+<td>中心<strong>维度地球仪</strong> + 上下左右 <strong>4 个虚空锭</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="codehilite"><pre><span></span><code>        虚空锭
+虚空锭  维度地球仪  虚空锭
+        虚空锭
+</code></pre></div>
+
+<hr />
+<h2 id="获取途径">💎 获取途径</h2>
+<table>
+<thead>
+<tr>
+<th>途径</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>合成</td>
+<td>见上方配方</td>
+</tr>
+<tr>
+<td>创造模式物品栏</td>
+<td>单独一项（搜索 "Void Dimension Globe"）</td>
+</tr>
+<tr>
+<td>命令</td>
+<td><code>/give @p world_bridge:void_dimension_globe</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="小贴士">💡 小贴士</h2>
+<ul>
+<li>黯版界面开着时会每 30 秒自动刷新一次数据，刷新请求会带上「我是黯版」的标志，所以主题不会中途变回普通配色</li>
+<li>虚空的节点造型是「球体 + 中心黑洞」，和主世界的普通球体放在一起时靠<strong>中心那块黑</strong>区分</li>
+</ul>
+<hr />
+<h2 id="相关页面">🔗 相关页面</h2>
+<ul>
+<li><a href="/WorldBridge/Items/Dimension-Globe">维度地球仪</a> — 原版原型与完整界面说明</li>
+<li><a href="/WorldBridge/Dimensions/Vanitatis">虚空维度</a> — 黯版照见的那个世界</li>
+<li><a href="/WorldBridge/Items/Void-Ingot">虚空之锭</a> — 合成材料</li>
+</ul>
+    </article>
+    <div class="prev-next"><a class="prev" href="/WorldBridge/Items/Dimension-Globe">← 维度地球仪</a><a class="next" href="/WorldBridge/Items/Worldroot-Riftmaker">世界根裂解器 →</a></div>
+    <footer class="site-footer">
+      <p>© 2026 WorldBridge · All Rights Reserved · 开源协议详见 <a href="https://github.com/mow2333/WorldBridge" target="_blank" rel="noopener">GitHub 仓库</a></p>
+      <p><a href="/WorldBridge/Items/Void-Dimension-Globe">本站页面</a> · <a href="/WorldBridge/Changelog">更新日志</a> · <a href="https://discord.gg/zxG3zmsR9P" target="_blank" rel="noopener">加入讨论</a></p>
+    </footer>
+  </main>
+
+  <aside class="toc-sidebar">
+    <nav class="page-toc"><p class="toc-title">本页目录</p><ul><li><a href="#基础信息">📦 基础信息</a></li><li><a href="#与普通版的区别">🔧 与普通版的区别</a></li><li><a href="#虚空维度的节点样式">🌑 虚空维度的节点样式</a></li><li><a href="#黯版专属操作">🖱️ 黯版专属操作</a></li><li><a href="#合成配方">💎 合成配方</a></li><li><a href="#获取途径">💎 获取途径</a></li><li><a href="#小贴士">💡 小贴士</a></li><li><a href="#相关页面">🔗 相关页面</a></li></ul></nav>
+  </aside>
+</div>
+
+<script>
+const SEARCH_INDEX = null;
+const SEARCH_DATA_URL = "/WorldBridge/search_index.json";
+</script>
+<script src="/WorldBridge/assets/js/main.js"></script>
+</body>
+</html>
