@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="WorldBridge Static Docs Builder">
-<title>核心世界类型详解 - WorldBridge</title>
+<title>成就系统 - WorldBridge</title>
 <link rel="icon" type="image/svg+xml" href="/WorldBridge/assets/favicon.svg">
 <link rel="stylesheet" href="/WorldBridge/assets/css/styles.css">
 <link rel="stylesheet" href="/WorldBridge/assets/css/pygments.css">
@@ -53,11 +53,11 @@
 <li><a class="nav-link" href="/WorldBridge/Getting-Started/Installation">安装与配置</a></li>
 <li><a class="nav-link" href="/WorldBridge/Getting-Started/First-Dimension">首次创建维度</a></li>
 <li><a class="nav-link" href="/WorldBridge/Getting-Started/Commands">命令大全</a></li>
-<li><a class="nav-link" href="/WorldBridge/Getting-Started/Achievements">成就系统</a></li>
+<li><a class="nav-link active" href="/WorldBridge/Getting-Started/Achievements">成就系统</a></li>
 </ul>
 <p class="nav-group">维度系统</p>
 <ul class="nav-list">
-<li><a class="nav-link active" href="/WorldBridge/Dimensions/World-Types">世界类型</a></li>
+<li><a class="nav-link" href="/WorldBridge/Dimensions/World-Types">世界类型</a></li>
 <li><a class="nav-link" href="/WorldBridge/Dimensions/Vanitatis">虚空维度</a></li>
 <li><a class="nav-link" href="/WorldBridge/Dimensions/Parameters">维度参数</a></li>
 <li><a class="nav-link" href="/WorldBridge/Dimensions/Password">密码保护</a></li>
@@ -115,193 +115,105 @@
 
   <main class="content">
     <article class="article">
-      <h1 class="page-heading">核心世界类型详解</h1>
-      <h1 id="核心世界类型详解">核心世界类型详解</h1>
-<p>WorldBridge 原创 2 大核心维度类型，各具特色的生成器与玩法体验。</p>
-<hr />
-<h2 id="星界之野">🌸 星界之野</h2>
-<table>
-<thead>
-<tr>
-<th>属性</th>
-<th>值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>类型 ID</strong></td>
-<td><code>aetherial_fields</code></td>
-</tr>
-<tr>
-<td><strong>生成器</strong></td>
-<td><code>RuinedChunkGenerator(AETHERIAL_FIELDS)</code></td>
-</tr>
-<tr>
-<td><strong>固定群系</strong></td>
-<td><code>minecraft:meadow</code> (繁花丘陵)</td>
-</tr>
-<tr>
-<td><strong>噪声来源</strong></td>
-<td><code>minecraft:amplified</code> (放大化)</td>
-</tr>
-</tbody>
-</table>
-<h3 id="核心机制">🌤️ 核心机制</h3>
-<ul>
-<li><strong>Y&lt;100 全部虚空</strong>：生成时将 Y&lt;100 所有方块设为空气，形成纯净虚空层</li>
-<li><strong>Y≥100 放大化地形</strong>：继承 <code>minecraft:amplified</code> 噪声设置，极限山峰、深谷、悬浮岛</li>
-<li><strong>完整洞穴/矿脉/旧版随机</strong>：完整支持原版洞穴生成、矿脉分布、旧版随机种子兼容</li>
-<li><strong>海平面可配</strong>：默认 Y=63，但 Y&lt;100 已清空，实质海平面在 Y≥100 处</li>
-</ul>
-<h3 id="视觉体验">🏝️ 视觉体验</h3>
-<ul>
-<li>脚下是无尽虚空（Y&lt;100）</li>
-<li>头顶是耸入云端的繁花山峰（Y≥100）</li>
-<li>适合：空岛生存、建筑展示、 Elytra 飞行、摄影</li>
-</ul>
-<hr />
-<h2 id="幽邃深渊">🕳️ 幽邃深渊</h2>
-<table>
-<thead>
-<tr>
-<th>属性</th>
-<th>值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>类型 ID</strong></td>
-<td><code>deep_abyss</code></td>
-</tr>
-<tr>
-<td><strong>生成器</strong></td>
-<td>标准 <code>NoiseBasedChunkGenerator</code></td>
-</tr>
-<tr>
-<td><strong>固定群系</strong></td>
-<td><code>minecraft:deep_dark</code></td>
-</tr>
-<tr>
-<td><strong>重做内容</strong></td>
-<td>维度类型、地形高度、天花板、海平面</td>
-</tr>
-</tbody>
-</table>
-<h3 id="重做详情">🕳️ 重做详情</h3>
-<table>
-<thead>
-<tr>
-<th>项目</th>
-<th>数值/设置</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>维度类型</strong></td>
-<td><code>hasCeiling=true</code>、<code>hasSkylight=false</code>、<code>logicalHeight=128</code></td>
-</tr>
-<tr>
-<td><strong>视觉效果</strong></td>
-<td>主世界天空/雾/光照（无下界雾/热量）</td>
-</tr>
-<tr>
-<td><strong>火无限燃烧</strong></td>
-<td><code>infiniburn_overworld</code></td>
-</tr>
-<tr>
-<td><strong>世界高度</strong></td>
-<td>Y=0 ~ 127 (minY=0, height=128)</td>
-</tr>
-<tr>
-<td><strong>顶层天花板</strong></td>
-<td>自动生成不规则基岩天花板 (Y=127)</td>
-</tr>
-<tr>
-<td><strong>默认方块</strong></td>
-<td>石头</td>
-</tr>
-<tr>
-<td><strong>默认流体</strong></td>
-<td>水</td>
-</tr>
-<tr>
-<td><strong>海平面</strong></td>
-<td>-64 (无水海/岩浆海)</td>
-</tr>
-<tr>
-<td><strong>群系</strong></td>
-<td>固定 <code>minecraft:deep_dark</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="生成器设置">🏗️ 生成器设置</h3>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;minecraft:noise&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;generator&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;minecraft:noise&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;settings&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;minecraft:overworld&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;biome_source&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;minecraft:fixed&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;biome&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;minecraft:deep_dark&quot;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
-<blockquote>
-<p>使用主世界噪声设置 (<code>minecraft:overworld</code>)，仅固定群系为 Deep Dark。</p>
+      <h1 class="page-heading">成就系统</h1>
+      <h1 id="成就系统">成就系统</h1>
+<p>WorldBridge 使用原版 <strong>Advancements（进度）</strong> 框架，通过自定义 Criterion Trigger 实现，共 <strong>16 个触发器 / 14 个进度</strong>，每一条都配有诗化的标题与描述。</p>
+<blockquote class="q-note">
+<p><span class="q-tag">提示</span>：进度由原版成就系统记录，多人服务器上每位玩家各记一份，互不影响。</p>
 </blockquote>
 <hr />
-<h2 id="三维度对比速查">📊 三维度对比速查</h2>
+<h2 id="如何查看">🎮 如何查看</h2>
+<ol>
+<li>进入游戏，按 <code>Esc</code> 打开菜单</li>
+<li>点击 <strong>进度（Advancements）</strong></li>
+<li>找到 <strong>WorldBridge</strong> 分页，即可看到全部进度与完成状态</li>
+</ol>
+<p>进度解锁时会弹出 Toast 提示，同时把那条诗留在成就面板里。</p>
+<hr />
+<h2 id="四大类别">🗂️ 四大类别</h2>
 <table>
 <thead>
 <tr>
-<th>维度</th>
-<th>适合玩法</th>
-<th>难度</th>
-<th>特色资源</th>
-<th>危险等级</th>
+<th>类别</th>
+<th>代表进度</th>
+<th>说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>星界之野</strong></td>
-<td>空岛生存、建筑、Elytra、摄影</td>
-<td>⭐⭐</td>
-<td>浮空岛地形、虚空风景</td>
-<td>⭐⭐ (虚空落下、高空缺氧)</td>
+<td><strong>进入维度</strong></td>
+<td>开天辟地、探索者</td>
+<td>首次创建维度、踏足各个特殊世界</td>
 </tr>
 <tr>
-<td><strong>幽邃深渊</strong></td>
-<td>地下探险、深暗生存、红石、摄影</td>
-<td>⭐⭐⭐</td>
-<td>深暗生物群系、深层板岩、感应体</td>
-<td>⭐⭐⭐ (守卫者、黑暗效应、天花板限制)</td>
+<td><strong>结构发现</strong></td>
+<td>天空之城、别有洞天</td>
+<td>找到悬浮在虚空之上的远古遗迹</td>
+</tr>
+<tr>
+<td><strong>深度与高度</strong></td>
+<td>深不可测、星辰大海、无底深渊</td>
+<td>抵达世界的最深处与最高处</td>
+</tr>
+<tr>
+<td><strong>特殊行为</strong></td>
+<td>红链连接、跨维物流、地图绘制师</td>
+<td>使用红链、跨维漏斗与维度地球仪</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="创建命令示例">🔧 创建命令示例</h2>
-<div class="codehilite"><pre><span></span><code><span class="c1"># 星界之野</span>
-/worldbridge<span class="w"> </span>world<span class="w"> </span>create<span class="w"> </span>MyAether<span class="w"> </span>aetherial_fields
-
-<span class="c1"># 幽邃深渊</span>
-/worldbridge<span class="w"> </span>world<span class="w"> </span>create<span class="w"> </span>MyDeep<span class="w"> </span>deep_abyss
-</code></pre></div>
-
-<blockquote>
-<p>所有核心维度类型<strong>不需要</strong>指定 <code>--biome</code>（固定群系）。</p>
-</blockquote>
+<h2 id="隐藏成就">❓ 隐藏成就</h2>
+<p>部分进度的标题显示为 <strong><code>???</code></strong>，描述则是一句隐晦的诗。</p>
+<ul>
+<li>这是<strong>刻意设计</strong>，不是显示异常</li>
+<li>它们指向尚未被命名的领域——真正踏足过之后，那句诗就会留在成就面板里</li>
+</ul>
+<hr />
+<h2 id="框架类型">🏆 框架类型</h2>
+<table>
+<thead>
+<tr>
+<th>框架</th>
+<th>图标</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>task</code></td>
+<td>普通</td>
+<td>一步即可完成</td>
+</tr>
+<tr>
+<td><code>goal</code></td>
+<td>里程碑</td>
+<td>需要一定探索</td>
+</tr>
+<tr>
+<td><code>challenge</code></td>
+<td>挑战</td>
+<td>较难达成</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="相关页面">🔗 相关页面</h2>
+<ul>
+<li><a href="/WorldBridge/Advancements/List">完整成就列表</a> — 14 个进度全表 + 进度树</li>
+<li><a href="/WorldBridge/Advancements/Triggers">触发器详解</a> — 16 个自定义 Trigger 的技术细节</li>
+<li><a href="/WorldBridge/Dimensions/World-Types">世界类型</a> — 各特殊维度的特色</li>
+</ul>
     </article>
-    <div class="prev-next"><a class="prev" href="/WorldBridge/Getting-Started/Achievements">← 成就系统</a><a class="next" href="/WorldBridge/Dimensions/Vanitatis">虚空维度 →</a></div>
+    <div class="prev-next"><a class="prev" href="/WorldBridge/Getting-Started/Commands">← 命令大全</a><a class="next" href="/WorldBridge/Dimensions/World-Types">世界类型 →</a></div>
     <footer class="site-footer">
       <p>© 2026 WorldBridge · All Rights Reserved · 开源协议详见 <a href="https://github.com/mow2333/WorldBridge" target="_blank" rel="noopener">GitHub 仓库</a></p>
-      <p><a href="/WorldBridge/Dimensions/World-Types">本站页面</a> · <a href="/WorldBridge/Changelog">更新日志</a> · <a href="https://discord.gg/zxG3zmsR9P" target="_blank" rel="noopener">加入讨论</a></p>
+      <p><a href="/WorldBridge/Getting-Started/Achievements">本站页面</a> · <a href="/WorldBridge/Changelog">更新日志</a> · <a href="https://discord.gg/zxG3zmsR9P" target="_blank" rel="noopener">加入讨论</a></p>
     </footer>
   </main>
 
   <aside class="toc-sidebar">
-    <nav class="page-toc"><p class="toc-title">本页目录</p><ul><li><a href="#星界之野">🌸 星界之野</a></li><li><a href="#幽邃深渊">🕳️ 幽邃深渊</a></li><li><a href="#三维度对比速查">📊 三维度对比速查</a></li><li><a href="#创建命令示例">🔧 创建命令示例</a></li></ul></nav>
+    <nav class="page-toc"><p class="toc-title">本页目录</p><ul><li><a href="#如何查看">🎮 如何查看</a></li><li><a href="#四大类别">🗂️ 四大类别</a></li><li><a href="#隐藏成就">❓ 隐藏成就</a></li><li><a href="#框架类型">🏆 框架类型</a></li><li><a href="#相关页面">🔗 相关页面</a></li></ul></nav>
   </aside>
 </div>
 
