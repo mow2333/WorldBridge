@@ -57,6 +57,7 @@
 <p class="nav-group">维度系统</p>
 <ul class="nav-list">
 <li><a class="nav-link" href="/WorldBridge/Dimensions/World-Types">世界类型</a></li>
+<li><a class="nav-link" href="/WorldBridge/Dimensions/Vanitatis">虚空维度</a></li>
 <li><a class="nav-link" href="/WorldBridge/Dimensions/Parameters">维度参数</a></li>
 <li><a class="nav-link" href="/WorldBridge/Dimensions/Password">密码保护</a></li>
 </ul>
@@ -66,6 +67,20 @@
 <li><a class="nav-link" href="/WorldBridge/Items/Star-Anchor">星锚奇点</a></li>
 <li><a class="nav-link" href="/WorldBridge/Items/Transdimensional-Hopper">跨维漏斗</a></li>
 <li><a class="nav-link" href="/WorldBridge/Items/Dimension-Globe">维度地球仪</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Dimension-Globe">维度地球仪·黯</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Worldroot-Riftmaker">世界根裂解器</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Stabilizer">虚空稳定器</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Block">虚空之块</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Worldroot-Keycore">世界根钥核</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Ingot">虚空之锭</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Star-Anchor-Singularity">星锚奇点·黯</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Upgrade-Template">升级模板</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Armor">虚空护甲套装</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Tools">虚空工具与武器</a></li>
+</ul>
+<p class="nav-group">附魔</p>
+<ul class="nav-list">
+<li><a class="nav-link" href="/WorldBridge/Enchantments/Void">虚空附魔</a></li>
 </ul>
 <p class="nav-group">成就系统</p>
 <ul class="nav-list">
@@ -118,12 +133,14 @@
 ├── world                        （维度管理）
 │   ├── create                   （创建新维度）
 │   ├── delete                   （删除维度（需确认））
+│   ├── diminfo                  （查看维度详情）
 │   ├── edit                     （编辑维度配置）
 │   ├── list                     （列出所有维度）
 │   ├── map                      （查看维度地图）
 │   ├── rename                   （重命名维度）
 │   ├── resetpassword            （重置维度密码）
 │   └── tp                       （传送至维度）
+├── reload                       （热重载服务器配置）
 └── transhopper                  （跨维漏斗）
     ├── list                     （列出漏斗配对）
     ├── pair                     （创建配对）
@@ -273,7 +290,7 @@ a1b2c3d4
 <h3 id="worldbridge-reload"><code>/worldbridge reload</code></h3>
 <p>热重载 <code>worldbridge-server.toml</code> 配置，无需重启服务器。</p>
 <div class="codehilite"><pre><span></span><code>/worldbridge<span class="w"> </span>reload
-<span class="c1"># Reloaded config: 13 entries updated.</span>
+<span class="c1"># Config reloaded.</span>
 </code></pre></div>
 
 <hr />

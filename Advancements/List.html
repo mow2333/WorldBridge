@@ -57,6 +57,7 @@
 <p class="nav-group">维度系统</p>
 <ul class="nav-list">
 <li><a class="nav-link" href="/WorldBridge/Dimensions/World-Types">世界类型</a></li>
+<li><a class="nav-link" href="/WorldBridge/Dimensions/Vanitatis">虚空维度</a></li>
 <li><a class="nav-link" href="/WorldBridge/Dimensions/Parameters">维度参数</a></li>
 <li><a class="nav-link" href="/WorldBridge/Dimensions/Password">密码保护</a></li>
 </ul>
@@ -66,6 +67,20 @@
 <li><a class="nav-link" href="/WorldBridge/Items/Star-Anchor">星锚奇点</a></li>
 <li><a class="nav-link" href="/WorldBridge/Items/Transdimensional-Hopper">跨维漏斗</a></li>
 <li><a class="nav-link" href="/WorldBridge/Items/Dimension-Globe">维度地球仪</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Dimension-Globe">维度地球仪·黯</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Worldroot-Riftmaker">世界根裂解器</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Stabilizer">虚空稳定器</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Block">虚空之块</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Worldroot-Keycore">世界根钥核</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Ingot">虚空之锭</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Star-Anchor-Singularity">星锚奇点·黯</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Upgrade-Template">升级模板</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Armor">虚空护甲套装</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Tools">虚空工具与武器</a></li>
+</ul>
+<p class="nav-group">附魔</p>
+<ul class="nav-list">
+<li><a class="nav-link" href="/WorldBridge/Enchantments/Void">虚空附魔</a></li>
 </ul>
 <p class="nav-group">成就系统</p>
 <ul class="nav-list">
@@ -101,7 +116,7 @@
     <article class="article">
       <h1 class="page-heading">成就列表</h1>
       <h1 id="成就列表">成就列表</h1>
-<p>WorldBridge 共 <strong>11 个原版进度</strong>，使用自定义 Criterion Trigger，全部配有诗化标题与描述。</p>
+<p>WorldBridge 共 <strong>14 个原版进度</strong>，使用自定义 Criterion Trigger，全部配有诗化标题与描述。</p>
 <hr />
 <h2 id="进度总览">📋 进度总览</h2>
 <table>
@@ -197,6 +212,27 @@
 <td><strong>一场空</strong> / All for Naught</td>
 <td>在任意模组维度中死亡</td>
 <td><code>dimension_death</code></td>
+<td>task</td>
+</tr>
+<tr>
+<td><code>first_redlink_pair</code></td>
+<td><strong>红链连接</strong> / Redlink Connected</td>
+<td>首次完成红链方块配对</td>
+<td><code>redlink_paired</code></td>
+<td>task</td>
+</tr>
+<tr>
+<td><code>first_transhopper_transfer</code></td>
+<td><strong>跨维物流</strong> / Cross-Dimensional Logistics</td>
+<td>用跨维漏斗成功传送一次物品</td>
+<td><code>hopper_transferred</code></td>
+<td>task</td>
+</tr>
+<tr>
+<td><code>open_globe</code></td>
+<td><strong>地图绘制师</strong> / Cartographer</td>
+<td>打开维度地球仪</td>
+<td><code>globe_opened</code></td>
 <td>task</td>
 </tr>
 </tbody>
@@ -298,6 +334,27 @@
 <td>在异世界中陨落</td>
 <td>Perish in a foreign dimension</td>
 </tr>
+<tr>
+<td><code>first_redlink_pair</code></td>
+<td>红链连接</td>
+<td>Redlink Connected</td>
+<td>完成第一次红链方块配对</td>
+<td>Complete your first Redlink pair</td>
+</tr>
+<tr>
+<td><code>first_transhopper_transfer</code></td>
+<td>跨维物流</td>
+<td>Cross-Dimensional Logistics</td>
+<td>用跨维漏斗成功传送一次物品</td>
+<td>Successfully transfer an item through a Transdimensional Hopper</td>
+</tr>
+<tr>
+<td><code>open_globe</code></td>
+<td>地图绘制师</td>
+<td>Cartographer</td>
+<td>打开维度地球仪，窥见世界的连线</td>
+<td>Open the Dimension Globe and glimpse the network of worlds</td>
+</tr>
 </tbody>
 </table>
 <hr />
@@ -314,7 +371,13 @@
                      │
                      ├── explorer (探索者)  ← 需要以上三个进维度
                      │
-                     └── dimension_death (一场空)
+                     ├── dimension_death (一场空)
+                     │
+                     ├── first_redlink_pair (红链连接)
+                     │
+                     ├── first_transhopper_transfer (跨维物流)
+                     │
+                     └── open_globe (地图绘制师)
 </code></pre></div>
 
 <hr />
@@ -348,11 +411,11 @@
 <hr />
 <h2 id="相关页面">🔗 相关页面</h2>
 <ul>
-<li><a href="/WorldBridge/Advancements/Triggers">触发器详解</a> — 13 个自定义 Trigger 详解</li>
+<li><a href="/WorldBridge/Advancements/Triggers">触发器详解</a> — 16 个自定义 Trigger 详解</li>
 <li><a href="/WorldBridge/Getting-Started/Achievements">成就系统</a> — 成就系统概览</li>
 </ul>
     </article>
-    <div class="prev-next"><a class="prev" href="/WorldBridge/Items/Dimension-Globe">← 维度地球仪</a><a class="next" href="/WorldBridge/Advancements/Triggers">触发器 →</a></div>
+    <div class="prev-next"><a class="prev" href="/WorldBridge/Enchantments/Void">← 虚空附魔</a><a class="next" href="/WorldBridge/Advancements/Triggers">触发器 →</a></div>
     <footer class="site-footer">
       <p>© 2026 WorldBridge · All Rights Reserved · 开源协议详见 <a href="https://github.com/mow2333/WorldBridge" target="_blank" rel="noopener">GitHub 仓库</a></p>
       <p><a href="/WorldBridge/Advancements/List">本站页面</a> · <a href="/WorldBridge/Changelog">更新日志</a> · <a href="https://discord.gg/zxG3zmsR9P" target="_blank" rel="noopener">加入讨论</a></p>

@@ -57,6 +57,7 @@
 <p class="nav-group">维度系统</p>
 <ul class="nav-list">
 <li><a class="nav-link" href="/WorldBridge/Dimensions/World-Types">世界类型</a></li>
+<li><a class="nav-link" href="/WorldBridge/Dimensions/Vanitatis">虚空维度</a></li>
 <li><a class="nav-link" href="/WorldBridge/Dimensions/Parameters">维度参数</a></li>
 <li><a class="nav-link" href="/WorldBridge/Dimensions/Password">密码保护</a></li>
 </ul>
@@ -66,6 +67,20 @@
 <li><a class="nav-link" href="/WorldBridge/Items/Star-Anchor">星锚奇点</a></li>
 <li><a class="nav-link" href="/WorldBridge/Items/Transdimensional-Hopper">跨维漏斗</a></li>
 <li><a class="nav-link" href="/WorldBridge/Items/Dimension-Globe">维度地球仪</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Dimension-Globe">维度地球仪·黯</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Worldroot-Riftmaker">世界根裂解器</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Stabilizer">虚空稳定器</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Block">虚空之块</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Worldroot-Keycore">世界根钥核</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Ingot">虚空之锭</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Star-Anchor-Singularity">星锚奇点·黯</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Upgrade-Template">升级模板</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Armor">虚空护甲套装</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Tools">虚空工具与武器</a></li>
+</ul>
+<p class="nav-group">附魔</p>
+<ul class="nav-list">
+<li><a class="nav-link" href="/WorldBridge/Enchantments/Void">虚空附魔</a></li>
 </ul>
 <p class="nav-group">成就系统</p>
 <ul class="nav-list">
@@ -101,7 +116,7 @@
     <article class="article">
       <h1 class="page-heading">触发器详解</h1>
       <h1 id="触发器详解">触发器详解</h1>
-<p>WorldBridge 共注册 <strong>13 个自定义 Criterion Trigger</strong>，配合 11 个 Advancement 使用。</p>
+<p>WorldBridge 共注册 <strong>16 个自定义 Criterion Trigger</strong>，配合 14 个 Advancement 使用。</p>
 <hr />
 <h2 id="触发器列表">📋 触发器列表</h2>
 <table>
@@ -169,12 +184,6 @@
 <td>—</td>
 </tr>
 <tr>
-<td><code>genesis</code></td>
-<td><code>ModTrigger</code></td>
-<td>首次创建维度 (别名)</td>
-<td><code>pairId</code></td>
-</tr>
-<tr>
 <td><code>deep_reached</code></td>
 <td><code>ModTrigger</code></td>
 <td>深渊 Y≤-32</td>
@@ -197,6 +206,24 @@
 <td><code>ModTrigger</code></td>
 <td>在模组维度死亡</td>
 <td><code>dimension</code> (string)</td>
+</tr>
+<tr>
+<td><code>redlink_paired</code></td>
+<td><code>ModTrigger</code></td>
+<td>首次红链方块配对</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>hopper_transferred</code></td>
+<td><code>ModTrigger</code></td>
+<td>首次跨维漏斗传输</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>globe_opened</code></td>
+<td><code>ModTrigger</code></td>
+<td>首次打开维度地球仪</td>
+<td>—</td>
 </tr>
 </tbody>
 </table>

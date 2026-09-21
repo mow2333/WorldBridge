@@ -57,6 +57,7 @@
 <p class="nav-group">维度系统</p>
 <ul class="nav-list">
 <li><a class="nav-link" href="/WorldBridge/Dimensions/World-Types">世界类型</a></li>
+<li><a class="nav-link" href="/WorldBridge/Dimensions/Vanitatis">虚空维度</a></li>
 <li><a class="nav-link" href="/WorldBridge/Dimensions/Parameters">维度参数</a></li>
 <li><a class="nav-link" href="/WorldBridge/Dimensions/Password">密码保护</a></li>
 </ul>
@@ -66,6 +67,20 @@
 <li><a class="nav-link" href="/WorldBridge/Items/Star-Anchor">星锚奇点</a></li>
 <li><a class="nav-link" href="/WorldBridge/Items/Transdimensional-Hopper">跨维漏斗</a></li>
 <li><a class="nav-link" href="/WorldBridge/Items/Dimension-Globe">维度地球仪</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Dimension-Globe">维度地球仪·黯</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Worldroot-Riftmaker">世界根裂解器</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Stabilizer">虚空稳定器</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Block">虚空之块</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Worldroot-Keycore">世界根钥核</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Ingot">虚空之锭</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Star-Anchor-Singularity">星锚奇点·黯</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Upgrade-Template">升级模板</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Armor">虚空护甲套装</a></li>
+<li><a class="nav-link" href="/WorldBridge/Items/Void-Tools">虚空工具与武器</a></li>
+</ul>
+<p class="nav-group">附魔</p>
+<ul class="nav-list">
+<li><a class="nav-link" href="/WorldBridge/Enchantments/Void">虚空附魔</a></li>
 </ul>
 <p class="nav-group">成就系统</p>
 <ul class="nav-list">
@@ -173,9 +188,9 @@
 <td>60 秒：范围翻倍、效果强度 II</td>
 </tr>
 <tr>
-<td><strong>Chunk 常加载</strong></td>
-<td>放置后自动</td>
-<td>所在 Chunk 强制加载，移除后移除</td>
+<td><strong>氛围粒子</strong></td>
+<td>配对后自动</td>
+<td>依配对维度类型飘专属粒子（混沌深渊暗红灰烬 / 星界之野紫色星尘 / 幽邃深渊幽蓝微尘）</td>
 </tr>
 </tbody>
 </table>
@@ -318,6 +333,43 @@
 </tbody>
 </table>
 <hr />
+<h2 id="氛围粒子">✨ 氛围粒子</h2>
+<p>已配对的世界之锚会依<strong>配对维度</strong>的类型，在锚旁飘出该维度专属的氛围粒子：</p>
+<table>
+<thead>
+<tr>
+<th>配对维度类型</th>
+<th>粒子</th>
+<th>表现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>混沌深渊 <code>chaos_abyssos</code></td>
+<td>Dust（暗红灰烬）</td>
+<td>缓缓下沉</td>
+</tr>
+<tr>
+<td>星界之野 <code>aetherial_fields</code></td>
+<td>Enchant（深紫星尘）</td>
+<td>悬浮打转</td>
+</tr>
+<tr>
+<td>幽邃深渊 <code>deep_abyss</code></td>
+<td>Sculk Soul（幽蓝微尘）</td>
+<td>原地明灭</td>
+</tr>
+<tr>
+<td>主世界 / 普通指令维度</td>
+<td>—</td>
+<td>不飘</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="q-note">
+<p><span class="q-tag">注意</span>：粒子由服务端发射，常态每 200ms 一颗；<strong>过载</strong>时每 100ms 一颗且速度 ×1.8。</p>
+</blockquote>
+<hr />
 <h2 id="黑名单-不可传送方块">🛡️ 黑名单（不可传送方块）</h2>
 <table>
 <thead>
@@ -424,7 +476,7 @@
   </main>
 
   <aside class="toc-sidebar">
-    <nav class="page-toc"><p class="toc-title">本页目录</p><ul><li><a href="#基础信息">📦 基础信息</a></li><li><a href="#核心功能">⚙️ 核心功能</a></li><li><a href="#交互方式">🎮 交互方式</a></li><li><a href="#控制面板">📋 控制面板</a></li><li><a href="#配对机制">🔗 配对机制</a></li><li><a href="#过载模式">⚡ 过载模式</a></li><li><a href="#黑名单-不可传送方块">🛡️ 黑名单（不可传送方块）</a></li><li><a href="#自定义名称">🎨 自定义名称</a></li><li><a href="#合成配方">💎 合成配方</a></li><li><a href="#红石触发细节">🛡️ 红石触发细节</a></li><li><a href="#获取途径">💎 获取途径</a></li><li><a href="#相关页面">🔗 相关页面</a></li></ul></nav>
+    <nav class="page-toc"><p class="toc-title">本页目录</p><ul><li><a href="#基础信息">📦 基础信息</a></li><li><a href="#核心功能">⚙️ 核心功能</a></li><li><a href="#交互方式">🎮 交互方式</a></li><li><a href="#控制面板">📋 控制面板</a></li><li><a href="#配对机制">🔗 配对机制</a></li><li><a href="#过载模式">⚡ 过载模式</a></li><li><a href="#氛围粒子">✨ 氛围粒子</a></li><li><a href="#黑名单-不可传送方块">🛡️ 黑名单（不可传送方块）</a></li><li><a href="#自定义名称">🎨 自定义名称</a></li><li><a href="#合成配方">💎 合成配方</a></li><li><a href="#红石触发细节">🛡️ 红石触发细节</a></li><li><a href="#获取途径">💎 获取途径</a></li><li><a href="#相关页面">🔗 相关页面</a></li></ul></nav>
   </aside>
 </div>
 

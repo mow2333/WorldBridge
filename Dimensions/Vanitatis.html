@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="WorldBridge Static Docs Builder">
-<title>世界之锚控制面板 - WorldBridge</title>
+<title>虚空维度 - WorldBridge</title>
 <link rel="icon" type="image/svg+xml" href="/WorldBridge/assets/favicon.svg">
 <link rel="stylesheet" href="/WorldBridge/assets/css/styles.css">
 <link rel="stylesheet" href="/WorldBridge/assets/css/pygments.css">
@@ -57,7 +57,7 @@
 <p class="nav-group">维度系统</p>
 <ul class="nav-list">
 <li><a class="nav-link" href="/WorldBridge/Dimensions/World-Types">世界类型</a></li>
-<li><a class="nav-link" href="/WorldBridge/Dimensions/Vanitatis">虚空维度</a></li>
+<li><a class="nav-link active" href="/WorldBridge/Dimensions/Vanitatis">虚空维度</a></li>
 <li><a class="nav-link" href="/WorldBridge/Dimensions/Parameters">维度参数</a></li>
 <li><a class="nav-link" href="/WorldBridge/Dimensions/Password">密码保护</a></li>
 </ul>
@@ -97,7 +97,7 @@
 <li><a class="nav-link" href="/WorldBridge/Advanced/Star-Anchor-Light">星锚动态光源</a></li>
 <li><a class="nav-link" href="/WorldBridge/Advanced/Redlink">红链系统</a></li>
 <li><a class="nav-link" href="/WorldBridge/Advanced/Datapack">数据包</a></li>
-<li><a class="nav-link active" href="/WorldBridge/Advanced/Anchor-Gui">锚点 GUI</a></li>
+<li><a class="nav-link" href="/WorldBridge/Advanced/Anchor-Gui">锚点 GUI</a></li>
 <li><a class="nav-link" href="/WorldBridge/Advanced/Faq">常见问题</a></li>
 </ul>
 <p class="nav-group">开发者</p>
@@ -114,178 +114,243 @@
 
   <main class="content">
     <article class="article">
-      <h1 class="page-heading">世界之锚控制面板</h1>
-      <h1 id="世界之锚控制面板">世界之锚控制面板</h1>
+      <h1 class="page-heading">虚空维度</h1>
+      <h1 id="虚空维度">虚空维度</h1>
 <blockquote>
-<p>右键世界之锚打开，OP 可编辑，普通玩家只读查看。</p>
+<p>全称 <strong>DIMENSIO_VANITATIS</strong>（拉丁文，<em>vanitas</em> = 虚空），背景名<strong>遗忘之世界</strong>。
+一块「是你的世界，但又不是」的镜像世界——地形与主世界完全相同，但那里没有白天，也没有人。</p>
 </blockquote>
-<hr />
-<h2 id="界面布局">🖥️ 界面布局</h2>
-<div class="codehilite"><pre><span></span><code>┌─────────────────────────────────────┐
-│  世界之锚控制面板  [PairID: a3f2]    │
-├─────────────────────────────────────┤
-│  名称:  My Base          [✏ 重命名] │
-├─────────────────────────────────────┤
-│  过载状态: 正常 [30s]               │
-│  ┌─────────────────────────────────┐ │
-│  │ ████████████░░░░░░░░░░░░  60%   │ │  ← 过载倒计时进度条
-│  └─────────────────────────────────┘ │
-├─────────────────────────────────────┤
-│  传送范围: 5 格 (过载: 9 格)         │
-│  祝福范围: 3 格 (过载: 5 格)         │
-│  祝福等级: I (过载: II)              │
-├─────────────────────────────────────┤
-│  区块加载: 开启                      │
-│  密码保护: 已启用                    │
-├─────────────────────────────────────┤
-│  [✏ 重命名]   [🔑 修改密码]   [关闭]  │
-└─────────────────────────────────────┘
-</code></pre></div>
-
-<blockquote>
-<p><strong>界面仅供参考，按游戏内实际为准</strong></p>
-</blockquote>
-<hr />
-<h2 id="面板元素详解">📋 面板元素详解</h2>
+<h2 id="基础信息">📦 基础信息</h2>
 <table>
 <thead>
 <tr>
-<th>区域</th>
-<th>内容</th>
-<th>可编辑</th>
+<th>属性</th>
+<th>值</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>标题栏</strong></td>
-<td>维度名称、PairID</td>
-<td>✅ 点击 ✏ 重命名</td>
+<td><strong>注册 id</strong></td>
+<td><code>world_bridge:dimension_vanitatis</code></td>
 </tr>
 <tr>
-<td><strong>过载状态</strong></td>
-<td>当前状态 + 倒计时进度条</td>
-<td>🚫 只读</td>
+<td><strong>显示名</strong></td>
+<td>虚空维度</td>
 </tr>
 <tr>
-<td><strong>范围/等级</strong></td>
-<td>传送/祝福范围、等级 (普通/过载)</td>
-<td>🚫 只读 (配置文件控制)</td>
+<td><strong>背景名</strong></td>
+<td>遗忘之世界</td>
 </tr>
 <tr>
-<td><strong>区块加载</strong></td>
-<td>开启/关闭状态</td>
-<td>🚫 只读 (配置文件控制)</td>
+<td><strong>维度类型</strong></td>
+<td><code>world_bridge:void_night</code>（专属）</td>
 </tr>
 <tr>
-<td><strong>密码保护</strong></td>
-<td>已启用/未启用</td>
-<td>🚫 只读 (GUI/命令修改)</td>
+<td><strong>时间</strong></td>
+<td><strong>永夜</strong>，<code>fixed_time = 18000</code>（午夜）</td>
 </tr>
 <tr>
-<td><strong>底部按钮</strong></td>
-<td>重命名、修改密码、关闭</td>
-<td>✅ 可点击</td>
+<td><strong>睡眠</strong></td>
+<td>❌ 不可</td>
+</tr>
+<tr>
+<td><strong>世界之锚传送</strong></td>
+<td>❌ 不可（4 处入口全部拒绝）</td>
+</tr>
+<tr>
+<td><strong>地形</strong></td>
+<td>与主世界<strong>完全相同</strong>（同噪声设置 / 同群系分布 / 同地表高度）</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="操作说明">🔧 操作说明</h2>
+<h2 id="永夜">🔧 永夜</h2>
+<p>走的是<strong>原版维度类型机制</strong>，不是每 tick 去改时间：</p>
+<ul>
+<li>专属 <code>DimensionType</code> <code>world_bridge:void_night</code>，<code>fixed_time = 18000</code> → 时间<strong>真正静止</strong>，月亮不动</li>
+<li><code>fixed_time</code> 只能冻结时间流逝，<strong>拦不住睡觉</strong>——玩家睡成功后 <code>ServerLevel#tick</code> 里会把时间直接赋值</li>
+<li>因此睡觉单独拦 <code>PlayerSleepInBedEvent</code>，用 <code>NOT_POSSIBLE_HERE</code> 拒绝</li>
+<li>没有关 <code>bed_works</code>——关了床会爆炸，那不是想要的效果</li>
+<li>6 语言各配一句诗意提示（「虚空已忘年，永夜不逢晨。独汝长无寐，孤灯伴此身。」）</li>
+</ul>
+<hr />
+<h2 id="结构腐坏">🏚️ 结构腐坏</h2>
+<p>主世界的村庄 / 矿井 / 遗迹在这里一律是<strong>废墟</strong>：</p>
 <table>
 <thead>
 <tr>
-<th>操作</th>
-<th>方法</th>
-<th>权限</th>
+<th>变化</th>
+<th>说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>重命名</strong></td>
-<td>点击 ✏ → 输入新名 → 确认</td>
-<td>OP 2</td>
+<td>坍塌</td>
+<td><strong>50%</strong> 方块直接消失</td>
 </tr>
 <tr>
-<td><strong>修改密码</strong></td>
-<td>点击 🔑 → 输入新密码/留空清除 → 确认</td>
-<td>OP 2</td>
+<td>风化</td>
+<td>石砖长苔 / 开裂，木板换深色橡木（陈旧色）</td>
 </tr>
 <tr>
-<td><strong>修改配置</strong></td>
-<td>编辑 <code>worldbridge-server.toml</code> → <code>/worldbridge reload</code></td>
-<td>OP 2 (服主)</td>
+<td>破碎</td>
+<td>玻璃碎裂</td>
+</tr>
+<tr>
+<td>熄灭</td>
+<td>火把熄灭</td>
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>⚠️ <strong>带 <code>BlockEntity</code> 的方块一律保留</strong>（箱子 / 告示牌 / 刷怪笼）——否则箱子战利品注入就落空了。</p>
+</blockquote>
+<p><strong>村庄类实体不生成</strong>：村民 / 僵尸村民 / 铁傀儡 / 猫 / 流浪商人全部拒绝。
+牲畜（马 / 牛 / 羊）<strong>保留</strong>——废墟里有野化动物合理，有村民不合理。</p>
+<blockquote>
+<p>为什么不能事后清理：生成期 <code>WorldGenRegion#getEntities</code> 直接返回 <code>Collections.emptyList()</code>，
+查不到实体。只能在实体入世那一刻拦。</p>
+</blockquote>
 <hr />
-<h2 id="过载机制">🔧 过载机制</h2>
+<h2 id="战利品">💎 战利品</h2>
+<p>虚空里<strong>所有箱子</strong>都会追加：</p>
 <table>
 <thead>
 <tr>
-<th>操作</th>
-<th>效果</th>
-<th>消耗</th>
+<th>物品</th>
+<th>粒度</th>
+<th>概率</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>右键星锚奇点 → 点击世界之锚</td>
-<td>进入过载 60 秒</td>
-<td>1 个星锚奇点</td>
+<td>虚空之锭</td>
+<td><strong>每个格子</strong></td>
+<td><strong>3%</strong></td>
 </tr>
 <tr>
-<td>过载结束</td>
-<td>自动恢复正常范围/等级</td>
+<td>升级模板</td>
+<td><strong>每个箱子</strong></td>
+<td><strong>10.3%</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>注意两者粒度不同：虚空锭按格抽，升级模板按箱抽。</p>
+</blockquote>
+<hr />
+<h2 id="进入方式">🚪 进入方式</h2>
+<h3 id="路线-a-凿开世界根-主动">路线 A：凿开世界根（主动）</h3>
+<ol>
+<li>用<a href="/WorldBridge/Items/Worldroot-Keycore">世界根钥核</a>导航，找到<strong>可破坏基岩</strong></li>
+<li>在基岩<strong>上方</strong>放置<a href="/WorldBridge/Items/Worldroot-Riftmaker">世界根裂解器</a></li>
+<li>把钥匙<strong>嵌套</strong>进去 → 基岩被破坏，露出虚空</li>
+<li>跳进虚空 → 开始持续扣血</li>
+<li>血量剩<strong>半颗心（1 HP）</strong>时 → 传送进虚空维度</li>
+</ol>
+<h3 id="路线-b-掉虚空-被动">路线 B：掉虚空（被动）</h3>
+<ul>
+<li>在主世界（<strong>非末地</strong>）掉下虚空 → 同样持续扣血 → 血量剩半颗心时传送进虚空</li>
+<li><strong>末地的虚空不触发</strong>（照常死亡）</li>
+</ul>
+<blockquote>
+<p><strong>掉虚空扣血</strong>：每次 <strong>2 HP / 每 4 tick</strong>，满血到半颗心约 2 秒。
+为什么单次扣这么多：只缩小间隔压不过饱食度的自然回血。</p>
+</blockquote>
+<hr />
+<h2 id="虚空维度规则">⚖️ 虚空维度规则</h2>
+<table>
+<thead>
+<tr>
+<th>规则</th>
+<th>说明</th>
+<th>例外</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>玩家<strong>完全无法攻击</strong>生物</td>
+<td>左键无效</td>
+<td><strong>虚空杀手</strong>附魔</td>
+</tr>
+<tr>
+<td>生物能攻击玩家，且<strong>无视任何盔甲防御值</strong></td>
+<td>护甲不生效</td>
+<td><strong>虚空保护</strong>附魔</td>
+</tr>
+<tr>
+<td>「虚空生物」定义</td>
+<td>虚空维度里<strong>所有生物</strong></td>
 <td>—</td>
 </tr>
 </tbody>
 </table>
-<p><strong>过载期间增强</strong>：
-| 属性 | 正常 | 过载 |
-|------|------|------|
-| 传送范围 | 5 格 | 9 格 |
-| 祝福范围 | 3 格 | 5 格 |
-| 祝福等级 | 再生 I + 抗性 I | 再生 II + 抗性 II |
-| 粒子效果 | 无 | ENCHANT + END_ROD 旋转环 |</p>
-<hr />
-<h2 id="密码保护">🔑 密码保护</h2>
+<p><strong>进入惩罚</strong>：如果<strong>任何一件装备没有虚空保护附魔</strong>：</p>
 <table>
 <thead>
 <tr>
-<th>场景</th>
-<th>行为</th>
+<th>惩罚</th>
+<th>数值</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>传送进密码维度</td>
-<td>弹出密码输入界面 → 正确 → 传送；错误 → 提示错误</td>
+<td>移速</td>
+<td><strong>-20%</strong></td>
 </tr>
 <tr>
-<td>GUI 查看</td>
-<td>显示“已加密”，不显示明文</td>
+<td>攻击值</td>
+<td><strong>-30%</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="出生点-出口-死亡">🛏️ 出生点 · 出口 · 死亡</h2>
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>出生点</strong></td>
+<td>水平坐标 = 主世界出生点 <strong>× 10~100</strong>（随机）；Y 用与世界之锚同源的「寻找落点」扫描法</td>
 </tr>
 <tr>
-<td>OP 重置</td>
-<td><code>/worldbridge world resetpassword &lt;pairId&gt;</code> 清空密码</td>
+<td><strong>出口</strong></td>
+<td>虚空维度的出生点（<strong>只判定 xz</strong>），右键使用<strong>钥匙</strong>（不需要核心嵌套），返回主世界 64×64 内随机一点</td>
+</tr>
+<tr>
+<td><strong>死亡</strong></td>
+<td>回<strong>主世界</strong>重生点（不是虚空重生点）；虚空方块 / 物品<strong>无法带回</strong></td>
+</tr>
+<tr>
+<td><strong>重置</strong></td>
+<td>可破坏基岩重置——旧漏洞补上，重新在 64×64 区块里随机选一块</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h2 id="相关页面">🔗 相关页面</h2>
-<p>/items/
-- <a href="/WorldBridge/Items/World-Anchor">世界之锚</a> — 物品能力详解
-- <a href="/WorldBridge/Advanced/Star-Anchor-Light">星锚动态光源</a> — 动态光源实现
-- <a href="/WorldBridge/Dimensions/Password">密码保护</a> — 密码系统详解</p>
+<ul>
+<li><a href="/WorldBridge/Items/Worldroot-Riftmaker">世界根裂解器</a> — 凿开世界根的工具</li>
+<li><a href="/WorldBridge/Items/Worldroot-Keycore">世界根钥核</a> — 导航 / 返回 / 嵌套</li>
+<li><a href="/WorldBridge/Items/Void-Stabilizer">虚空稳定器</a> — 把东西带回主世界的唯一办法</li>
+<li><a href="/WorldBridge/Enchantments/Void">虚空附魔</a> — 虚空保护 / 虚空杀手</li>
+<li><a href="/WorldBridge/Items/Void-Dimension-Globe">维度地球仪·黯</a> — 照见这个维度</li>
+</ul>
     </article>
-    <div class="prev-next"><a class="prev" href="/WorldBridge/Advanced/Datapack">← 数据包</a><a class="next" href="/WorldBridge/Advanced/Faq">常见问题 →</a></div>
+    <div class="prev-next"><a class="prev" href="/WorldBridge/Dimensions/World-Types">← 世界类型</a><a class="next" href="/WorldBridge/Dimensions/Parameters">维度参数 →</a></div>
     <footer class="site-footer">
       <p>© 2026 WorldBridge · All Rights Reserved · 开源协议详见 <a href="https://github.com/mow2333/WorldBridge" target="_blank" rel="noopener">GitHub 仓库</a></p>
-      <p><a href="/WorldBridge/Advanced/Anchor-Gui">本站页面</a> · <a href="/WorldBridge/Changelog">更新日志</a> · <a href="https://discord.gg/zxG3zmsR9P" target="_blank" rel="noopener">加入讨论</a></p>
+      <p><a href="/WorldBridge/Dimensions/Vanitatis">本站页面</a> · <a href="/WorldBridge/Changelog">更新日志</a> · <a href="https://discord.gg/zxG3zmsR9P" target="_blank" rel="noopener">加入讨论</a></p>
     </footer>
   </main>
 
   <aside class="toc-sidebar">
-    <nav class="page-toc"><p class="toc-title">本页目录</p><ul><li><a href="#界面布局">🖥️ 界面布局</a></li><li><a href="#面板元素详解">📋 面板元素详解</a></li><li><a href="#操作说明">🔧 操作说明</a></li><li><a href="#过载机制">🔧 过载机制</a></li><li><a href="#密码保护">🔑 密码保护</a></li><li><a href="#相关页面">🔗 相关页面</a></li></ul></nav>
+    <nav class="page-toc"><p class="toc-title">本页目录</p><ul><li><a href="#基础信息">📦 基础信息</a></li><li><a href="#永夜">🔧 永夜</a></li><li><a href="#结构腐坏">🏚️ 结构腐坏</a></li><li><a href="#战利品">💎 战利品</a></li><li><a href="#进入方式">🚪 进入方式</a></li><li><a href="#虚空维度规则">⚖️ 虚空维度规则</a></li><li><a href="#出生点-出口-死亡">🛏️ 出生点 · 出口 · 死亡</a></li><li><a href="#相关页面">🔗 相关页面</a></li></ul></nav>
   </aside>
 </div>
 

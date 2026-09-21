@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="WorldBridge Static Docs Builder">
-<title>世界之锚控制面板 - WorldBridge</title>
+<title>维度地球仪·黯 - WorldBridge</title>
 <link rel="icon" type="image/svg+xml" href="/WorldBridge/assets/favicon.svg">
 <link rel="stylesheet" href="/WorldBridge/assets/css/styles.css">
 <link rel="stylesheet" href="/WorldBridge/assets/css/pygments.css">
@@ -67,7 +67,7 @@
 <li><a class="nav-link" href="/WorldBridge/Items/Star-Anchor">星锚奇点</a></li>
 <li><a class="nav-link" href="/WorldBridge/Items/Transdimensional-Hopper">跨维漏斗</a></li>
 <li><a class="nav-link" href="/WorldBridge/Items/Dimension-Globe">维度地球仪</a></li>
-<li><a class="nav-link" href="/WorldBridge/Items/Void-Dimension-Globe">维度地球仪·黯</a></li>
+<li><a class="nav-link active" href="/WorldBridge/Items/Void-Dimension-Globe">维度地球仪·黯</a></li>
 <li><a class="nav-link" href="/WorldBridge/Items/Worldroot-Riftmaker">世界根裂解器</a></li>
 <li><a class="nav-link" href="/WorldBridge/Items/Void-Stabilizer">虚空稳定器</a></li>
 <li><a class="nav-link" href="/WorldBridge/Items/Void-Block">虚空之块</a></li>
@@ -97,7 +97,7 @@
 <li><a class="nav-link" href="/WorldBridge/Advanced/Star-Anchor-Light">星锚动态光源</a></li>
 <li><a class="nav-link" href="/WorldBridge/Advanced/Redlink">红链系统</a></li>
 <li><a class="nav-link" href="/WorldBridge/Advanced/Datapack">数据包</a></li>
-<li><a class="nav-link active" href="/WorldBridge/Advanced/Anchor-Gui">锚点 GUI</a></li>
+<li><a class="nav-link" href="/WorldBridge/Advanced/Anchor-Gui">锚点 GUI</a></li>
 <li><a class="nav-link" href="/WorldBridge/Advanced/Faq">常见问题</a></li>
 </ul>
 <p class="nav-group">开发者</p>
@@ -114,178 +114,229 @@
 
   <main class="content">
     <article class="article">
-      <h1 class="page-heading">世界之锚控制面板</h1>
-      <h1 id="世界之锚控制面板">世界之锚控制面板</h1>
+      <h1 class="page-heading">维度地球仪·黯</h1>
+      <h1 id="维度地球仪-黯">维度地球仪·黯</h1>
 <blockquote>
-<p>右键世界之锚打开，OP 可编辑，普通玩家只读查看。</p>
+<p>普通地球仪看不见虚空维度。<strong>因为按常理它不存在。</strong>
+用虚空锭把地球仪染过一遍，才照得见。</p>
+</blockquote>
+<h2 id="基础信息">📦 基础信息</h2>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>注册名</strong></td>
+<td><code>world_bridge:void_dimension_globe</code></td>
+</tr>
+<tr>
+<td><strong>堆叠数</strong></td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>模型 / 功能</strong></td>
+<td>与<a href="/WorldBridge/Items/Dimension-Globe">普通地球仪</a><strong>完全复用</strong></td>
+</tr>
+<tr>
+<td><strong>差异</strong></td>
+<td>仅<strong>球体贴图</strong>换成逐像素重建的暗紫版</td>
+</tr>
+<tr>
+<td><strong>挖掉</strong></td>
+<td>掉暗版自身</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="与普通版的区别">🔧 与普通版的区别</h2>
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>普通地球仪</th>
+<th>维度地球仪·黯</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>虚空维度节点</strong></td>
+<td>❌ <strong>不显示</strong>（连节点都不建）</td>
+<td>✅ <strong>看得见</strong></td>
+</tr>
+<tr>
+<td><strong>背景</strong></td>
+<td>深蓝黑渐变 + 白色星野</td>
+<td><strong>暗紫渐变</strong> + 压暗偏紫的星 + 3 团缓慢漂移的<strong>暗紫星云</strong></td>
+</tr>
+<tr>
+<td><strong>标题</strong></td>
+<td><code>维度链路地球仪</code>（粉紫）</td>
+<td><code>维度链路地球仪·黯</code>（暗紫）</td>
+</tr>
+<tr>
+<td><strong>选中环</strong></td>
+<td>白色</td>
+<td><strong>暗紫</strong></td>
+</tr>
+<tr>
+<td><strong>右键菜单</strong></td>
+<td>3 项</td>
+<td><strong>5 项</strong>（多出重命名 / 克隆）</td>
+</tr>
+<tr>
+<td><strong>创造栏</strong></td>
+<td>单独一项</td>
+<td><strong>单独一项</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>「虚空维度在常规认知里不存在」不是一句设定，而是<strong>实现上的过滤</strong>——
+普通地球仪收集数据时直接跳过该维度。</p>
 </blockquote>
 <hr />
-<h2 id="界面布局">🖥️ 界面布局</h2>
-<div class="codehilite"><pre><span></span><code>┌─────────────────────────────────────┐
-│  世界之锚控制面板  [PairID: a3f2]    │
-├─────────────────────────────────────┤
-│  名称:  My Base          [✏ 重命名] │
-├─────────────────────────────────────┤
-│  过载状态: 正常 [30s]               │
-│  ┌─────────────────────────────────┐ │
-│  │ ████████████░░░░░░░░░░░░  60%   │ │  ← 过载倒计时进度条
-│  └─────────────────────────────────┘ │
-├─────────────────────────────────────┤
-│  传送范围: 5 格 (过载: 9 格)         │
-│  祝福范围: 3 格 (过载: 5 格)         │
-│  祝福等级: I (过载: II)              │
-├─────────────────────────────────────┤
-│  区块加载: 开启                      │
-│  密码保护: 已启用                    │
-├─────────────────────────────────────┤
-│  [✏ 重命名]   [🔑 修改密码]   [关闭]  │
-└─────────────────────────────────────┘
+<h2 id="虚空维度的节点样式">🌑 虚空维度的节点样式</h2>
+<p>虚空维度在地球仪上<strong>独立成第 7 类</strong> <code>DimType.VANITATIS</code>：</p>
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>颜色</strong></td>
+<td>暗紫 <code>#7B2FBE</code></td>
+</tr>
+<tr>
+<td><strong>形状</strong></td>
+<td><strong>球体</strong>（与主世界同形）</td>
+</tr>
+<tr>
+<td><strong>为什么同形</strong></td>
+<td>它本就是主世界的投影，不在轮廓上做区隔</td>
+</tr>
+<tr>
+<td><strong>中心</strong></td>
+<td><strong>黑洞</strong>——近黑圆盘 + 一圈亮紫薄边</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>形成「外暗紫辉光 → 暗紫壳 → 中心近黑」的吞噬感，与普通节点的实心圆盘一眼可分。</p>
+</blockquote>
+<hr />
+<h2 id="黯版专属操作">🖱️ 黯版专属操作</h2>
+<p>右键菜单对<strong>可管理的自定义维度</strong>追加两项：</p>
+<table>
+<thead>
+<tr>
+<th>菜单项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>重命名维度</strong></td>
+<td>弹出输入框，预填当前名字；Enter 确认 / ESC 取消；名字非空且不超过 32 字</td>
+</tr>
+<tr>
+<td><strong>克隆维度</strong></td>
+<td>以源维度为模板新建一个同参数维度，名字加「 副本」后缀，<strong>只克隆不传送</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="权限">权限</h3>
+<p><strong>创建者本人 + OP（等级 2）</strong>。</p>
+<ul>
+<li>无权限时这两项<strong>置灰不可点</strong></li>
+<li>服务端仍会<strong>二次校验</strong>，客户端改包绕不过去</li>
+</ul>
+<h3 id="克隆的边界">克隆的边界</h3>
+<ul>
+<li>以源维度数据做 <strong>NBT 深拷贝</strong>（连生成配置 / 权限设置 / 游戏规则一并带走），换新的随机 pairId</li>
+<li><strong>清空锚点</strong>（新世界没有锚），父维度沿用源维度</li>
+<li><strong>种子照搬</strong> → 新世界<strong>地形与源维度完全一致</strong></li>
+<li>⚠️ 但<strong>玩家建筑不会复制</strong>——那些在 region 文件里，新 pairId 就是新文件夹</li>
+<li>受 <code>maxDimensionsPerPlayer</code> 约束（与手工创建同一条限制）</li>
+<li><strong>只对 WorldBridge 自定义维度生效</strong>：原版三维度与外部模组维度不在数据表里，既无从改名也不该被克隆 → 置灰</li>
+</ul>
+<hr />
+<h2 id="合成配方">💎 合成配方</h2>
+<table>
+<thead>
+<tr>
+<th>产出</th>
+<th>配方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>维度地球仪·黯</strong></td>
+<td>中心<strong>维度地球仪</strong> + 上下左右 <strong>4 个虚空锭</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="codehilite"><pre><span></span><code>        虚空锭
+虚空锭  维度地球仪  虚空锭
+        虚空锭
 </code></pre></div>
 
 <blockquote>
-<p><strong>界面仅供参考，按游戏内实际为准</strong></p>
+<p>十字形，Mow 强调过两次。</p>
 </blockquote>
 <hr />
-<h2 id="面板元素详解">📋 面板元素详解</h2>
+<h2 id="获取途径">💎 获取途径</h2>
 <table>
 <thead>
 <tr>
-<th>区域</th>
-<th>内容</th>
-<th>可编辑</th>
+<th>途径</th>
+<th>说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>标题栏</strong></td>
-<td>维度名称、PairID</td>
-<td>✅ 点击 ✏ 重命名</td>
+<td>合成</td>
+<td>见上方配方</td>
 </tr>
 <tr>
-<td><strong>过载状态</strong></td>
-<td>当前状态 + 倒计时进度条</td>
-<td>🚫 只读</td>
+<td>创造模式物品栏</td>
+<td>单独一项（搜索 "Void Dimension Globe"）</td>
 </tr>
 <tr>
-<td><strong>范围/等级</strong></td>
-<td>传送/祝福范围、等级 (普通/过载)</td>
-<td>🚫 只读 (配置文件控制)</td>
-</tr>
-<tr>
-<td><strong>区块加载</strong></td>
-<td>开启/关闭状态</td>
-<td>🚫 只读 (配置文件控制)</td>
-</tr>
-<tr>
-<td><strong>密码保护</strong></td>
-<td>已启用/未启用</td>
-<td>🚫 只读 (GUI/命令修改)</td>
-</tr>
-<tr>
-<td><strong>底部按钮</strong></td>
-<td>重命名、修改密码、关闭</td>
-<td>✅ 可点击</td>
+<td>命令</td>
+<td><code>/give @p world_bridge:void_dimension_globe</code></td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="操作说明">🔧 操作说明</h2>
-<table>
-<thead>
-<tr>
-<th>操作</th>
-<th>方法</th>
-<th>权限</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>重命名</strong></td>
-<td>点击 ✏ → 输入新名 → 确认</td>
-<td>OP 2</td>
-</tr>
-<tr>
-<td><strong>修改密码</strong></td>
-<td>点击 🔑 → 输入新密码/留空清除 → 确认</td>
-<td>OP 2</td>
-</tr>
-<tr>
-<td><strong>修改配置</strong></td>
-<td>编辑 <code>worldbridge-server.toml</code> → <code>/worldbridge reload</code></td>
-<td>OP 2 (服主)</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="过载机制">🔧 过载机制</h2>
-<table>
-<thead>
-<tr>
-<th>操作</th>
-<th>效果</th>
-<th>消耗</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>右键星锚奇点 → 点击世界之锚</td>
-<td>进入过载 60 秒</td>
-<td>1 个星锚奇点</td>
-</tr>
-<tr>
-<td>过载结束</td>
-<td>自动恢复正常范围/等级</td>
-<td>—</td>
-</tr>
-</tbody>
-</table>
-<p><strong>过载期间增强</strong>：
-| 属性 | 正常 | 过载 |
-|------|------|------|
-| 传送范围 | 5 格 | 9 格 |
-| 祝福范围 | 3 格 | 5 格 |
-| 祝福等级 | 再生 I + 抗性 I | 再生 II + 抗性 II |
-| 粒子效果 | 无 | ENCHANT + END_ROD 旋转环 |</p>
-<hr />
-<h2 id="密码保护">🔑 密码保护</h2>
-<table>
-<thead>
-<tr>
-<th>场景</th>
-<th>行为</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>传送进密码维度</td>
-<td>弹出密码输入界面 → 正确 → 传送；错误 → 提示错误</td>
-</tr>
-<tr>
-<td>GUI 查看</td>
-<td>显示“已加密”，不显示明文</td>
-</tr>
-<tr>
-<td>OP 重置</td>
-<td><code>/worldbridge world resetpassword &lt;pairId&gt;</code> 清空密码</td>
-</tr>
-</tbody>
-</table>
+<h2 id="小贴士">💡 小贴士</h2>
+<ul>
+<li>黯版界面开着时会每 30 秒自动刷新一次数据，刷新请求会带上「我是黯版」的标志，所以主题不会中途变回普通配色</li>
+<li>虚空的节点造型是「球体 + 中心黑洞」，和主世界的普通球体放在一起时靠<strong>中心那块黑</strong>区分</li>
+</ul>
 <hr />
 <h2 id="相关页面">🔗 相关页面</h2>
-<p>/items/
-- <a href="/WorldBridge/Items/World-Anchor">世界之锚</a> — 物品能力详解
-- <a href="/WorldBridge/Advanced/Star-Anchor-Light">星锚动态光源</a> — 动态光源实现
-- <a href="/WorldBridge/Dimensions/Password">密码保护</a> — 密码系统详解</p>
+<ul>
+<li><a href="/WorldBridge/Items/Dimension-Globe">维度地球仪</a> — 原版原型与完整界面说明</li>
+<li><a href="/WorldBridge/Dimensions/Vanitatis">虚空维度</a> — 黯版照见的那个世界</li>
+<li><a href="/WorldBridge/Items/Void-Ingot">虚空之锭</a> — 合成材料</li>
+</ul>
     </article>
-    <div class="prev-next"><a class="prev" href="/WorldBridge/Advanced/Datapack">← 数据包</a><a class="next" href="/WorldBridge/Advanced/Faq">常见问题 →</a></div>
+    <div class="prev-next"><a class="prev" href="/WorldBridge/Items/Dimension-Globe">← 维度地球仪</a><a class="next" href="/WorldBridge/Items/Worldroot-Riftmaker">世界根裂解器 →</a></div>
     <footer class="site-footer">
       <p>© 2026 WorldBridge · All Rights Reserved · 开源协议详见 <a href="https://github.com/mow2333/WorldBridge" target="_blank" rel="noopener">GitHub 仓库</a></p>
-      <p><a href="/WorldBridge/Advanced/Anchor-Gui">本站页面</a> · <a href="/WorldBridge/Changelog">更新日志</a> · <a href="https://discord.gg/zxG3zmsR9P" target="_blank" rel="noopener">加入讨论</a></p>
+      <p><a href="/WorldBridge/Items/Void-Dimension-Globe">本站页面</a> · <a href="/WorldBridge/Changelog">更新日志</a> · <a href="https://discord.gg/zxG3zmsR9P" target="_blank" rel="noopener">加入讨论</a></p>
     </footer>
   </main>
 
   <aside class="toc-sidebar">
-    <nav class="page-toc"><p class="toc-title">本页目录</p><ul><li><a href="#界面布局">🖥️ 界面布局</a></li><li><a href="#面板元素详解">📋 面板元素详解</a></li><li><a href="#操作说明">🔧 操作说明</a></li><li><a href="#过载机制">🔧 过载机制</a></li><li><a href="#密码保护">🔑 密码保护</a></li><li><a href="#相关页面">🔗 相关页面</a></li></ul></nav>
+    <nav class="page-toc"><p class="toc-title">本页目录</p><ul><li><a href="#基础信息">📦 基础信息</a></li><li><a href="#与普通版的区别">🔧 与普通版的区别</a></li><li><a href="#虚空维度的节点样式">🌑 虚空维度的节点样式</a></li><li><a href="#黯版专属操作">🖱️ 黯版专属操作</a></li><li><a href="#合成配方">💎 合成配方</a></li><li><a href="#获取途径">💎 获取途径</a></li><li><a href="#小贴士">💡 小贴士</a></li><li><a href="#相关页面">🔗 相关页面</a></li></ul></nav>
   </aside>
 </div>
 
