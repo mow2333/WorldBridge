@@ -124,7 +124,7 @@
     <article class="article">
       <h1 class="page-heading">触发器详解</h1>
       <h1 id="触发器详解">触发器详解</h1>
-<p>WorldBridge 共注册 <strong>16 个自定义 Criterion Trigger</strong>，配合 14 个 Advancement 使用。</p>
+<p>WorldBridge 共注册 <strong>25 个自定义 Criterion Trigger</strong>，配合 23 个 Advancement 使用。</p>
 <hr />
 <h2 id="触发器列表">📋 触发器列表</h2>
 <table>
@@ -233,6 +233,60 @@
 <td>首次打开维度地球仪</td>
 <td>—</td>
 </tr>
+<tr>
+<td><code>void_keycore</code></td>
+<td><code>ModTrigger</code></td>
+<td>用世界根钥核凿穿基岩</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>enter_vanitatis</code></td>
+<td><code>ModTrigger</code></td>
+<td>首次进入遗忘之世界</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>void_contaminated</code></td>
+<td><code>ModTrigger</code></td>
+<td>物品被虚空污染</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>ruined_structure</code></td>
+<td><code>ModTrigger</code></td>
+<td>在遗忘之世界踏入结构范围</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>void_purified</code></td>
+<td><code>ModTrigger</code></td>
+<td>净化态物品到手</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>void_relic</code></td>
+<td><code>ModTrigger</code></td>
+<td>取得虚空升级模板</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>void_ingot_active</code></td>
+<td><code>ModTrigger</code></td>
+<td>激活虚空锭增益</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>void_return</code></td>
+<td><code>ModTrigger</code></td>
+<td>从遗忘之世界返回主世界</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>void_armor</code></td>
+<td><code>ModTrigger</code></td>
+<td>集齐四件套虚空护甲</td>
+<td>—</td>
+</tr>
 </tbody>
 </table>
 <hr />
@@ -317,6 +371,51 @@
 <td><code>dimension_death</code></td>
 <td>异世界死亡</td>
 </tr>
+<tr>
+<td><code>void_keycore</code></td>
+<td><code>void_keycore</code></td>
+<td>钥核凿穿基岩</td>
+</tr>
+<tr>
+<td><code>enter_vanitatis</code></td>
+<td><code>enter_vanitatis</code></td>
+<td>进遗忘之世界</td>
+</tr>
+<tr>
+<td><code>void_contaminated</code></td>
+<td><code>void_contaminated</code></td>
+<td>物品被污染</td>
+</tr>
+<tr>
+<td><code>ruined_structure</code></td>
+<td><code>ruined_structure</code></td>
+<td>踏入虚空结构范围</td>
+</tr>
+<tr>
+<td><code>void_purified</code></td>
+<td><code>void_purified</code></td>
+<td>净化态物品到手</td>
+</tr>
+<tr>
+<td><code>void_relic</code></td>
+<td><code>void_relic</code></td>
+<td>取得升级模板</td>
+</tr>
+<tr>
+<td><code>void_ingot_active</code></td>
+<td><code>void_ingot_active</code></td>
+<td>激活虚空锭</td>
+</tr>
+<tr>
+<td><code>void_return</code></td>
+<td><code>void_return</code></td>
+<td>返回主世界</td>
+</tr>
+<tr>
+<td><code>void_armor</code></td>
+<td><code>void_armor</code></td>
+<td>四件套齐</td>
+</tr>
 </tbody>
 </table>
 <hr />
@@ -324,7 +423,7 @@
 <div class="codehilite"><pre><span></span><code><span class="c1">// ModCriteria.java</span>
 <span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">ModTrigger</span><span class="w"> </span><span class="o">???</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">register</span><span class="p">(</span><span class="s">&quot;???&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">EmptyTriggerInstance</span><span class="p">::</span><span class="k">new</span><span class="p">);</span>
 <span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">ModTrigger</span><span class="w"> </span><span class="n">ENTER_AETHERIAL_FIELDS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">register</span><span class="p">(</span><span class="s">&quot;enter_aetherial_fields&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">EmptyTriggerInstance</span><span class="p">::</span><span class="k">new</span><span class="p">);</span>
-<span class="c1">// ... 共 14 个注册</span>
+<span class="c1">// ... 共 25 个注册</span>
 
 <span class="c1">// FMLCommonSetupEvent#enqueueWork</span>
 <span class="n">CriteriaTriggers</span><span class="p">.</span><span class="na">register</span><span class="p">(</span><span class="n">ModCriteria</span><span class="p">.</span><span class="o">???</span><span class="p">);</span>
@@ -365,12 +464,36 @@
 <td><code>dimension_death</code></td>
 <td><code>EventHandler.onPlayerDeath()</code> 判断维度类型</td>
 </tr>
+<tr>
+<td><code>void_keycore</code> / <code>void_return</code></td>
+<td><code>WorldrootKeycoreItem</code>：嵌套成功处 / 返回过渡回调</td>
+</tr>
+<tr>
+<td><code>enter_vanitatis</code></td>
+<td><code>VoidEntryHandler</code> 进入过渡回调</td>
+</tr>
+<tr>
+<td><code>void_contaminated</code></td>
+<td><code>VoidContaminationHandler.onPickup()</code></td>
+</tr>
+<tr>
+<td><code>void_ingot_active</code></td>
+<td><code>VoidIngotHandler.activate()</code></td>
+</tr>
+<tr>
+<td><code>void_purified</code> / <code>void_relic</code> / <code>void_armor</code></td>
+<td><code>EventHandler.onPlayerTick()</code> 每 20 tick 扫背包（不限维度）</td>
+</tr>
+<tr>
+<td><code>ruined_structure</code></td>
+<td><code>EventHandler.onPlayerTick()</code>，仅虚空维度内，直接读区块结构边界</td>
+</tr>
 </tbody>
 </table>
 <hr />
 <h2 id="相关页面">🔗 相关页面</h2>
 <ul>
-<li><a href="/WorldBridge/Advancements/List">成就列表</a> — 11 个进度完整列表</li>
+<li><a href="/WorldBridge/Advancements/List">成就列表</a> — 23 个进度完整列表</li>
 <li><a href="/WorldBridge/Getting-Started/Achievements">成就系统</a> — 系统概览</li>
 </ul>
     </article>
